@@ -385,7 +385,7 @@ mechanisms allow it). Each is an output to observe.
 | `SettlementReader.offices / titles / leases / permissions / accounts` | Settlement | `settlement.office` holders, property interest (IF-44) | built provider |
 | `LedgerProvider.balance / transfer` | Settlement | treasury balance; tax and fine payments | built provider |
 | `ActOutcome` | host on the kernel clock (Cognition intention + Reality/Life outcome) | the attempted act and its outcome (IF-43) | planned |
-| `BeliefReader.legitimacy(i, k, d)` | Cognition | `mind.belief` with an institution subject | **new interface, to agree** |
+| `BeliefReader.recognition(i, k, d)` = port `government.port.recognition` | Cognition serves it (pure read of `mind.belief`) | P(true) of the categorical belief `ought_obey:<domain>` about the mind's own handle for `k`; host maps actor ids to handles; no entry = `null` (missing, excluded from aggregates, never 0) | **agreed with the Cognition keeper 2026-10-31**; Government a consumer of `mind.belief`, never a writer |
 | `ObservationReader` | Cognition | witness observations, testimony held by enforcers | planned |
 | `CapacityReader` | Life | `body.capacity_functional` of enforcers and soldiers | planned (DUP-15) |
 | `InventoryReader` | Economy | tax bases in goods, weapons, supply | built provider |
@@ -452,6 +452,13 @@ subsistence (Life's nutrition), thefts seen punished or not, seizures seen as fa
    difference holds across seeds or the demo reports that it does not.
 4. Every coin and grain conserves (Settlement and Economy ledgers); every sanction is a command in the owners' logs.
 5. The classifier labels the institution the same throughout (one lord's court): legitimacy moved, the "type" did not.
+
+**Compliance in the baseline (Cognition keeper, 2026-10-31, C-G2):** until Society's norms exist, a mind decides to
+pay, defy, report or enforce by expected consequences (Cognition C-Q6: no internalised norms); the `ought_obey`
+belief does not yet weigh in the decision itself. So in this demonstration legitimacy beliefs move from experience
+(the test of the P8 demonstration), backing `C` reads enforcers' `y_j` directly (§1.2), and payment breaches arise
+from inability to pay and anticipated enforcement; the behavioural effect of legitimacy on compliance arrives with
+Society's norms and is reported as not yet represented, never faked.
 
 **What it needs:** Settlement (built), Economy (built: inventories, harvest), Cognition baseline (built: belief update,
 attribution — needs an institution as a belief subject, to agree), Life labour and nutrition reads (partly built),

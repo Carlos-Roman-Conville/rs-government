@@ -14,6 +14,8 @@ export type { TaxRule, TaxSchedule } from './law/schema.ts'
 export type { TenderRule, TenderPurpose } from './law/schema.ts'
 export { legalTender } from './monetary/legal-tender.ts'
 export type { TenderJurisdiction } from './monetary/legal-tender.ts'
+export { refusalBreaches } from './monetary/refusal.ts'
+export type { RefusalOutcome, RefusalContext } from './monetary/refusal.ts'
 export { issue, retire, mint } from './monetary/authority.ts'
 export type { MonetaryRequest, MonetaryCommand, MintRequest, MintCommand,
   MonetaryEvent, MintEvent, MonetaryResult } from './monetary/authority.ts'

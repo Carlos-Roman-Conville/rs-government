@@ -12,6 +12,13 @@ function changed(path: string, value: unknown): unknown {
 }
 
 describe('law schema', () => {
+  it('both tax and spend', () => {
+    const law = { ...lawFixture(), modality: 'require',
+      tax: { base: 'harvest', schedule: { kind: 'rate', rate: 0.1 }, treasury: 'account.treasury' },
+      spend: { treasury: 'account.treasury', payee: 'account.watch' },
+      schedule: { kind: 'fixed', amount: 1, unit: 'coin' } }
+    expect(validateLaw(law)).toEqual(['law: cannot carry both tax and spend'])
+  })
   it('accepts null enactment for a law predating the run', () => {
     expect(validateLaw({ ...lawFixture(), enactment: null })).toEqual([])
   })

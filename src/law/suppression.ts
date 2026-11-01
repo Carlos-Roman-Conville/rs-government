@@ -1,4 +1,5 @@
 import type { ActFacts } from './evaluate.ts'
+import { lawInForce } from './evaluate.ts'
 import type { Law, LawId, LawJurisdiction } from './schema.ts'
 
 /** DESIGN §1.7 communication kinds; carry-message is the action spelling. */
@@ -24,11 +25,9 @@ export interface CommRestrictionCommand {
  * These commands do not decide compliance, detection or communication success.
  */
 export function commRestrictions(laws: readonly Law[], day: number, _facts: ActFacts): CommRestrictionCommand[] {
-  return laws.filter(law => law.status === 'in-force'
+  return laws.filter(law => lawInForce(law, day)
     && (law.modality === 'prohibit' || law.modality === 'require')
-    && (COMMUNICATION_KINDS as readonly string[]).includes(law.regulated.action)
-    && (law.jurisdiction.from === null || law.jurisdiction.from <= day)
-    && (law.jurisdiction.until === null || day < law.jurisdiction.until))
+    && (COMMUNICATION_KINDS as readonly string[]).includes(law.regulated.action))
     .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
     .map(law => ({ owner: 'society', type: 'comm_restriction', law: law.id,
       action: law.regulated.action as CommunicationKind, object: structuredClone(law.regulated.object),

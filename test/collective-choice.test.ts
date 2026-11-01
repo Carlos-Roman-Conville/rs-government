@@ -78,6 +78,6 @@ describe('collective choice', () => {
     expect({ majority, members, ballots }).toEqual(before)
     const unresolved = decide({ ...majority, tie: null }, members.slice(0, 2), votes(true, false), facts)
     expect(enact([], { ...lawFixture(), place: 'place.fixture' }, unresolved, 'event.tie', 10, () => undefined))
-      .toEqual({ law: null, failure: 'not-adopted' })
+      .toEqual({ law: null, failure: 'unresolved', unresolved: 'tie' })
   })
 })

@@ -2,6 +2,7 @@
 
 ## State
 
+- 3010: shared lawInForce window; tax+spend rejected; enact preserves unresolved vote reasons.
 - §1.1-§1.7: laws, authority, enactment, 9 procedures, succession, jurisdiction, suppression.
 - §1.8 legitimacy read shares authority aggregation; weighted/unweighted beliefs, missing subjects.
 - §1.9 tax assessments and chosen collection commands; confirmed shortfalls use evaluateAct.
@@ -14,7 +15,6 @@
 
 ## Next
 
-- 3010 (codex): EnactmentResult carries `failure: 'unresolved'` with decide's reason (DESIGN §1.12).
 - Discretionary spending: Cognition supplies the empowered holder's choice.
 - Society keeper: confirm comm_restriction {law, action, object, places, from, until}.
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).

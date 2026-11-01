@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { enact, evaluateAct } from '../src/index.ts'
+import { decide, enact, evaluateAct } from '../src/index.ts'
 import type { Act, ActFacts, Law, LawDraft } from '../src/index.ts'
 import { lawFixture } from './law-fixture.ts'
 
@@ -19,6 +19,18 @@ const act: Act = { actor: 'person.subject', action: 'seize', object: 'title.fiel
   place, day: 10, attempted: true, succeeded: true }
 
 describe('rule creation and amendment', () => {
+  it.each([null, 'chair'] as const)('preserves decide unresolved reason for tie rule %s without creating a law', tie => {
+    const read = vi.fn(facts)
+    for (const quorum of [2, 3]) {
+      const outcome = decide({ id: 'procedure.vote', eligible: true, quorum: { count: quorum },
+        threshold: { fraction: 0.5 }, tie }, ['a', 'b'],
+      [{ member: 'a', vote: true }, { member: 'b', vote: false }], { read: () => undefined })
+      expect(enact([grant()], draft(), outcome, 'event.vote', 10, read)).toEqual(quorum === 3
+        ? { law: null, failure: 'not-quorate' }
+        : { law: null, failure: 'unresolved', unresolved: tie === null ? 'tie' : 'chair-choice-missing' })
+    }
+    expect(read).not.toHaveBeenCalled()
+  })
   it('an empowered lord decree is recognised and carries the host event id', () => {
     const proposal = draft(), laws = [grant()]
     const before = structuredClone({ proposal, laws })

@@ -105,6 +105,7 @@ function validate(value: unknown, calendarDates: boolean): string[] {
   const predicate = (value: unknown, path: string) => { failures.push(...validatePredicate(value, path)) }
   if (!object(value, 'law')) return failures
   id(value.id, 'id')
+  if ('tax' in value && 'spend' in value) fail('law', 'cannot carry both tax and spend')
   if ('spend' in value) {
     if (value.modality !== 'require') fail('spend', 'allowed only for require')
     if (object(value.spend, 'spend')) {

@@ -25,11 +25,16 @@ export function sameLawAuthority(a: Law, b: Law): boolean {
       === JSON.stringify([...(b.jurisdiction.authorities ?? [])].sort())
 }
 
+/** From is inclusive, until exclusive, and null bounds are unbounded. */
+export function lawInForce(law: Law, day: number): boolean {
+  return law.status === 'in-force'
+    && (law.jurisdiction.from === null || law.jurisdiction.from <= day)
+    && (law.jurisdiction.until === null || law.jurisdiction.until > day)
+}
+
 /** Temporal force and same-issuer/same-jurisdiction supersession, without an act. */
 export function inForceLaws(laws: readonly Law[], day: number): Law[] {
-  const active = laws.filter(law => law.status === 'in-force'
-    && (law.jurisdiction.from === null || law.jurisdiction.from <= day)
-    && (law.jurisdiction.until === null || law.jurisdiction.until > day))
+  const active = laws.filter(law => lawInForce(law, day))
   return active.filter(law => !active.some(replacement => replacement.id !== law.id
     && sameLawAuthority(replacement, law)
     && replacement.supersedes.includes(law.id)))

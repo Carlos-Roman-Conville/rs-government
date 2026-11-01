@@ -1,4 +1,5 @@
 import { deJure } from '../authority/distribution.ts'
+import type { CollectiveDecision } from '../choice/collective.ts'
 import type { ActFacts } from './evaluate.ts'
 import { sameLawAuthority } from './evaluate.ts'
 import type { Law, LawId } from './schema.ts'
@@ -12,9 +13,10 @@ export type LawDraft = WithoutEnactment & {
   subject?: string | null
 }
 export type EnactmentOutcome = { kind: 'decree' }
-  | { kind: 'body'; quorate: boolean; adopted: boolean }
+  | { kind: 'body'; quorate: boolean; adopted: boolean; unresolved?: CollectiveDecision['unresolved'] }
 export type EnactmentResult =
   | { law: null; failure: 'not-quorate' | 'not-adopted' }
+  | { law: null; failure: 'unresolved'; unresolved: NonNullable<CollectiveDecision['unresolved']> }
   | { law: Law; failure: null; recognised: boolean; ineffective: LawId[] }
 
 /** Accept decide's body result directly, or a host's procedural outcome, without
@@ -27,6 +29,7 @@ export function enact(laws: readonly Law[], draft: LawDraft, outcome: EnactmentO
   eventId: string, day: number, facts: ActFacts): EnactmentResult {
   if (outcome.kind === 'body') {
     if (!outcome.quorate) return { law: null, failure: 'not-quorate' }
+    if (outcome.unresolved) return { law: null, failure: 'unresolved', unresolved: outcome.unresolved }
     if (!outcome.adopted) return { law: null, failure: 'not-adopted' }
   }
   if (!eventId.trim()) throw new Error('Enactment event id must be non-empty')

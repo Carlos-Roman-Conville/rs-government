@@ -49,6 +49,10 @@ export type { PolityJurisdiction, PolityFacts, Polity, PolityTerritory, Polities
 export type { LegitimacyRead } from './legitimacy/aggregate.ts'
 export { createAuthorityProvider, defaultAuthorityProvider } from './ports/authority-provider.ts'
 export type { AuthorityProvider, OfficeOf } from './ports/authority-provider.ts'
+export { runLegitimacyHarvest, createHarvestStubs } from './demo/legitimacy-harvest.ts'
+export type { HarvestCalendar, HarvestDay, HarvestCommand, BeliefUpdate, CourtChoice, CourtRecord,
+  HarvestProviders, HarvestTraceDay, HarvestRunOptions, StubHousehold, ExtractionExperience,
+  HarvestStubParameters, StubOwnerSnapshot } from './demo/legitimacy-harvest.ts'
 
 /** The engine prefix every government id carries. */
 export const ENGINE = 'government'

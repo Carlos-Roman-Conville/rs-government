@@ -13,8 +13,12 @@
       "op": "eq",
       "value": "manorial-tenant"
     },
-    "from": 1215,
-    "until": null
+    "from": {
+      "year": 1215,
+      "calendar": "julian"
+    },
+    "until": null,
+    "note": "Start and end dates not stated in SOURCES.md. The inherited fixture boundary 1215 is retained only for fixture coverage; it is not a sourced enactment date. Historical dating is blocked pending a source (HANDOFF.md)."
   },
   "regulated": {
     "action": "grind-at-other-mill",

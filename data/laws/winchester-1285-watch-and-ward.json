@@ -11,8 +11,12 @@
       "place.town"
     ],
     "persons": "all",
-    "from": 1285,
-    "until": null
+    "from": {
+      "year": 1285,
+      "calendar": "julian"
+    },
+    "until": null,
+    "note": "repealed 19th century, date not stated"
   },
   "regulated": {
     "action": "keep-night-watch",
@@ -49,7 +53,7 @@
     "office.bailiff"
   ],
   "procedure": null,
-  "status": "repealed",
+  "status": "in-force",
   "supersedes": [],
   "sources": [
     {

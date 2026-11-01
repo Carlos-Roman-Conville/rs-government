@@ -9,7 +9,12 @@
       "place.royal-forest"
     ],
     "persons": "all",
-    "from": 1217,
+    "from": {
+      "year": 1217,
+      "month": 11,
+      "day": 6,
+      "calendar": "julian"
+    },
     "until": null
   },
   "regulated": {

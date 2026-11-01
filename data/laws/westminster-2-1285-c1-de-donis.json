@@ -9,7 +9,10 @@
       "place.england"
     ],
     "persons": "all",
-    "from": 1285,
+    "from": {
+      "year": 1285,
+      "calendar": "julian"
+    },
     "until": null
   },
   "regulated": {

@@ -13,8 +13,12 @@
       "op": "eq",
       "value": "villein-tenant"
     },
-    "from": 1215,
-    "until": null
+    "from": {
+      "year": 1215,
+      "calendar": "julian"
+    },
+    "until": null,
+    "note": "In force before 1215; 1215 is the sourced fixture coverage bound, not an enactment date. Faded in the later fourteenth and fifteenth centuries; repeal date not stated."
   },
   "regulated": {
     "action": "pay-merchet",

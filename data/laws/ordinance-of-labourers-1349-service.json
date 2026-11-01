@@ -27,7 +27,12 @@
         }
       ]
     },
-    "from": 1349,
+    "from": {
+      "year": 1349,
+      "month": 6,
+      "day": 18,
+      "calendar": "julian"
+    },
     "until": null
   },
   "regulated": {

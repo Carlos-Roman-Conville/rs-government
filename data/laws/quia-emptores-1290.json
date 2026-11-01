@@ -13,8 +13,12 @@
       "op": "eq",
       "value": "fee-simple"
     },
-    "from": 1290,
-    "until": null
+    "from": {
+      "year": 1290,
+      "calendar": "julian"
+    },
+    "until": null,
+    "note": "Enacted 1290; the condition retains the source effective-time restriction, St Andrews Day the following year. Repeal date not stated."
   },
   "regulated": {
     "action": "sell-land",

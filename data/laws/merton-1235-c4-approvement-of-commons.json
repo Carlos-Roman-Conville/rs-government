@@ -2,7 +2,7 @@
   "id": "government/law.merton-1235-c4-approvement-of-commons",
   "issuer": "authority.king-in-council",
   "enactment": "event.enactment.merton-1235-c4-approvement-of-commons",
-  "modality": "empower",
+  "modality": "permit",
   "jurisdiction": {
     "authority": "authority.king-in-council",
     "places": [
@@ -13,13 +13,18 @@
       "op": "eq",
       "value": "lord-manor"
     },
-    "from": 1235,
-    "until": null
+    "from": {
+      "year": 1235,
+      "calendar": "julian"
+    },
+    "until": {
+      "year": 2006,
+      "calendar": "gregorian"
+    }
   },
   "regulated": {
     "action": "enclose-common",
-    "object": "any",
-    "power": "approve-common"
+    "object": "any"
   },
   "condition": {
     "read": "common.sufficient-for-tenants",
@@ -29,19 +34,14 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "If too little common remains tenants may complain by writ; writ and remedy not stated in source. SOURCES Modality: permit."
-      }
-    ]
+    "sanctions": [],
+    "note": "The enclosure stands when enough pasture remains; if too little is left the tenants may complain by writ. The writ and its remedy are not stated in SOURCES.md."
   },
   "enforcer": [
     "office.kings-court"
   ],
   "procedure": null,
-  "status": "repealed",
+  "status": "in-force",
   "supersedes": [],
   "sources": [
     {

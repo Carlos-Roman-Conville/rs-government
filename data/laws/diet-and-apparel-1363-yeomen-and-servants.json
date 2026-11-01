@@ -18,8 +18,15 @@
         "carter"
       ]
     },
-    "from": 1363,
-    "until": null
+    "from": {
+      "year": 1363,
+      "calendar": "julian"
+    },
+    "until": {
+      "year": 1863,
+      "calendar": "gregorian"
+    },
+    "note": "England repeal 1863; Ireland repeal 1872 is outside this jurisdiction. SOURCES.md records an unconfirmed claim of repeal in 1364; not used as the bound."
   },
   "regulated": {
     "action": "wear-apparel",

@@ -9,8 +9,12 @@
       "place.england"
     ],
     "persons": "all",
-    "from": 1285,
-    "until": null
+    "from": {
+      "year": 1285,
+      "calendar": "julian"
+    },
+    "until": null,
+    "note": "repealed 19th century, date not stated"
   },
   "regulated": {
     "action": "pursue-felon",
@@ -38,7 +42,7 @@
     "office.bailiff"
   ],
   "procedure": null,
-  "status": "repealed",
+  "status": "in-force",
   "supersedes": [],
   "sources": [
     {

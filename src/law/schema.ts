@@ -1,12 +1,14 @@
 import { validatePredicate } from './predicate.ts'
 import type { Predicate } from './predicate.ts'
+import { normalizeCalendarPoint } from './calendar.ts'
+import type { CalendarPoint } from './calendar.ts'
 
 export type LawId = `government/law.${string}`
 export type LawModality = 'prohibit' | 'require' | 'permit' | 'empower' | 'establish'
 export type LawStatus = 'in-force' | 'suspended' | 'repealed'
 export type SanctionKind = 'fine' | 'seizure' | 'detention' | 'corporal' | 'outlawry' | 'exile'
 export interface Sanction { kind: SanctionKind; amount: number | null; note: string }
-export type Consequence = { kind: 'void' } | { kind: 'sanctions'; sanctions: Sanction[] }
+export type Consequence = { kind: 'void' } | { kind: 'sanctions'; sanctions: Sanction[]; note?: string }
 export interface Citation { key: string; title: string; year: number | null; locator: string | null }
 export interface LawException { condition: Predicate; reason: string }
 export interface LawJurisdiction {
@@ -15,6 +17,7 @@ export interface LawJurisdiction {
   persons: 'all' | Predicate
   from: number
   until: number | null
+  note?: string
 }
 interface LawFields {
   id: LawId
@@ -30,16 +33,29 @@ interface LawFields {
   supersedes: LawId[]
   sources: Citation[]
 }
-export type Law = LawFields & (
+type LawRule = (
   | { modality: 'empower'; regulated: { action: string; object: 'any' | Predicate; power: string } }
   | { modality: Exclude<LawModality, 'empower'>; regulated: { action: string; object: 'any' | Predicate; power?: never } }
 )
+export type Law = LawFields & LawRule
+export type LawData = Omit<LawFields, 'jurisdiction'> & LawRule & {
+  jurisdiction: Omit<LawJurisdiction, 'from' | 'until'> & { from: CalendarPoint; until: CalendarPoint | null }
+}
 
 const lawId = /^government\/law\.[a-z0-9]+(?:-[a-z0-9]+)*$/
 const finite = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
 
 /** Return deterministic, field-addressed failures without interpreting descriptive text. */
 export function validateLaw(value: unknown): string[] {
+  return validate(value, false)
+}
+
+/** Data files require calendar points; runtime records require numeric days. */
+export function validateLawData(value: unknown): string[] {
+  return validate(value, true)
+}
+
+function validate(value: unknown, calendarDates: boolean): string[] {
   const failures: string[] = []
   const fail = (path: string, rule: string) => { failures.push(`${path}: ${rule}`) }
   function object(value: unknown, path: string): value is Record<string, unknown> {
@@ -75,9 +91,18 @@ export function validateLaw(value: unknown): string[] {
     string(j.authority, 'jurisdiction.authority')
     if (j.places !== 'all') array(j.places, 'jurisdiction.places', string)
     if (j.persons !== 'all') predicate(j.persons, 'jurisdiction.persons')
-    number(j.from, 'jurisdiction.from')
-    if (j.until !== null) number(j.until, 'jurisdiction.until')
-    if (finite(j.from) && finite(j.until) && j.until < j.from) fail('jurisdiction.until', 'must be at least from')
+    if (calendarDates) {
+      for (const key of ['from', 'until']) {
+        if (key === 'until' && j[key] === null) continue
+        try { normalizeCalendarPoint(j[key]) }
+        catch (error) { fail(`jurisdiction.${key}`, (error as Error).message) }
+      }
+    } else {
+      number(j.from, 'jurisdiction.from')
+      if (j.until !== null) number(j.until, 'jurisdiction.until')
+      if (finite(j.from) && finite(j.until) && j.until < j.from) fail('jurisdiction.until', 'must be at least from')
+    }
+    if ('note' in j) string(j.note, 'jurisdiction.note')
   }
   if (object(value.regulated, 'regulated')) {
     string(value.regulated.action, 'regulated.action')
@@ -92,6 +117,7 @@ export function validateLaw(value: unknown): string[] {
     string(item.reason, `${path}.reason`)
   })
   if (object(value.consequence, 'consequence')) {
+    if ('note' in value.consequence) string(value.consequence.note, 'consequence.note')
     oneOf(value.consequence.kind, ['void', 'sanctions'], 'consequence.kind')
     if (value.consequence.kind === 'void' && 'sanctions' in value.consequence) fail('consequence.sanctions', 'allowed only for sanctions')
     if (value.consequence.kind === 'sanctions') array(value.consequence.sanctions, 'consequence.sanctions', (item, path) => {

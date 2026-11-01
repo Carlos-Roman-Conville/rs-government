@@ -13,8 +13,14 @@
       "op": "eq",
       "value": "lord-manor"
     },
-    "from": 1285,
-    "until": null
+    "from": {
+      "year": 1285,
+      "calendar": "julian"
+    },
+    "until": {
+      "year": 2006,
+      "calendar": "gregorian"
+    }
   },
   "regulated": {
     "action": "enclose-neighbour-common",
@@ -40,7 +46,7 @@
     "office.kings-court"
   ],
   "procedure": null,
-  "status": "repealed",
+  "status": "in-force",
   "supersedes": [],
   "sources": [
     {

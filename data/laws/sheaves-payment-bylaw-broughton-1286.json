@@ -9,7 +9,10 @@
       "place.broughton-fields"
     ],
     "persons": "all",
-    "from": 1286,
+    "from": {
+      "year": 1286,
+      "calendar": "julian"
+    },
     "until": null
   },
   "regulated": {

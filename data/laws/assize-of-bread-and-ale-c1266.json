@@ -18,8 +18,15 @@
         "brewer"
       ]
     },
-    "from": 1266,
-    "until": null
+    "from": {
+      "year": 1266,
+      "calendar": "julian"
+    },
+    "until": {
+      "year": 1863,
+      "calendar": "gregorian"
+    },
+    "note": "Enactment placed c. 1266 in SOURCES.md; exact date not stated."
   },
   "regulated": {
     "action": "sell-bread-or-ale",
@@ -49,7 +56,7 @@
     "office.ale-taster"
   ],
   "procedure": "procedure.manor-three-weekly-court",
-  "status": "repealed",
+  "status": "in-force",
   "supersedes": [],
   "sources": [
     {

@@ -13,7 +13,10 @@
       "op": "eq",
       "value": "religious-house-or-person"
     },
-    "from": 1279,
+    "from": {
+      "year": 1279,
+      "calendar": "julian"
+    },
     "until": null
   },
   "regulated": {

@@ -9,8 +9,12 @@
       "place.manor-open-field"
     ],
     "persons": "all",
-    "from": 1286,
-    "until": null
+    "from": {
+      "year": 1286,
+      "calendar": "julian"
+    },
+    "until": null,
+    "note": "SOURCES.md gives c. 1286 through the later Middle Ages; exact dates not stated."
   },
   "regulated": {
     "action": "glean",

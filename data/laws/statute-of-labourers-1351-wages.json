@@ -19,7 +19,10 @@
         "artificer"
       ]
     },
-    "from": 1351,
+    "from": {
+      "year": 1351,
+      "calendar": "julian"
+    },
     "until": null
   },
   "regulated": {

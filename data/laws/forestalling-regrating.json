@@ -14,8 +14,15 @@
       "op": "eq",
       "value": "trader"
     },
-    "from": 1321,
-    "until": null
+    "from": {
+      "year": 1321,
+      "calendar": "julian"
+    },
+    "until": {
+      "year": 1844,
+      "calendar": "gregorian"
+    },
+    "note": "Recognised as an offence by 1321; abolished 1844 (SOURCES.md). The start is an attestation bound, not a known enactment date."
   },
   "regulated": {
     "action": "forestall-or-regrate",
@@ -44,7 +51,7 @@
   },
   "enforcer": [],
   "procedure": null,
-  "status": "repealed",
+  "status": "in-force",
   "supersedes": [],
   "sources": [
     {

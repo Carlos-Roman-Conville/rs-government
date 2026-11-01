@@ -12,10 +12,10 @@ source", the passages read did not give it; it does not mean the rule or figure 
 claim that nothing exists.
 
 ## households-per-village
-- Value: about 60 families in an average English village of about 300 souls (3083)
+- Value: 60 households
 - Place and period: England, 1150–1400 generally (Bennett's span); no single manor.
-- Source: Bennett 1937, ch. II (about p. 39), https://archive.org/download/lifeontheenglish020976mbp/lifeontheenglish020976mbp_djvu.txt
-- Note: Bennett gives only a population spread for villages, "fifty, a hundred, and (much less often) several hundreds", which is people, not households, and he does not convert it. Examples of tenant counts on single manors: 35 joint tenures among the villeins of Ashfield Magna, and Martham rising from 68 tenants at Domesday to 107 by 1291 (about p. 50). Those are single-manor counts and are not a typical village; the fixture's ~60 households is therefore a modelling choice inside the documented range, not a sourced figure.
+- Source: Bennett 1937, ch. IX "Everyday Life", p. 239 (index: "Village, size of average English, 240"), https://archive.org/download/lifeontheenglish020976mbp/lifeontheenglish020976mbp_djvu.txt
+- Note (5006): checked in the full text; Bennett, ch. IX p. 239, in estimating population growth, supposes the average English village to be about 300 souls, i.e. some 60 families. This is his own assumption, not a count; 3083's locator (ch. II about p. 39, and "about p. 240") was loose: the sentence is on p. 239, and the index points to pp. 239–240.
 - Note (3083): read on after p. 267, Bennett ch. IX, about p. 240, calls the average English village about 300 souls, roughly 60 families; this is his own estimate and he gives no household count per manor. Maitland 1889 vol. 1, Introduction p. 4, gives single manors only: Swincombe ten customary tenants with eight acres each plus eleven cottars; Cottisford five freeholders, fifteen villani and one cottar.
 - Searched (3083): Bennett to the end of the text (about p. 365, index); Maitland 1889 full text to the glossary; Dyer 1989 archive.org page returned only site navigation; Homans 1941 not found on archive.org (404), search showed only catalogue records and a restricted Fulcrum edition.
 - Searched: Bennett 1937 pp. 1–267 (ch. I–VIII and the start of IX); Homans 1941 (full text blocked, HTTP 403, not opened); web search for a Hundred Rolls households-per-village average (returned catalogue pages only).

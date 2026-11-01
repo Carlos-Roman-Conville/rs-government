@@ -5,6 +5,7 @@ import type { Law } from '../law/schema.ts'
 import type { AuthorityReaders, AgentsReader, BeliefReader, CapacityReader, WeightReader } from './readers.ts'
 
 export interface AuthoritySubject { id: string; place: string }
+export type AuthorityClaimants = Readonly<Record<string, readonly string[]>>
 export type AuthorityFlag =
   | { kind: 'no-weighted-belief'; actor: string; domain: string }
   | { kind: 'missing-agent-belief'; actor: string; domain: string; person: string }
@@ -52,6 +53,54 @@ export function deJure(laws: readonly Law[], actor: string, domain: string,
       && evaluatePredicate(law.condition, read)
       && !law.exceptions.some(exception => evaluatePredicate(exception.condition, read))
   }) ? 1 : 0
+}
+
+/** Empower recipients can depend on host-owned offices and predicates. For each
+ * active, unsuperseded grant, law.empowered-actors resolves its recipient actor IDs
+ * with actor=issuer, object=law.id, action=the grant's action and place=''. An empty
+ * list means no current recipients; missing facts fail rather than invent a link.
+ * Delegation spans domains and places; this is a graph read, not a subject's J.
+ */
+function delegationGraph(laws: readonly Law[], day: number, facts: ActFacts): Map<string, Set<string>> {
+  const active = laws.filter(law => law.status === 'in-force' && law.jurisdiction.from <= day
+    && (law.jurisdiction.until === null || day < law.jurisdiction.until))
+  const graph = new Map<string, Set<string>>()
+  const link = (from: string, to: string) => {
+    if (!graph.has(from)) graph.set(from, new Set())
+    graph.get(from)!.add(to)
+  }
+  for (const law of [...active].sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)) {
+    if (law.modality !== 'empower' || active.some(replacement => replacement.id !== law.id
+      && replacement.issuer === law.issuer
+      && replacement.jurisdiction.authority === law.jurisdiction.authority
+      && replacement.supersedes.includes(law.id))) continue
+    const recipients = facts('law.empowered-actors', { actor: law.issuer, object: law.id,
+      action: law.regulated.action, place: '', day, attempted: false, succeeded: false })
+    if (!Array.isArray(recipients) || !recipients.every(id => typeof id === 'string' && id.trim())) {
+      throw new Error('read "law.empowered-actors": expected an array of non-empty actor IDs')
+    }
+    for (const recipient of ids(recipients)) {
+      link(law.issuer, recipient)
+      link(recipient, law.issuer)
+    }
+  }
+  return graph
+}
+
+function linkedActors(graph: ReadonlyMap<string, ReadonlySet<string>>, actor: string): string[] {
+  const visited = new Set([actor])
+  for (const current of visited) {
+    for (const linked of graph.get(current) ?? []) visited.add(linked)
+  }
+  visited.delete(actor)
+  return [...visited].sort()
+}
+
+/** All other actors transitively linked by active empowerment in either direction,
+ * sorted and unique. Cycles are allowed; the starting actor is excluded.
+ */
+export function delegationChain(laws: readonly Law[], actor: string, day: number, facts: ActFacts): string[] {
+  return linkedActors(delegationGraph(laws, day, facts), actor)
 }
 
 export function recognition(actor: string, domain: string, persons: readonly string[],
@@ -111,26 +160,42 @@ export function effectiveAuthority(inputs: Readonly<AuthorityInputs>, f: Authori
   return inputs.R === null ? null : f(Object.freeze({ ...inputs }))
 }
 
-/** Computed afresh on every read. actors is the set of competing claimants in
- * this jurisdiction (also the place ID used for law applicability). J is a
- * relation over a subject: retain one row per actor/domain/person rather than
- * inventing an aggregate J. Empty populations produce no subject rows.
+/** Computed afresh on every read, one row per requested actor/domain/person.
+ * Population comes from the jurisdiction; person.place supplies the subject's
+ * location with object=person, action=domain and place='' before it is known.
+ * Rivals must hold a grant over that subject or be host-named claimants for the
+ * domain, and must be outside the actor's delegation chain. Host claimants may
+ * include actors not requested as output rows. Empty populations produce no rows.
  */
 export function distribution(laws: readonly Law[], actors: readonly string[], domains: readonly string[],
   jurisdiction: string, day: number, readers: AuthorityReaders, facts: ActFacts,
-  f: AuthorityFormula = provisionalF): AuthorityRow[] {
+  f: AuthorityFormula = provisionalF, claimants: AuthorityClaimants = {}): AuthorityRow[] {
   const persons = ids(readers.persons(jurisdiction))
-  return ids(actors).flatMap(actor => ids(domains).flatMap(domain => {
-    const recognized = recognition(actor, domain, persons, readers)
-    const backed = backing(actor, domain, readers)
-    const rivals = rivalBacking(actor, domain, actors, readers)
-    return persons.map(person => {
-      const inputs: AuthorityInputs = {
-        J: deJure(laws, actor, domain, { id: person, place: jurisdiction }, day, facts),
-        R: recognized.R, C: backed.C, C_opp: rivals.C_opp,
-      }
-      return { actor, domain, person, ...inputs, A: effectiveAuthority(inputs, f), f: f.id,
-        flags: [...recognized.flags, ...backed.flags, ...rivals.flags].map(flag => ({ ...flag })) }
+  if (!persons.length || !actors.length || !domains.length) return []
+  const graph = delegationGraph(laws, day, facts)
+  return ids(actors).flatMap(actor => {
+    const chain = new Set([actor, ...linkedActors(graph, actor)])
+    return ids(domains).flatMap(domain => {
+      const recognized = recognition(actor, domain, persons, readers)
+      const backed = backing(actor, domain, readers)
+      const named = claimants[domain] ?? []
+      const candidates = ids([...actors, ...named]).filter(candidate => !chain.has(candidate))
+      return persons.map(person => {
+        const place = facts('person.place', { actor, action: domain, object: person,
+          place: '', day, attempted: false, succeeded: false })
+        if (typeof place !== 'string' || !place.trim()) {
+          throw new Error('read "person.place": expected a non-empty place ID')
+        }
+        const subject = { id: person, place }
+        const rivals = rivalBacking(actor, domain, candidates.filter(candidate => named.includes(candidate)
+          || deJure(laws, candidate, domain, subject, day, facts) === 1), readers)
+        const inputs: AuthorityInputs = {
+          J: deJure(laws, actor, domain, subject, day, facts),
+          R: recognized.R, C: backed.C, C_opp: rivals.C_opp,
+        }
+        return { actor, domain, person, ...inputs, A: effectiveAuthority(inputs, f), f: f.id,
+          flags: [...recognized.flags, ...backed.flags, ...rivals.flags].map(flag => ({ ...flag })) }
+      })
     })
-  }))
+  })
 }

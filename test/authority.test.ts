@@ -6,11 +6,13 @@ import type { AuthorityStubData } from './stubs.ts'
 import { lawFixture } from './law-fixture.ts'
 
 function grant(actor = 'crown', domain = 'tax', slug = actor): Law {
-  return { ...lawFixture(slug), modality: 'empower',
+  return { ...lawFixture(slug), issuer: actor, modality: 'empower',
     regulated: { action: 'levy', object: 'any', power: domain },
     condition: { read: 'actor.id', op: 'eq', value: actor } }
 }
 const facts: ActFacts = (name, act) => {
+  if (name === 'person.place') return 'town'
+  if (name === 'law.empowered-actors') return [act.actor]
   if (name === 'actor.id') return act.actor
   if (name === 'subject.id') return act.object
   if (name === 'actor.is-office-holder') return act.actor === 'crown'
@@ -211,7 +213,7 @@ describe('de jure authority', () => {
     for (const status of ['suspended', 'repealed'] as const) expect(read([{ ...law, status }])).toBe(0)
   })
   it('superseding laws are considered even when they are not empowerment laws', () => {
-    const law = grant(), replacement = lawFixture('replacement')
+    const law = grant(), replacement = { ...lawFixture('replacement'), issuer: law.issuer }
     replacement.supersedes = [law.id]
     expect(read([law, replacement])).toBe(0)
     expect(read([replacement, law])).toBe(0)

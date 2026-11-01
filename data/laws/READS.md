@@ -11,6 +11,7 @@ gift.before-statute — A conditional gift was made before the De donis statute.
 gift.colour-of-pity — A gift is made under the colour of pity or alms.
 gift.conditional — Land was given with a condition in the deed.
 holds.permission — Whether an actor holds a named permission or franchise (fee simple, forest leave, suit of mill, etc.).
+law.empowered-actors — Current recipient actor IDs of an empower law, resolved by the host from its predicates and owned office membership. For delegation reads, act.actor is the issuer, act.object is the law ID, act.action is the grant's action, act.day is the query day and act.place is empty. Return an array (empty when there are no recipients); missing or invalid values fail explicitly. Government filters status, dates and supersession before this read.
 member.fled — A summoned tithing member has fled.
 member.suspected-and-summoned — A tithing member is suspected of crime and summoned.
 object.kind — Kind of object or land involved in the regulated act.
@@ -21,6 +22,7 @@ person.age — Person's age in years.
 person.gleaning-eligible — Person is elderly, a small child, or ill or handicapped for gleaning.
 person.in-tithing — Person is enrolled in a frankpledge tithing.
 person.independent-means — Person has own land or means and is not dependent on hiring out labour.
+person.place — Non-empty place ID of the subject identified by act.object, independent of the population's jurisdiction ID. Authority queries use act.actor as the power holder, act.action as the domain/power, and act.place as empty until resolved; missing or invalid places fail explicitly.
 person.status — Person's legal or social status (tenant class, trade, office holder class).
 person.stranger-without-suspicion — Lodger or stranger held overnight without ground for suspicion.
 person.sworn-to-wage-rates — Worker has been sworn to keep statutory wage rates.

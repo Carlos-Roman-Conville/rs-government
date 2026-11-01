@@ -10,7 +10,7 @@
 - §1.11 property regime reads reuse evaluation (void commands, nullable transferability).
 - §1.12 host ballots; minima/ties feed enact. §1.13 levy duties, backing, delegation reads.
 - §1.14 polity/apex and treaty reads share authority and law evaluation.
-- §1.16 monetary (5290-5293, 5320): src/monetary: legalTender read, issue/retire/mint authority,
+- §1.16 monetary (5290-5293, 5320): src/monetary: legal tender read, issue/retire/mint authority,
   refusalBreaches, §8 multi-economy tests; kernel.json has out port `government.legal_tender`
   and process `government.rule.creation_amendment`.
 - §3 fixture/run/acceptance (5008-fix, 5052): A/B, beliefs, conservation pass; seed sets reported, identical.

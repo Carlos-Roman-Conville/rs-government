@@ -9,6 +9,14 @@
       "phase": "government"
     },
     {
+      "id": "government.rule",
+      "mechanisms": ["government.rule.creation_amendment"],
+      "writes": ["government.law"],
+      "reads": ["government.law"],
+      "period": "event",
+      "phase": "government"
+    },
+    {
       "id": "government.law",
       "mechanisms": [
         "government.law.schema",
@@ -33,6 +41,7 @@
     {
       "mechanism": "government.monetary.authority",
       "quantity": "government.legal_tender",
+      "kind": "record",
       "unit": null,
       "direction": "out"
     },

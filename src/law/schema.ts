@@ -11,6 +11,10 @@ export interface Sanction { kind: SanctionKind; amount: number | null; note: str
 export type Consequence = { kind: 'void' } | { kind: 'sanctions'; sanctions: Sanction[]; note?: string }
 export interface Citation { key: string; title: string; year: number | null; locator: string | null }
 export interface LawException { condition: Predicate; reason: string }
+export type TaxSchedule = { kind: 'fixed'; amount: number; unit: string }
+  | { kind: 'rate'; rate: number }
+  | { kind: 'proportional-with-remission'; rate: number; remitBelow: number }
+export interface TaxRule { base: string; schedule: TaxSchedule; treasury: string; collector?: string }
 export interface SuccessionRule {
   rule: 'primogeniture' | 'appointment' | 'election' | 'open-contest'
   prefer?: 'male' | 'none'
@@ -40,6 +44,8 @@ interface LawFields {
   sources: Citation[]
   /** validateLaw restricts this to establish/succeed with an office predicate. */
   succession?: SuccessionRule
+  /** validateLaw restricts tax obligations to require laws. */
+  tax?: TaxRule
 }
 type LawRule = (
   | { modality: 'empower'; regulated: { action: string; object: 'any' | Predicate; power: string } }
@@ -134,6 +140,32 @@ function validate(value: unknown, calendarDates: boolean): string[] {
       if ('body' in s) string(s.body, 'succession.body')
       for (const key of Object.keys(s)) {
         if (!['rule', 'prefer', 'superior', 'body'].includes(key)) fail(`succession.${key}`, 'unknown field')
+      }
+    }
+  }
+  if ('tax' in value) {
+    if (value.modality !== 'require') fail('tax', 'allowed only for require')
+    if (object(value.tax, 'tax')) {
+      const tax = value.tax
+      string(tax.base, 'tax.base')
+      string(tax.treasury, 'tax.treasury')
+      if ('collector' in tax) string(tax.collector, 'tax.collector')
+      for (const key of Object.keys(tax)) {
+        if (!['base', 'schedule', 'treasury', 'collector'].includes(key)) fail(`tax.${key}`, 'unknown field')
+      }
+      if (object(tax.schedule, 'tax.schedule')) {
+        const schedule = tax.schedule
+        oneOf(schedule.kind, ['fixed', 'rate', 'proportional-with-remission'], 'tax.schedule.kind')
+        const fields = schedule.kind === 'fixed' ? ['amount']
+          : schedule.kind === 'rate' ? ['rate'] : ['rate', 'remitBelow']
+        for (const field of fields) {
+          if (!finite(schedule[field]) || schedule[field] < 0) fail(`tax.schedule.${field}`, 'expected finite non-negative number')
+        }
+        if (schedule.kind === 'fixed') string(schedule.unit, 'tax.schedule.unit')
+        const allowed = ['kind', ...fields, ...(schedule.kind === 'fixed' ? ['unit'] : [])]
+        for (const key of Object.keys(schedule)) {
+          if (!allowed.includes(key)) fail(`tax.schedule.${key}`, 'unknown field')
+        }
       }
     }
   }

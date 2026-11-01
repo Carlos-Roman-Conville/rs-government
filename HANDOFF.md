@@ -2,6 +2,8 @@
 
 ## State
 
+- §1.9 tax assessments and chosen collection commands; confirmed shortfalls use evaluateAct.
+
 - §1.12 collective choice counts host ballots; explicit minima/ties feed enact directly.
 
 - §1.8 legitimacy read shares authority aggregation; reports weighted/unweighted beliefs and missing subjects.
@@ -19,7 +21,7 @@
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §1.9 Taxation; §1.10 Spending; §1.11 Property regimes;
+- §1.10 Spending; §1.11 Property regimes;
   §1.13 Military; §1.14 Diplomacy and polities.
 - §3 Demonstration: legitimacy harvest; its theft/levy laws cite the presentment procedure.
 
@@ -42,6 +44,8 @@
 
 ## Gotchas
 
+- Tax bases return {amount, unit}; hosts execute collection commands and supply
+  confirmed totals to taxBreaches at the deadline. Missing outcomes are unknown.
 - Law files cite `procedure.<slug>`; procedure records are `government/procedure.<slug>`;
   `checkLaws` maps the prefix.
 - Succession host supplies office {id, place}, recognition and per-law choices

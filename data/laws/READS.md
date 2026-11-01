@@ -5,6 +5,7 @@ common.sufficient-for-neighbours — Enough common pasture remains for neighbour
 common.sufficient-for-tenants — Enough common pasture remains for the lord's freehold tenants' holdings.
 daughter.marries — A villein tenant's daughter marries.
 day.in — Calendar window for when a rule applies (season, feast bounds, or post-enactment date).
+economy.harvest — Economy (stubbed), ActFacts port: {amount: finite non-negative number, unit: non-empty string} of the taxable harvest at act.object, owned by act.actor on act.day; null/undefined means unknown. Tax queries carry the law action, host place, attempted=false and succeeded=false.
 felony.or-robbery-done — A felony or robbery has been committed triggering hue and cry.
 gift.after-statute — A conditional gift was made after the De donis statute.
 gift.before-statute — A conditional gift was made before the De donis statute.

@@ -59,7 +59,7 @@ export function loadLaws(root: string, toDay: ToDay): LoadedLaws {
 }
 
 /** Check loaded files (including parse failures), or an in-memory collection. */
-export function checkLaws(input: LoadedLaws | readonly unknown[], procedures?: LoadedProcedures | readonly Procedure[]): string[] {
+export function checkLaws(input: LoadedLaws | readonly unknown[], procedures?: LoadedProcedures | readonly Procedure[], declaredReads?: readonly string[]): string[] {
   const loaded = !Array.isArray(input) ? input as LoadedLaws : undefined
   const entries: LoadedLaw[] = loaded?.entries ?? (input as readonly unknown[]).map((law, i) => ({ file: `laws[${i}]`, law }))
   const failures = [...(loaded?.failures ?? []), ...(procedures ? checkProcedures(procedures) : [])]
@@ -71,6 +71,10 @@ export function checkLaws(input: LoadedLaws | readonly unknown[], procedures?: L
     failures.push(...(errors ?? validateLaw(law)).map(failure => `${file}: ${failure}`))
     if (law !== null && typeof law === 'object') {
       const row = law as Record<string, unknown>
+      if (declaredReads && row.tax !== null && typeof row.tax === 'object' && 'base' in row.tax
+        && typeof row.tax.base === 'string' && !declaredReads.includes(row.tax.base)) {
+        failures.push(`${file}: tax.base: undeclared read ${row.tax.base}`)
+      }
       // Existing law fixtures use local procedure.* references; records carry the engine prefix.
       if (procedureIds && typeof row.procedure === 'string') {
         const target = row.procedure.startsWith('procedure.') ? `government/${row.procedure}` : row.procedure

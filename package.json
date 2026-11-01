@@ -1,0 +1,23 @@
+{
+  "name": "@rex/government",
+  "version": "0.0.1",
+  "description": "Government: authority computed from causal conditions, law as executable data, compliance and enforcement, succession, jurisdiction, taxation and spending, property regimes, military organisation, diplomacy, legitimacy as an aggregate of beliefs, polities. No government type is assigned; a label is a read of the computed distribution.",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@rex/kernel": "file:../kernel"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.5"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

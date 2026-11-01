@@ -39,6 +39,8 @@ export { deJure, delegationChain, recognition, backing, strongestRival, effectiv
 export type { AuthoritySubject, AuthorityClaimants, AuthorityFlag, AuthorityInputs, AuthorityFormula, AuthorityRow } from './authority/distribution.ts'
 export type { BeliefReader, WeightReader, CapacityReader, AgentsReader, PopulationReader, AuthorityReaders } from './authority/readers.ts'
 export { legitimacyRead } from './legitimacy/aggregate.ts'
+export { polities, treaties } from './polity/polity.ts'
+export type { PolityJurisdiction, PolityFacts, Polity, PolityTerritory, PolitiesRead, Treaty } from './polity/polity.ts'
 export type { LegitimacyRead } from './legitimacy/aggregate.ts'
 export { createAuthorityProvider, defaultAuthorityProvider } from './ports/authority-provider.ts'
 export type { AuthorityProvider, OfficeOf } from './ports/authority-provider.ts'

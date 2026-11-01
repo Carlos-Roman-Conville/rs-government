@@ -25,6 +25,8 @@ export interface SuccessionRule {
 }
 export interface LawJurisdiction {
   authority: string | null
+  /** Bilateral jurisdiction; authority remains the law set's existing identifier. */
+  authorities?: [string, string]
   places: 'all' | string[]
   persons: 'all' | Predicate
   from: number | null
@@ -129,6 +131,17 @@ function validate(value: unknown, calendarDates: boolean): string[] {
   if (object(value.jurisdiction, 'jurisdiction')) {
     const j = value.jurisdiction
     if (j.authority !== null) string(j.authority, 'jurisdiction.authority')
+    if ('authorities' in j) {
+      const enforcers = value.enforcer
+      array(j.authorities, 'jurisdiction.authorities', string)
+      if (!Array.isArray(j.authorities) || j.authorities.length !== 2
+        || new Set(j.authorities).size !== 2) {
+        fail('jurisdiction.authorities', 'expected two distinct authorities')
+      } else if (Array.isArray(enforcers) && enforcers.length
+        && (enforcers.length !== 2 || !j.authorities.every(party => enforcers.includes(party)))) {
+        fail('enforcer', 'bilateral law requires both parties or no enforcer')
+      }
+    }
     if (j.places !== 'all') array(j.places, 'jurisdiction.places', string)
     if (j.persons !== 'all') predicate(j.persons, 'jurisdiction.persons')
     if (calendarDates) {

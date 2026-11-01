@@ -17,17 +17,28 @@ export type ActFacts = (name: string, act: Readonly<Act>) => unknown
 
 const byId = (a: Law, b: Law) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0
 
+/** Bilateral scope is part of jurisdiction identity, regardless of party order. */
+export function sameLawAuthority(a: Law, b: Law): boolean {
+  return a.jurisdiction.authority !== null && b.jurisdiction.authority !== null
+    && a.issuer === b.issuer && a.jurisdiction.authority === b.jurisdiction.authority
+    && JSON.stringify([...(a.jurisdiction.authorities ?? [])].sort())
+      === JSON.stringify([...(b.jurisdiction.authorities ?? [])].sort())
+}
+
+/** Temporal force and same-issuer/same-jurisdiction supersession, without an act. */
+export function inForceLaws(laws: readonly Law[], day: number): Law[] {
+  const active = laws.filter(law => law.status === 'in-force'
+    && (law.jurisdiction.from === null || law.jurisdiction.from <= day)
+    && (law.jurisdiction.until === null || law.jurisdiction.until > day))
+  return active.filter(law => !active.some(replacement => replacement.id !== law.id
+    && sameLawAuthority(replacement, law)
+    && replacement.supersedes.includes(law.id)))
+    .sort(byId)
+}
+
 /** Jurisdiction only: every authority remains visible, including conflicting rules. */
 export function applicableLaws(laws: readonly Law[], act: Act, facts: ActFacts): Map<string, Law[]> {
-  const active = laws.filter(law => law.status === 'in-force'
-    && (law.jurisdiction.from === null || law.jurisdiction.from <= act.day)
-    && (law.jurisdiction.until === null || law.jurisdiction.until > act.day))
-  const covered = active.filter(law => !active.some(replacement => replacement.id !== law.id
-    && law.jurisdiction.authority !== null
-    && replacement.jurisdiction.authority !== null
-    && replacement.issuer === law.issuer
-    && replacement.jurisdiction.authority === law.jurisdiction.authority
-    && replacement.supersedes.includes(law.id)))
+  const covered = inForceLaws(laws, act.day)
     .filter(law => (law.jurisdiction.places === 'all' || law.jurisdiction.places.includes(act.place))
       && (law.jurisdiction.persons === 'all'
         || evaluatePredicate(law.jurisdiction.persons, name => facts(name, act))))

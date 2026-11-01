@@ -1,5 +1,6 @@
 import { deJure } from '../authority/distribution.ts'
 import type { ActFacts } from './evaluate.ts'
+import { sameLawAuthority } from './evaluate.ts'
 import type { Law, LawId } from './schema.ts'
 
 // Distribute Omit across the modality union to retain the empower power field.
@@ -36,8 +37,6 @@ export function enact(laws: readonly Law[], draft: LawDraft, outcome: EnactmentO
   const law: Law = structuredClone({ ...fields, enactment: eventId })
   // Match the evaluator's authority/issuer boundary; keep supersedes as written.
   const ineffective = [...new Set(laws.filter(previous => law.supersedes.includes(previous.id)
-    && (law.jurisdiction.authority === null || previous.jurisdiction.authority === null
-      || law.jurisdiction.authority !== previous.jurisdiction.authority
-      || law.issuer !== previous.issuer)).map(previous => previous.id))].sort()
+    && !sameLawAuthority(law, previous)).map(previous => previous.id))].sort()
   return { law, failure: null, recognised, ineffective }
 }

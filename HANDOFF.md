@@ -2,6 +2,8 @@
 
 ## State
 
+- §1.14 polity/apex and treaty reads share authority and law evaluation; ties stay explicit.
+
 - §1.11 property regime reads reuse evaluation for void commands and nullable transferability.
 
 - §1.10 appropriations allocate treasury balances and emit pay commands and evaluator breaches.
@@ -27,7 +29,7 @@
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §1.13 Military; §1.14 Diplomacy and polities.
+- §1.13 Military.
 - §3 Demonstration: legitimacy harvest; its theft/levy laws cite the presentment procedure.
 
 ## Blocked
@@ -48,6 +50,9 @@
   and 4d/12d amounts (Ault 1972 or a Broughton court-roll edition).
 
 ## Gotchas
+
+- Polities need host jurisdictions/domains and authority readers; territory retains
+  domain/person winners. Treaties use jurisdiction.authorities (two parties).
 
 - Spending takes laws in enactment order; host supplies treasury context and receipts.
   paid means commanded allocation, not ledger confirmation; host prevents period replay.

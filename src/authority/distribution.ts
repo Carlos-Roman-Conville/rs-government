@@ -1,4 +1,4 @@
-import { applicableLaws } from '../law/evaluate.ts'
+import { applicableLaws, inForceLaws } from '../law/evaluate.ts'
 import type { Act, ActFacts } from '../law/evaluate.ts'
 import { evaluatePredicate } from '../law/predicate.ts'
 import type { Law } from '../law/schema.ts'
@@ -64,29 +64,23 @@ export function deJure(laws: readonly Law[], actor: string, domain: string,
  * Delegation spans domains and places; this is a graph read, not a subject's J.
  */
 function delegationGraph(laws: readonly Law[], day: number, facts: ActFacts): Map<string, Set<string>> {
-  const active = laws.filter(law => law.status === 'in-force'
-    && (law.jurisdiction.from === null || law.jurisdiction.from <= day)
-    && (law.jurisdiction.until === null || day < law.jurisdiction.until))
+  const active = inForceLaws(laws, day)
+  // One directed graph: recipient -> principals. Rival reads traverse both ways;
+  // polity reads traverse upwards. Self-grants establish no superior.
   const graph = new Map<string, Set<string>>()
   const link = (from: string, to: string) => {
     if (!graph.has(from)) graph.set(from, new Set())
     graph.get(from)!.add(to)
   }
   for (const law of [...active].sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)) {
-    if (law.issuer === null || law.modality !== 'empower' || active.some(replacement => replacement.id !== law.id
-      && law.jurisdiction.authority !== null
-      && replacement.jurisdiction.authority !== null
-      && replacement.issuer === law.issuer
-      && replacement.jurisdiction.authority === law.jurisdiction.authority
-      && replacement.supersedes.includes(law.id))) continue
+    if (law.issuer === null || law.modality !== 'empower') continue
     const recipients = facts('law.empowered-actors', { actor: law.issuer, object: law.id,
       action: law.regulated.action, place: '', day, attempted: false, succeeded: false })
     if (!Array.isArray(recipients) || !recipients.every(id => typeof id === 'string' && id.trim())) {
       throw new Error('read "law.empowered-actors": expected an array of non-empty actor IDs')
     }
     for (const recipient of ids(recipients)) {
-      link(law.issuer, recipient)
-      link(recipient, law.issuer)
+      if (recipient !== law.issuer) link(recipient, law.issuer)
     }
   }
   return graph
@@ -96,6 +90,9 @@ function linkedActors(graph: ReadonlyMap<string, ReadonlySet<string>>, actor: st
   const visited = new Set([actor])
   for (const current of visited) {
     for (const linked of graph.get(current) ?? []) visited.add(linked)
+    for (const [recipient, principals] of graph) {
+      if (principals.has(current)) visited.add(recipient)
+    }
   }
   visited.delete(actor)
   return [...visited].sort()
@@ -106,6 +103,22 @@ function linkedActors(graph: ReadonlyMap<string, ReadonlySet<string>>, actor: st
  */
 export function delegationChain(laws: readonly Law[], actor: string, day: number, facts: ActFacts): string[] {
   return linkedActors(delegationGraph(laws, day, facts), actor)
+}
+
+/** Candidate roots of the same empowerment graph, never an arbitrary cycle winner.
+ * law.empowered-actors supplies the host-resolved recognised recipients, as for
+ * delegationChain; missing facts fail. Multiple roots remain unresolved.
+ */
+export function delegationApexes(laws: readonly Law[], actors: readonly string[], day: number,
+  facts: ActFacts): Map<string, string[]> {
+  const graph = delegationGraph(laws, day, facts)
+  return new Map(ids(actors).map(actor => {
+    const ancestors = new Set([actor])
+    for (const current of ancestors) {
+      for (const principal of graph.get(current) ?? []) ancestors.add(principal)
+    }
+    return [actor, [...ancestors].filter(id => !graph.get(id)?.size).sort()]
+  }))
 }
 
 export function recognition(actor: string, domain: string, persons: readonly string[],

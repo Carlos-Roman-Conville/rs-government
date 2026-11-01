@@ -83,7 +83,11 @@ export function checkLaws(input: LoadedLaws | readonly unknown[], procedures?: L
       const jurisdiction = row.jurisdiction
       const authority = jurisdiction !== null && typeof jurisdiction === 'object'
         ? (jurisdiction as Record<string, unknown>).authority : undefined
-      for (const [path, value] of [['issuer', row.issuer], ['jurisdiction.authority', authority]] as const) {
+      const parties = jurisdiction !== null && typeof jurisdiction === 'object'
+        ? (jurisdiction as Record<string, unknown>).authorities : undefined
+      const authorityFields: [string, unknown][] = [['issuer', row.issuer], ['jurisdiction.authority', authority]]
+      if (Array.isArray(parties)) parties.forEach((party, i) => authorityFields.push([`jurisdiction.authorities[${i}]`, party]))
+      for (const [path, value] of authorityFields) {
         if (typeof value === 'string' && !fixtureIds.includes(value) && !authorityId.test(value)) {
           failures.push(`${file}: ${path}: expected null, authority.<lowercase-kebab-slug>, or fixture ID (fixture, office.council, fixture-council)`)
         }

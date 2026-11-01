@@ -11,6 +11,12 @@ export interface Sanction { kind: SanctionKind; amount: number | null; note: str
 export type Consequence = { kind: 'void' } | { kind: 'sanctions'; sanctions: Sanction[]; note?: string }
 export interface Citation { key: string; title: string; year: number | null; locator: string | null }
 export interface LawException { condition: Predicate; reason: string }
+export interface SuccessionRule {
+  rule: 'primogeniture' | 'appointment' | 'election' | 'open-contest'
+  prefer?: 'male' | 'none'
+  superior?: string
+  body?: string
+}
 export interface LawJurisdiction {
   authority: string | null
   places: 'all' | string[]
@@ -32,6 +38,8 @@ interface LawFields {
   status: LawStatus
   supersedes: LawId[]
   sources: Citation[]
+  /** validateLaw restricts this to establish/succeed with an office predicate. */
+  succession?: SuccessionRule
 }
 type LawRule = (
   | { modality: 'empower'; regulated: { action: string; object: 'any' | Predicate; power: string } }
@@ -110,6 +118,24 @@ function validate(value: unknown, calendarDates: boolean): string[] {
     if (value.regulated.object !== 'any') predicate(value.regulated.object, 'regulated.object')
     if (value.modality === 'empower') string(value.regulated.power, 'regulated.power')
     else if ('power' in value.regulated) fail('regulated.power', 'allowed only for empower')
+    if (value.regulated.action === 'succeed' && value.modality === 'establish'
+      && value.regulated.object === 'any') fail('regulated.object', 'succession requires an office predicate')
+  }
+  if ('succession' in value) {
+    if (value.modality !== 'establish' || !value.regulated || typeof value.regulated !== 'object'
+      || !('action' in value.regulated) || value.regulated.action !== 'succeed') {
+      fail('succession', 'allowed only for establish with action succeed')
+    }
+    if (object(value.succession, 'succession')) {
+      const s = value.succession
+      oneOf(s.rule, ['primogeniture', 'appointment', 'election', 'open-contest'], 'succession.rule')
+      if ('prefer' in s) oneOf(s.prefer, ['male', 'none'], 'succession.prefer')
+      if ('superior' in s) string(s.superior, 'succession.superior')
+      if ('body' in s) string(s.body, 'succession.body')
+      for (const key of Object.keys(s)) {
+        if (!['rule', 'prefer', 'superior', 'body'].includes(key)) fail(`succession.${key}`, 'unknown field')
+      }
+    }
   }
   predicate(value.condition, 'condition')
   array(value.exceptions, 'exceptions', (item, path) => {

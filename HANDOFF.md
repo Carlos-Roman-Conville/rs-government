@@ -20,8 +20,7 @@
 - Discretionary spending: Cognition supplies the empowered holder's choice.
 - Society keeper: confirm comm_restriction {law, action, object, places, from, until}.
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
-- DESIGN.md has no "Stage 8" heading; its §4 table next lists P8 t2 contested succession
-  (integrated, Kokkonen & Sundell 2014 rates).
+- Build unit 5331 (Codex): DESIGN §1.5 (5330) build list, contested succession via `settleContest`.
 - Registry keeper (out of scope here): `settlement.office` missing from kernel quantities.json;
   registry row `government.rule.creation_amendment` not marked built.
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
@@ -43,8 +42,9 @@
   (Ault 1972 or a Broughton court roll).
 - Open contest unsourced (5075: nothing found). Rex: coparceners in one office,
   stocks beyond cousins (5076). Half blood settled (5078: excluded).
-- Rex: approve a `tsx` devDependency (new download) for SENSITIVITY.md's reproduce line;
-  until then re-run via the test.
+- Rex (5330, unsourced): stalemate stays `open`, no timeout, no regency dispute rule, no
+  elector majority rule. searched: CONTESTED.md opened 6 English Wikipedia pages + Kokkonen
+  & Sundell abstract; not opened: Pollock & Maitland, Stubbs, Goody 1966, Golden Bull text.
 - `@rex/settlement` is a `file:../settlement` devDependency (I-1048); the backup mirror
   has no release tag, so no pin until Settlement tags one.
 

@@ -37,14 +37,15 @@
   (Ault 1972 or a Broughton court roll).
 - Open contest unsourced (5075 search in SOURCES.md: nothing); unresolved. Rex: coparceners in one office,
   stocks beyond cousins (5076, unresolved). Half blood settled (5078: excluded).
+- Rex: approve a `tsx` devDependency (new download) so SENSITIVITY.md's reproduce line can run;
+  until then re-run only via the test.
 - `@rex/settlement` is still a `file:../settlement` devDependency (live folder link,
   ISSUES I-1048); mirror E:/backups/reality-sim/git/settlement.git has no release tag,
   so it can't be pinned until Settlement tags one.
 
 ## Gotchas
 
-- SENSITIVITY.md's reproduce line uses `npx --yes tsx` (undeclared download): re-run only via the
-  test until Rex approves a tsx devDependency. Null fines move no coins.
+- Null fines move no coins.
 - Theft fine null; no inferred seizure/granary relief. §3 presentment is not assize's
   manor-three-weekly-court. READS is data/laws/READS.md.
 - Spending: array order; paid = commanded allocation, not ledger; host prevents replay.

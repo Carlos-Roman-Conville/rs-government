@@ -2,15 +2,17 @@
 
 ## State
 
-- §1.1-§1.7: laws, authority, enactment, 9 procedures, succession, jurisdiction; suppression uses inForceLaws.
-- §1.5 (5077, 5080): rules built; half blood excluded, search continues to whole blood, then escheat where covered.
-- §1.8 legitimacy read shares authority aggregation; weighted/unweighted beliefs, missing subjects.
-- §1.9 tax assessments/commands; evaluateAct shortfalls; lawInForce; tax+spend rejected.
-- §1.10 appropriations allocate treasury balances; pay commands and evaluator breaches.
-- §1.11 property regime reads reuse evaluation for void commands and nullable transferability.
-- §1.12 host ballots; minima/ties feed enact; unresolved vote reasons retained.
-- §1.13 levy duties/confirmed omissions, backing plus supply, and command delegation reads.
-- §1.14 polity/apex and treaty reads share authority and law evaluation; ties stay explicit.
+- §1.1-§1.7: laws, authority, enactment, procedures, succession, jurisdiction.
+- §1.5 (5077, 5080): half blood excluded; search goes to whole blood, then escheat.
+- §1.8 legitimacy read shares authority aggregation; missing subjects.
+- §1.9 tax assessments/commands; tax+spend rejected.
+- §1.10 appropriations allocate treasury balances; pay commands, breaches.
+- §1.11 property regime reads reuse evaluation (void commands, nullable transferability).
+- §1.12 host ballots; minima/ties feed enact. §1.13 levy duties, backing, delegation reads.
+- §1.14 polity/apex and treaty reads share authority and law evaluation.
+- §1.16 monetary (5290-5293, 5320): src/monetary: legalTender read, issue/retire/mint authority,
+  refusalBreaches, §8 multi-economy tests; kernel.json has out port `government.legal_tender`
+  and process `government.rule.creation_amendment`.
 - §3 fixture/run/acceptance (5008-fix, 5052): A/B, beliefs, conservation pass; seed sets reported, identical.
 
 ## Next
@@ -18,6 +20,10 @@
 - Discretionary spending: Cognition supplies the empowered holder's choice.
 - Society keeper: confirm comm_restriction {law, action, object, places, from, until}.
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
+- DESIGN.md has no "Stage 8" heading; its §4 table next lists P8 t2 contested succession
+  (integrated, Kokkonen & Sundell 2014 rates).
+- Registry keeper (out of scope here): `settlement.office` missing from kernel quantities.json;
+  registry row `government.rule.creation_amendment` not marked built.
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 
 ## Blocked
@@ -28,31 +34,30 @@
 - `winchester-1285-arms-assize` wealth condition stays `true`: no wealth/arms read in
   READS.md; SOURCES.md lacks middle bands and richest threshold.
 - Quia Emptores tenure and Winchester collective liability need new owner commands.
-- Assize is c. 1266, not exactly dated. Gleaning lacks a sourced period, eligibility
-  threshold and issuer/authority. Forestalling attested by 1321; suit of mill unperiod.
+- Assize c. 1266, undated. Gleaning lacks sourced period, threshold, issuer. Forestalling
+  attested by 1321; suit of mill unperiod.
 - §3 on real Settlement/Economy/Cognition needs cross-repo wiring; D-demo-1/2 await Rex.
-- GOV-16 (DESIGN §3 5091): sourced losses, B falls 9/10, above A 10/10 (stub belief, granary
-  gives no grain). Rex: keep D-demo-2 and wait on wiring (default), or redesign it.
+- GOV-16 (DESIGN §3 5091): B falls 9/10, above A 10/10 (stub belief, granary gives no
+  grain). Rex: keep D-demo-2 and wait on wiring (default), or redesign.
 - `sheaves-payment-bylaw-broughton-1286` parked: Rex must source provision, date, 4d/12d
   (Ault 1972 or a Broughton court roll).
-- Open contest unsourced (5075 search in SOURCES.md: nothing); unresolved. Rex: coparceners in one office,
-  stocks beyond cousins (5076, unresolved). Half blood settled (5078: excluded).
-- Rex: approve a `tsx` devDependency (new download) so SENSITIVITY.md's reproduce line can run;
-  until then re-run only via the test.
-- `@rex/settlement` is still a `file:../settlement` devDependency (live folder link,
-  ISSUES I-1048); mirror E:/backups/reality-sim/git/settlement.git has no release tag,
-  so it can't be pinned until Settlement tags one.
+- Open contest unsourced (5075: nothing found). Rex: coparceners in one office,
+  stocks beyond cousins (5076). Half blood settled (5078: excluded).
+- Rex: approve a `tsx` devDependency (new download) for SENSITIVITY.md's reproduce line;
+  until then re-run via the test.
+- `@rex/settlement` is a `file:../settlement` devDependency (I-1048); the backup mirror
+  has no release tag, so no pin until Settlement tags one.
 
 ## Gotchas
 
-- Null fines move no coins.
-- Theft fine null; no inferred seizure/granary relief. §3 presentment is not assize's
-  manor-three-weekly-court. READS is data/laws/READS.md.
-- Spending: array order; paid = commanded allocation, not ledger; host prevents replay.
-- Tax bases return {amount, unit}; hosts supply confirmed totals to taxBreaches; missing = unknown.
+- Null fines move no coins; theft fine null, no inferred seizure/granary relief.
+  §3 presentment is not assize's manor court. READS is data/laws/READS.md.
+- Spending: array order; paid = commanded, not ledger; host prevents replay.
+- Tax bases return {amount, unit}; hosts supply confirmed totals; missing = unknown.
 - Succession: host office/place, recognition, per-law choices ([] none, null unknown); no default heir.
 - Supersession is same-authority-only. Null issuer/authority: own unstated:<law id>
   set, never supersedes, J = 0; delegation skips it. A jurisdiction is not a place.
+- legalTender: unspecified `authority` merges the competing sets; pass an applicableLaws key to scope.
 - From inclusive, until exclusive; null unbounded, not perpetual. Year-only = Jan 1.
-- Apparel uses England's 1863 repeal; the unconfirmed 1364 claim is not a bound.
-  Winchester hue-and-cry/watch-and-ward null until: repeal century only.
+- Apparel uses 1863 repeal; the unconfirmed 1364 claim is no bound. Winchester
+  hue-and-cry/watch-and-ward null until: repeal century only.

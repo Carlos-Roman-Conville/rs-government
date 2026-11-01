@@ -1,0 +1,921 @@
+{
+  "id": "demo.legitimacy-harvest",
+  "place": "place.manor",
+  "note": "Synthetic initial inputs for host-owned state; no office holders or live owner state are maintained here. Household identities and tenant status are modelling choices. No historical manor is reconstructed.",
+  "householdCount": 60,
+  "households": [
+    {
+      "id": "household.manor-01",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-02",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-03",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-04",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-05",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-06",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-07",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-08",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-09",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-10",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-11",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-12",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-13",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-14",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-15",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-16",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-17",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-18",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-19",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-20",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-21",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-22",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-23",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-24",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-25",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-26",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-27",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-28",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-29",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-30",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-31",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-32",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-33",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-34",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-35",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-36",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-37",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-38",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-39",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-40",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-41",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-42",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-43",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-44",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-45",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-46",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-47",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-48",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-49",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-50",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-51",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-52",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-53",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-54",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-55",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-56",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-57",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-58",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-59",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    },
+    {
+      "id": "household.manor-60",
+      "place": "place.manor",
+      "status": "tenant",
+      "personality": null
+    }
+  ],
+  "offices": [
+    {
+      "id": "office.lord",
+      "name": "lord",
+      "powers": []
+    },
+    {
+      "id": "office.reeve",
+      "name": "reeve",
+      "powers": [
+        "present",
+        "supervise-labour",
+        "account"
+      ]
+    },
+    {
+      "id": "office.beadle",
+      "name": "beadle",
+      "powers": [
+        "levy",
+        "seize"
+      ]
+    },
+    {
+      "id": "office.suitors",
+      "name": "suitors",
+      "powers": [
+        "judge"
+      ]
+    }
+  ],
+  "parameters": {
+    "grainYieldBushelsPerAcre": [
+      8,
+      9
+    ],
+    "householdSubsistenceBushelsPerYear": [
+      36,
+      40
+    ]
+  },
+  "commonLaws": [
+    {
+      "id": "government/law.demo-reeve-present",
+      "issuer": "authority.manor-court",
+      "enactment": null,
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.manor-court",
+        "places": [
+          "place.manor"
+        ],
+        "persons": "all",
+        "from": null,
+        "until": null,
+        "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+      },
+      "regulated": {
+        "action": "present",
+        "object": "any",
+        "power": "present"
+      },
+      "condition": {
+        "read": "actor.office",
+        "op": "eq",
+        "value": "office.reeve"
+      },
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [],
+        "note": "Office assignment from DESIGN section 3; action names are modelling choices."
+      },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [
+        {
+          "key": "reeve-office",
+          "title": "Office assignment from DESIGN section 3; action names are modelling choices.",
+          "year": null,
+          "locator": "data/demo/SOURCES.md#reeve-office"
+        }
+      ]
+    },
+    {
+      "id": "government/law.demo-reeve-supervise-labour",
+      "issuer": "authority.manor-court",
+      "enactment": null,
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.manor-court",
+        "places": [
+          "place.manor"
+        ],
+        "persons": "all",
+        "from": null,
+        "until": null,
+        "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+      },
+      "regulated": {
+        "action": "supervise-labour",
+        "object": "any",
+        "power": "supervise-labour"
+      },
+      "condition": {
+        "read": "actor.office",
+        "op": "eq",
+        "value": "office.reeve"
+      },
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [],
+        "note": "Office assignment from DESIGN section 3; action names are modelling choices."
+      },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [
+        {
+          "key": "reeve-office",
+          "title": "Office assignment from DESIGN section 3; action names are modelling choices.",
+          "year": null,
+          "locator": "data/demo/SOURCES.md#reeve-office"
+        }
+      ]
+    },
+    {
+      "id": "government/law.demo-reeve-account",
+      "issuer": "authority.manor-court",
+      "enactment": null,
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.manor-court",
+        "places": [
+          "place.manor"
+        ],
+        "persons": "all",
+        "from": null,
+        "until": null,
+        "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+      },
+      "regulated": {
+        "action": "account",
+        "object": "any",
+        "power": "account"
+      },
+      "condition": {
+        "read": "actor.office",
+        "op": "eq",
+        "value": "office.reeve"
+      },
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [],
+        "note": "Office assignment from DESIGN section 3; action names are modelling choices."
+      },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [
+        {
+          "key": "reeve-office",
+          "title": "Office assignment from DESIGN section 3; action names are modelling choices.",
+          "year": null,
+          "locator": "data/demo/SOURCES.md#reeve-office"
+        }
+      ]
+    },
+    {
+      "id": "government/law.demo-beadle-levy",
+      "issuer": "authority.manor-court",
+      "enactment": null,
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.manor-court",
+        "places": [
+          "place.manor"
+        ],
+        "persons": "all",
+        "from": null,
+        "until": null,
+        "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+      },
+      "regulated": {
+        "action": "levy",
+        "object": "any",
+        "power": "levy"
+      },
+      "condition": {
+        "read": "actor.office",
+        "op": "eq",
+        "value": "office.beadle"
+      },
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [],
+        "note": "Office assignment from DESIGN section 3; action names are modelling choices."
+      },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [
+        {
+          "key": "reeve-office",
+          "title": "Office assignment from DESIGN section 3; action names are modelling choices.",
+          "year": null,
+          "locator": "data/demo/SOURCES.md#reeve-office"
+        }
+      ]
+    },
+    {
+      "id": "government/law.demo-beadle-seize",
+      "issuer": "authority.manor-court",
+      "enactment": null,
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.manor-court",
+        "places": [
+          "place.manor"
+        ],
+        "persons": "all",
+        "from": null,
+        "until": null,
+        "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+      },
+      "regulated": {
+        "action": "seize",
+        "object": "any",
+        "power": "seize"
+      },
+      "condition": {
+        "all": [
+          {
+            "read": "actor.office",
+            "op": "eq",
+            "value": "office.beadle"
+          },
+          {
+            "read": "holds.permission",
+            "op": "has",
+            "value": "court-order-seizure"
+          }
+        ]
+      },
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [],
+        "note": "Office assignment from DESIGN section 3; action names are modelling choices."
+      },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [
+        {
+          "key": "reeve-office",
+          "title": "Office assignment from DESIGN section 3; action names are modelling choices.",
+          "year": null,
+          "locator": "data/demo/SOURCES.md#reeve-office"
+        }
+      ]
+    },
+    {
+      "id": "government/law.demo-suitors-judge",
+      "issuer": "authority.manor-court",
+      "enactment": null,
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.manor-court",
+        "places": [
+          "place.manor"
+        ],
+        "persons": "all",
+        "from": null,
+        "until": null,
+        "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+      },
+      "regulated": {
+        "action": "judge",
+        "object": "any",
+        "power": "judge"
+      },
+      "condition": {
+        "read": "actor.office",
+        "op": "eq",
+        "value": "office.suitors"
+      },
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [],
+        "note": "Office assignment from DESIGN section 3; action names are modelling choices."
+      },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [
+        {
+          "key": "manorial-court-baron-action-wager-of-law",
+          "title": "Office assignment from DESIGN section 3; action names are modelling choices.",
+          "year": null,
+          "locator": "data/procedures/SOURCES.md#manorial-court-baron-action-wager-of-law"
+        }
+      ]
+    },
+    {
+      "id": "government/law.demo-theft",
+      "issuer": "authority.manor-court",
+      "enactment": null,
+      "modality": "prohibit",
+      "jurisdiction": {
+        "authority": "authority.manor-court",
+        "places": [
+          "place.manor"
+        ],
+        "persons": "all",
+        "from": null,
+        "until": null,
+        "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+      },
+      "regulated": {
+        "action": "steal",
+        "object": "any"
+      },
+      "condition": true,
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [
+          {
+            "kind": "fine",
+            "amount": null,
+            "note": "Money amercement; general amount not stated in the source."
+          }
+        ],
+        "note": "Presentment by tithingmen or jurors; court amercement in money. No general amount is stated."
+      },
+      "enforcer": [
+        "office.beadle",
+        "office.suitors"
+      ],
+      "procedure": "procedure.manorial-court-presentment-by-jurors-or-homage",
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [
+        {
+          "key": "theft-presentment",
+          "title": "Presentment by tithingmen or jurors; court amercement in money. No general amount is stated.",
+          "year": null,
+          "locator": "data/demo/SOURCES.md#theft-presentment"
+        }
+      ]
+    }
+  ],
+  "variants": {
+    "A": [
+      {
+        "id": "government/law.demo-rent-a",
+        "issuer": "authority.manor-court",
+        "enactment": null,
+        "modality": "require",
+        "jurisdiction": {
+          "authority": "authority.manor-court",
+          "places": [
+            "place.manor"
+          ],
+          "persons": {
+            "read": "person.status",
+            "op": "eq",
+            "value": "tenant"
+          },
+          "from": null,
+          "until": null,
+          "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+        },
+        "regulated": {
+          "action": "pay",
+          "object": "any"
+        },
+        "condition": true,
+        "exceptions": [],
+        "consequence": {
+          "kind": "sanctions",
+          "sanctions": [],
+          "note": "Fixed form supported by fixed tallage; grain amount is a modelling choice, not a sourced rent."
+        },
+        "enforcer": [
+          "office.beadle"
+        ],
+        "procedure": "procedure.manorial-court-presentment-by-jurors-or-homage",
+        "status": "in-force",
+        "supersedes": [],
+        "sources": [
+          {
+            "key": "rent-in-kind",
+            "title": "Fixed form supported by fixed tallage; grain amount is a modelling choice, not a sourced rent.",
+            "year": null,
+            "locator": "data/demo/SOURCES.md#rent-in-kind"
+          }
+        ],
+        "tax": {
+          "base": "economy.harvest",
+          "schedule": {
+            "kind": "fixed",
+            "amount": 8,
+            "unit": "bushel"
+          },
+          "treasury": "inventory.lord-granary",
+          "collector": "office.beadle"
+        }
+      }
+    ],
+    "B": [
+      {
+        "id": "government/law.demo-rent-b",
+        "issuer": "authority.manor-court",
+        "enactment": null,
+        "modality": "require",
+        "jurisdiction": {
+          "authority": "authority.manor-court",
+          "places": [
+            "place.manor"
+          ],
+          "persons": {
+            "read": "person.status",
+            "op": "eq",
+            "value": "tenant"
+          },
+          "from": null,
+          "until": null,
+          "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+        },
+        "regulated": {
+          "action": "pay",
+          "object": "any"
+        },
+        "condition": true,
+        "exceptions": [],
+        "consequence": {
+          "kind": "sanctions",
+          "sanctions": [],
+          "note": "(unsourced) D-demo-1: proportional rent and dearth remission are modelling choices, not a documented historical rule."
+        },
+        "enforcer": [
+          "office.beadle"
+        ],
+        "procedure": "procedure.manorial-court-presentment-by-jurors-or-homage",
+        "status": "in-force",
+        "supersedes": [],
+        "sources": [
+          {
+            "key": "rent-remission-in-dearth",
+            "title": "(unsourced) D-demo-1: proportional rent and dearth remission are modelling choices, not a documented historical rule.",
+            "year": null,
+            "locator": "data/demo/SOURCES.md#rent-remission-in-dearth"
+          }
+        ],
+        "tax": {
+          "base": "economy.harvest",
+          "schedule": {
+            "kind": "proportional-with-remission",
+            "rate": 0.1,
+            "remitBelow": 40
+          },
+          "treasury": "inventory.lord-granary",
+          "collector": "office.beadle"
+        }
+      },
+      {
+        "id": "government/law.demo-granary-duty",
+        "issuer": "authority.manor-court",
+        "enactment": null,
+        "modality": "require",
+        "jurisdiction": {
+          "authority": "authority.manor-court",
+          "places": [
+            "place.manor"
+          ],
+          "persons": {
+            "read": "actor.office",
+            "op": "eq",
+            "value": "office.lord"
+          },
+          "from": null,
+          "until": null,
+          "note": "Demonstration bounds are unspecified; not a claim of perpetual historical validity."
+        },
+        "regulated": {
+          "action": "keep-granary",
+          "object": "any"
+        },
+        "condition": true,
+        "exceptions": [],
+        "consequence": {
+          "kind": "sanctions",
+          "sanctions": [],
+          "note": "(unsourced) D-demo-2: a duty to keep a granary for tenants is a modelling choice. Quantity, deadline and remedy are not stated."
+        },
+        "enforcer": [],
+        "procedure": null,
+        "status": "in-force",
+        "supersedes": [],
+        "sources": [
+          {
+            "key": "lord-granary-duty",
+            "title": "(unsourced) D-demo-2: a duty to keep a granary for tenants is a modelling choice. Quantity, deadline and remedy are not stated.",
+            "year": null,
+            "locator": "data/demo/SOURCES.md#lord-granary-duty"
+          }
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "/householdCount": {
+      "label": "modelling choice",
+      "note": "Bennett estimates roughly sixty families per village; applying that estimate to this synthetic manor is a choice."
+    },
+    "/parameters/grainYieldBushelsPerAcre/0": {
+      "source": "data/demo/SOURCES.md#grain-yield"
+    },
+    "/parameters/grainYieldBushelsPerAcre/1": {
+      "source": "data/demo/SOURCES.md#grain-yield"
+    },
+    "/parameters/householdSubsistenceBushelsPerYear/0": {
+      "source": "data/demo/SOURCES.md#household-subsistence"
+    },
+    "/parameters/householdSubsistenceBushelsPerYear/1": {
+      "source": "data/demo/SOURCES.md#household-subsistence"
+    },
+    "/variants/A/0/tax/schedule/amount": {
+      "label": "modelling choice",
+      "note": "No grain rent amount was found; illustrative bushels per household."
+    },
+    "/variants/B/0/tax/schedule/rate": {
+      "label": "modelling choice",
+      "note": "Illustrative share of harvest; unsourced D-demo-1."
+    },
+    "/variants/B/0/tax/schedule/remitBelow": {
+      "label": "modelling choice",
+      "note": "Illustrative harvest threshold in bushels; the source does not supply a remission threshold."
+    }
+  }
+}

@@ -12,7 +12,7 @@
   unresolved vote reasons.
 - §1.13 levy duties/confirmed omissions, backing plus supply, and command delegation reads.
 - §1.14 polity/apex and treaty reads share authority and law evaluation; ties stay explicit.
-- §3 sourced (3084): beadle levies/seizes, suitors judge; D-demo-1/2 (unsourced).
+- §3 fixture: sourced ranges, labelled choices, A/B laws and office grants validated; D-demo-1/2 unsourced.
 - 24 laws; Broughton parked. §3 breaches use the presentment procedure; assize keeps
   manor-three-weekly-court (DESIGN §1.4, 2974).
 
@@ -23,7 +23,6 @@
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §3.1 unit 1 (codex): data/demo/manor.json + src/demo/fixture.ts + test/demo-fixture.test.ts.
 - §3.1 unit 2 (codex): src/demo/legitimacy-harvest.ts + test, on in-repo stubs.
 
 ## Blocked

@@ -1,6 +1,9 @@
 // @rex/government: the public surface grows unit by unit (DESIGN §1, §2).
 import { qualify } from '@rex/kernel'
 
+export { loadManorFixture, validateManorFixture } from './demo/fixture.ts'
+export type { DemoVariant, DemoHousehold, DemoOffice, ManorFixture, LoadedManorFixture } from './demo/fixture.ts'
+
 export { evaluatePredicate, predicateReads, validatePredicate } from './law/predicate.ts'
 export type { Predicate, PredicateFacts, PredicateOperator, PredicateScalar } from './law/predicate.ts'
 export { validateLaw, validateLawData } from './law/schema.ts'

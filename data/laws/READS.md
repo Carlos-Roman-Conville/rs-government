@@ -13,6 +13,10 @@ gift.colour-of-pity — A gift is made under the colour of pity or alms.
 gift.conditional — Land was given with a condition in the deed.
 holds.permission — Whether an actor holds a named permission or franchise (fee simple, forest leave, suit of mill, etc.).
 kin.children — Society (stubbed): direct child IDs of act.object at act.day; [] is a known empty family, null is unknown. Succession uses act.actor=outgoing holder, act.action=succeed, act.object=holder, act.place=host-supplied office place, attempted=false and succeeded=false. Subsequent person reads use act.object=child with the same context. Law predicates instead use act.object=office ID.
+kin.parents — Society (stubbed, 5076): {father, mother}, each a person ID or null (unknown), for act.object. Succession context: actor=outgoing holder, action=succeed, object=queried person, place=host office place, day=query day, attempted=false, succeeded=false. All succession kin/person reads use this context, including recursive family reads; missing data returns unresolved naming the read and subject.
+estate.first-purchaser — Settlement title history or host (stubbed, 5076): ID of the person who first acquired the office other than by descent; null unknown. Same succession context with object=office ID. English descent reads this only after the holder's issue is known extinct.
+office.past-holders — Settlement history or host (stubbed, 5076): person IDs who held the queried office, including the outgoing holder; [] known empty, null unknown. Same succession context with object=office ID.
+office.holder — SettlementReader.offices or host (stubbed, 5076): current holder ID of the queried office, '' explicitly vacant, null unknown. Same succession context with object=office ID; rotation reads the next rung, without writing any office.
 law.empowered-actors — Current recipient actor IDs of an empower law, resolved by the host from its predicates and owned office membership. For delegation reads, act.actor is the issuer, act.object is the law ID, act.action is the grant's action, act.day is the query day and act.place is empty. Return an array (empty when there are no recipients); missing or invalid values fail explicitly. Government filters status, dates and supersession before this read.
 member.fled — A summoned tithing member has fled.
 member.suspected-and-summoned — A tithing member is suspected of crime and summoned.
@@ -22,6 +26,9 @@ person.able-bodied — Person is able-bodied for labour or alms rules.
 person.age — Person's age in years.
 person.alive — Life (stubbed): boolean living status of act.object at act.day; null is unknown. Only living children enter primogeniture.
 person.born — Life (stubbed): finite birth day of act.object in the host's query-day epoch; null is unknown. Earlier means older; equal days retain multiple claims without an invented tie-break.
+person.full-age — Life (stubbed, 5076): boolean whether act.object is of full age at the query day; the host owns the threshold, null unknown. Uses the kin.parents succession context.
+person.blemished — Life (stubbed, 5076): boolean whether act.object has the disqualifying physical or mental blemish for tanistry; null unknown. Uses the kin.parents succession context.
+person.prince — Society (stubbed, 5076): boolean whether act.object is a prince of the office's royal line; the host supplies the queried office's context, null unknown. Uses the kin.parents succession context.
 person.gleaning-eligible — Person is among the poorest entitled to the customary gleaning right described in SOURCES.md. A general eligibility threshold is not stated in the source; do not infer age, health or a universal wage test from the later local by-laws.
 person.in-tithing — Person is enrolled in a frankpledge tithing.
 person.independent-means — Person has own land or means and is not dependent on hiring out labour.

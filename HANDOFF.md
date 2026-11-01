@@ -3,6 +3,7 @@
 ## State
 
 - §1.1-§1.7: laws, authority, enactment, 9 procedures, succession, jurisdiction; suppression uses inForceLaws.
+- §1.5 (5077): english-descent, tanistry, rotation, designation built and tested.
 - §1.8 legitimacy read shares authority aggregation; weighted/unweighted beliefs, missing subjects.
 - §1.9 tax assessments/commands; evaluateAct shortfalls; lawInForce; tax+spend rejected.
 - §1.10 appropriations allocate treasury balances; pay commands and evaluator breaches.
@@ -18,7 +19,6 @@
 - Society keeper: confirm comm_restriction {law, action, object, places, from, until}.
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
-- Succession: codex 5077 builds DESIGN §1.5 (5076) english-descent, tanistry, rotation, designation.
 
 ## Blocked
 

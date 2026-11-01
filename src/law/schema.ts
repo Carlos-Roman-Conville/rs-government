@@ -19,9 +19,13 @@ export type SpendingSchedule = Extract<TaxSchedule, { kind: 'fixed' | 'rate' }>
 export interface SpendRule { treasury: string; payee: string }
 export interface SuccessionRule {
   rule: 'primogeniture' | 'appointment' | 'election' | 'open-contest'
+    | 'english-descent' | 'tanistry' | 'rotation' | 'designation'
   prefer?: 'male' | 'none'
   superior?: string
   body?: string
+  kin?: 'derbfine' | 'gelfhine' | null
+  line?: 'male' | 'any' | null
+  ladder?: string[] | null
 }
 export interface LawJurisdiction {
   authority: string | null
@@ -173,12 +177,21 @@ function validate(value: unknown, calendarDates: boolean): string[] {
     }
     if (object(value.succession, 'succession')) {
       const s = value.succession
-      oneOf(s.rule, ['primogeniture', 'appointment', 'election', 'open-contest'], 'succession.rule')
+      oneOf(s.rule, ['primogeniture', 'appointment', 'election', 'open-contest',
+        'english-descent', 'tanistry', 'rotation', 'designation'], 'succession.rule')
       if ('prefer' in s) oneOf(s.prefer, ['male', 'none'], 'succession.prefer')
       if ('superior' in s) string(s.superior, 'succession.superior')
       if ('body' in s) string(s.body, 'succession.body')
+      if ('kin' in s && s.kin !== null) oneOf(s.kin, ['derbfine', 'gelfhine'], 'succession.kin')
+      if ('line' in s && s.line !== null) oneOf(s.line, ['male', 'any'], 'succession.line')
+      if ('ladder' in s && s.ladder !== null) {
+        array(s.ladder, 'succession.ladder', string)
+        if (Array.isArray(s.ladder) && (!s.ladder.length || new Set(s.ladder).size !== s.ladder.length)) {
+          fail('succession.ladder', 'expected non-empty array of distinct office IDs')
+        }
+      }
       for (const key of Object.keys(s)) {
-        if (!['rule', 'prefer', 'superior', 'body'].includes(key)) fail(`succession.${key}`, 'unknown field')
+        if (!['rule', 'prefer', 'superior', 'body', 'kin', 'line', 'ladder'].includes(key)) fail(`succession.${key}`, 'unknown field')
       }
     }
   }

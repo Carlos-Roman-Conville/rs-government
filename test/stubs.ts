@@ -27,7 +27,12 @@ export function authorityStubs(data: AuthorityStubData): AuthorityReaders {
 
 export interface SuccessionStubData {
   children: Record<string, readonly string[] | null>
-  persons: Record<string, { alive: boolean | null; born: number | null; sex: string | null }>
+  persons: Record<string, { alive: boolean | null; born: number | null; sex: string | null;
+    fullAge?: boolean | null; blemished?: boolean | null; prince?: boolean | null }>
+  parents?: Record<string, { father: string | null; mother: string | null } | null>
+  firstPurchasers?: Record<string, string | null>
+  pastHolders?: Record<string, readonly string[] | null>
+  officeHolders?: Record<string, string | null>
 }
 
 /** Society/Life provider stubs; absent data stays unknown, never an empty family. */
@@ -35,10 +40,17 @@ export function successionStubs(data: SuccessionStubData): ActFacts {
   return (name, act) => {
     if (act.object === null) throw new Error('Succession reads require a subject')
     if (name === 'kin.children') return data.children[act.object] ?? null
+    if (name === 'kin.parents') return data.parents?.[act.object] ?? null
+    if (name === 'estate.first-purchaser') return data.firstPurchasers?.[act.object] ?? null
+    if (name === 'office.past-holders') return data.pastHolders?.[act.object] ?? null
+    if (name === 'office.holder') return data.officeHolders?.[act.object] ?? null
     const person = data.persons[act.object]
     if (name === 'person.alive') return person?.alive ?? null
     if (name === 'person.born') return person?.born ?? null
     if (name === 'person.sex') return person?.sex ?? null
+    if (name === 'person.full-age') return person?.fullAge ?? null
+    if (name === 'person.blemished') return person?.blemished ?? null
+    if (name === 'person.prince') return person?.prince ?? null
     throw new Error(`Unexpected succession read: ${name}`)
   }
 }

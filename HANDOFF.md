@@ -10,7 +10,7 @@
 - §1.12 host ballots; minima/ties feed enact; unresolved vote reasons retained.
 - §1.13 levy duties/confirmed omissions, backing plus supply, and command delegation reads.
 - §1.14 polity/apex and treaty reads share authority and law evaluation; ties stay explicit.
-- §3 fixture/run/acceptance (5008): A/B, beliefs, conservation pass; seed diversity blocked.
+- §3 fixture/run/acceptance (5008): A/B, beliefs, conservation pass; seed diversity reported only (5051).
 
 ## Next
 
@@ -22,8 +22,8 @@
 
 ## Blocked
 
-- §3.1 seeds 42/43: identical breach sets (A all 60, B none); required diversity test fails.
-  Needs spec decision.
+- §3.1 seed diversity (DESIGN 5008-fix): reported, not asserted; 5052 turns the red
+  test into a report.
 - GOV-Q7 battle aggregation awaits Reality's interface.
 - Cognition seam: institution as a belief subject; host maps institution IDs to mind handles.
 - GOV-Q6 custom issuer awaits Society agreement.

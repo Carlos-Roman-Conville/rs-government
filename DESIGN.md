@@ -593,7 +593,7 @@ lives in another repo is not part of any (HANDOFF Blocked).
    a per-seed summary of R, payment breaches and paid grain before and after the shock); src/ outside `src/demo/`
    and unit 2's run are not changed. Over the test's seed list, both variants on the same seed and the same
    shock: the A–B direction (per seed, B's post-shock R is at least A's and B's payment breaches at most A's;
-   different seeds give different sets of breaching households); conservation of every grain and coin moved by
+   which households breach on each seed is reported, not asserted, see (5008-fix) below); conservation of every grain and coin moved by
    command (each Economy `transfer` and Settlement `pay` command matches the stub ledger's change, grain closes as
    opening + harvested − consumed, coins moved equal the sum of commanded coin amounts, and every sanction in the
    trace is a command in the owner provider's log). What it asserts for each of §3's acceptance 1–5 is set below.
@@ -608,7 +608,7 @@ treats §3's acceptance as follows:
 |---|---|
 | 1. Variant A after the shock | **Asserts** R falls from its pre-shock day and payment breaches rise; every belief change is a belief update carrying its attributed cause; no legitimacy number is stored or incremented (R is recomputed from beliefs each day). **Reports** backing and revenue (lord's grain received) as stub-provider evidence only: backing reads one stub agent's belief. Seizures are **left to real-engine wiring**: the run infers no seizure (no title, recipient or amount is supplied) and the stub executes no Settlement `transfer` of kind seizure. |
 | 2. Variant B keeps R near pre-shock | **Reports** B's pre- and post-shock R as stub-provider evidence, stating that it fails on the stub; the absolute level is **left to real-engine wiring** (real Cognition baseline). Only the A–B direction is asserted (row 3). |
-| 3. Across seeds | **Asserts** the A–B direction on every listed seed and that seeds differ in which households breach. If the direction fails on a seed, the unit does not change seeds or parameters: the helper's summary names the seed, the test asserts that report, and HANDOFF records it. |
+| 3. Across seeds | **Asserts** the A–B direction on every listed seed (per seed, B's post-shock R is at least A's and B's payment breaches at most A's). **Reports**, never asserts, each seed's set of breaching households (per variant, from the helper's summary) as stub-provider evidence, and states when the seeds give the same sets. If the direction fails on a seed, the unit does not change seeds or parameters: the helper's summary names the seed, the test asserts that report, and HANDOFF records it. |
 | 4. Conservation | **Asserts** grain and coin conservation and the command log as in unit 3 above, on the stub ledger. Conservation on the real Settlement and Economy ledgers is **left to real-engine wiring**. |
 | 5. Classifier label unchanged | **Left to real-engine wiring**: no classifier is among the in-repo reads. Unit 3 asserts only that every trace day reads the same institution and domain and that no type field is written. |
 
@@ -619,6 +619,17 @@ calendar (365-day years, harvest on day 0), the payment choice (pay available gr
 3087's does. Unit 3 must not retune the stub update rule, shock, stores or acres to make variant B pass, and adds no
 constant presented as sourced. Every result on these providers is stub-provider evidence, never validation (§4);
 §3 acceptance on real Settlement, Economy and Cognition stays in HANDOFF Blocked.
+
+**(5008-fix) Seed diversity is reported, not asserted.** With every household identical (5 acres, grain 0, belief 1),
+no stores and a 90% loss, the seed does not change who breaches: 5008 found every seed gives variant A all 60
+households breaching and variant B none, so "seeds differ in which households breach" cannot hold on these
+providers. The other option, drawing per-household acres or stores from the seed, was rejected: the sources give a
+holding range (`household-subsistence`, five to ten acres) but no distribution across a village, so it would add an
+unsourced host constant whose only purpose here would be to make a test pass, which the paragraph above forbids. So
+unit 3 asserts the A–B direction per seed and reports the per-seed breaching sets (and that they are the same) as
+stub-provider evidence. §3 acceptance 3's "different trajectories" is **left to real-engine wiring**, where
+Cognition, Economy and Life supply differences between households; heterogeneity added later must be a labelled
+host modelling choice, never presented as sourced.
 
 ## 4. Validation plan (PLATFORM §11a, §11b)
 

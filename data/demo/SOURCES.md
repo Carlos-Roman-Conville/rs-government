@@ -17,8 +17,9 @@ claim that nothing exists.
 - Source: Bennett 1937, ch. IX "Everyday Life", p. 239 (index: "Village, size of average English, 240"), https://archive.org/download/lifeontheenglish020976mbp/lifeontheenglish020976mbp_djvu.txt
 - Note (5006): checked in the full text; Bennett, ch. IX p. 239, in estimating population growth, supposes the average English village to be about 300 souls, i.e. some 60 families. This is his own assumption, not a count; 3083's locator (ch. II about p. 39, and "about p. 240") was loose: the sentence is on p. 239, and the index points to pp. 239–240.
 - Note (3083): read on after p. 267, Bennett ch. IX, about p. 240, calls the average English village about 300 souls, roughly 60 families; this is his own estimate and he gives no household count per manor. Maitland 1889 vol. 1, Introduction p. 4, gives single manors only: Swincombe ten customary tenants with eight acres each plus eleven cottars; Cottisford five freeholders, fifteen villani and one cottar.
+- Note (5051, context only, not the Value): single-manor counts, not an average: Ashfield Magna, 35 joint tenures; Martham, 68 to 107 tenants (Bennett, about p. 50). They show how far one manor can sit from the 60 estimate.
 - Searched (3083): Bennett to the end of the text (about p. 365, index); Maitland 1889 full text to the glossary; Dyer 1989 archive.org page returned only site navigation; Homans 1941 not found on archive.org (404), search showed only catalogue records and a restricted Fulcrum edition.
-- Searched: Bennett 1937 pp. 1–267 (ch. I–VIII and the start of IX); Homans 1941 (full text blocked, HTTP 403, not opened); web search for a Hundred Rolls households-per-village average (returned catalogue pages only).
+- Searched: Bennett 1937 pp. 1–267 (ch. I–VIII and the start of IX); Homans 1941 (earlier attempt: full text blocked, HTTP 403, not opened; 3083 later got 404); web search for a Hundred Rolls households-per-village average (returned catalogue pages only).
 
 ## rent-in-kind
 - Value: null

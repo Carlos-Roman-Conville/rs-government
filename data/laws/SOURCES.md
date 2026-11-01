@@ -1,6 +1,6 @@
 # Law fixture sources: the English manor, c. 1215–1363
 
-Reference data for the DESIGN §1.1 validation fixture (GOV-Q8). One `##` section per rule. Everything is paraphrased.
+Reference data for the DESIGN §1.1 validation fixture (GOV-Q8). One slug-named `##` section per active record; parked records are listed last. Everything is paraphrased.
 Checked for this file: statute texts and summaries on legislation.gov.uk, Wikisource and Wikipedia (fetched
 2026-10-31) and search results about Ault's village by-law edition. The printed edition for the royal statutes is
 *Statutes of the Realm*, vol. 1 (1810), which was **not** opened. Where a field says "not stated in the source", the
@@ -254,30 +254,17 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Note: early on, only landholders could be made to pay.
 
 ## gleaning-bylaw
-- Source: Warren O. Ault, *Open-Field Farming in Medieval England* (1972), via the secondary description at https://lahs.org.uk/blog/the-early-fifteenth-century-wymeswold-bye-laws-revisited , which says gleaning was a customary right of the poorest and that later by-laws (Wymeswold; Islip 1407) limited it, e.g. a two-pence-a-day wage test at Wymeswold. The earlier textbook excerpt URL is dead and no working source was found for the list of permitted gleaners, the fine or the c. 1286 date below; those lines are unsupported by a working source. Ault's book itself was not opened.
-- Who made it: the village community, by common consent, recorded as an entry in the manorial court roll.
-- Applies to: persons in the manor's open fields at harvest.
+- Source: the secondary description at https://lahs.org.uk/blog/the-early-fifteenth-century-wymeswold-bye-laws-revisited says gleaning was a customary right of the poorest and that later by-laws (Wymeswold; Islip 1407) limited it, e.g. a two-pence-a-day wage test at Wymeswold. Ault 1972, *Open-Field Farming in Medieval England*, is discussed there; the book itself was not opened.
+- Who made it: not stated in the source for the customary right.
+- Applies to: the poorest gleaning in open fields after reaping.
 - Act regulated: gleaning, picking up fallen grain after reaping.
 - Modality: permit
-- Condition: the person is one of the elderly, small children, or the ill or handicapped (the textbook excerpt); others are barred.
+- Condition: the person is among the poorest entitled to the customary right; a general eligibility threshold is not stated in the source.
 - Exceptions: not stated in the source.
-- Consequence: a fine at the court; the amount for gleaning is not stated in the source.
-- Enforcer and procedure: the lord's court, with presentments by the village; the wording of any one by-law is not stated in the source checked.
-- Period in force: c. 1286 (the Broughton rolls cited) through the later Middle Ages.
-- Note: the sheaves by-law below shows what fines looked like at the same kind of court.
-
-## sheaves-payment-bylaw-broughton-1286
-- Source: Broughton court rolls 1286, via Ault 1972 *Open-Field Farming in Medieval England* (not opened). The textbook excerpt first cited is dead and no working source was found that states this provision, so the fields below (including the 4d and 12d amounts) are carried over from that earlier excerpt and are not confirmed by a working source.
-- Who made it: the village at the manorial court, by by-law.
-- Applies to: those working in the Broughton fields.
-- Act regulated: paying a worker with whole sheaves in the field.
-- Modality: prohibit
-- Condition: the payment is made in the field.
-- Exceptions: not stated in the source.
-- Consequence: 4d paid to the lord (a separate case in the excerpt fined a man 12d; the link between them is not stated in the source).
-- Enforcer and procedure: the lord's court.
-- Period in force: 1286 at least.
-- Note: sourced only through a textbook excerpt.
+- Consequence: not stated in the source.
+- Enforcer and procedure: not stated in the source for the customary right.
+- Period in force: not stated in the source for the customary right; the later local by-laws do not establish its start or end.
+- Note: detailed age/health eligibility is not stated in the source. Later local restrictions are not encoded as a universal rule. The JSON's required issuer and jurisdiction authority strings explicitly mark missing evidence; its enactment and place references are fixture identifiers, not a sourced event or named manor.
 
 ## heriot
 - Source: Oxford article on heriot in fifteenth-century England, https://ora.ox.ac.uk/objects/uuid:99772e85-4e77-433f-b423-cca94af96c05 (seen as a search summary); Nottingham manorial glossary https://www.nottingham.ac.uk/ManuscriptsandSpecialCollections/ResearchGuidance/Manorial/Glossary.aspx
@@ -330,3 +317,6 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Enforcer and procedure: not stated in the source.
 - Period in force: recognised as an offence by 1321; abolished 1844.
 - Note: forestalling was often a catch-all for marketing offences.
+
+## Parked records
+- `sheaves-payment-bylaw-broughton-1286`: no working source confirms the provision, date or 4d/12d amounts from the dead excerpt; restore only with supporting text from Ault 1972, *Open-Field Farming in Medieval England*, or a Broughton court-roll edition.

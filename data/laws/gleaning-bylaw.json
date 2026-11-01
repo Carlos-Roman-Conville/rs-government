@@ -1,20 +1,17 @@
 {
   "id": "government/law.gleaning-bylaw",
-  "issuer": "authority.village-community",
+  "issuer": "not stated in the source",
   "enactment": "event.enactment.gleaning-bylaw",
   "modality": "permit",
   "jurisdiction": {
-    "authority": "authority.manor-court",
+    "authority": "not stated in the source",
     "places": [
       "place.manor-open-field"
     ],
     "persons": "all",
-    "from": {
-      "year": 1286,
-      "calendar": "julian"
-    },
+    "from": null,
     "until": null,
-    "note": "SOURCES.md gives c. 1286 through the later Middle Ages; exact dates not stated."
+    "note": "Customary gleaning right of the poorest. Start and end dates, issuer, jurisdiction authority, enforcer and procedure are not stated in the source. Required authority strings mark missing evidence, not an identified body."
   },
   "regulated": {
     "action": "glean",
@@ -28,24 +25,17 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "Fine at court; amount for gleaning not stated in source."
-      }
-    ]
+    "sanctions": [],
+    "note": "Consequence not stated in the source."
   },
-  "enforcer": [
-    "office.manor-court"
-  ],
-  "procedure": "procedure.manor-presentment",
+  "enforcer": [],
+  "procedure": null,
   "status": "in-force",
   "supersedes": [],
   "sources": [
     {
       "key": "gleaning-bylaw",
-      "title": "Manorial gleaning by-law (Ault 1972; Islip by-laws)",
+      "title": "Customary gleaning right (LAHS description of Wymeswold and Islip by-laws)",
       "year": null,
       "locator": "https://lahs.org.uk/blog/the-early-fifteenth-century-wymeswold-bye-laws-revisited"
     }

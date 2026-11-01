@@ -35,7 +35,7 @@ const statuses: Record<string, string> = {
 describe('historical fixture applicability in 1300', () => {
   it('includes every file and resolves every explicitly dated exclusion', () => {
     expect(checkLaws(loaded)).toEqual([])
-    expect(loaded.laws.length).toBeGreaterThanOrEqual(20)
+    expect(loaded.laws).toHaveLength(24)
     expect(loaded.laws).toHaveLength(loaded.entries.length)
     for (const slug of Object.keys(later)) expect(loaded.laws.some(law => law.id === `government/law.${slug}`)).toBe(true)
   })
@@ -67,7 +67,7 @@ describe('historical fixture applicability in 1300', () => {
         expect(returned(law.jurisdiction.until!)).not.toContain(law.id)
       })
     }
-    if (['frankpledge-tithing-duty', 'heriot', 'merchet', 'suit-of-mill'].includes(slug)) {
+    if (['frankpledge-tithing-duty', 'heriot', 'merchet', 'suit-of-mill', 'gleaning-bylaw', 'assize-of-bread-and-ale-c1266'].includes(slug)) {
       it(`${slug} has no sourced start and applies before 1215`, () => {
         expect(law.jurisdiction.from).toBeNull()
         expect(returned(toDay({ year: 1200, calendar: 'julian' }))).toContain(law.id)

@@ -18,10 +18,7 @@
         "brewer"
       ]
     },
-    "from": {
-      "year": 1266,
-      "calendar": "julian"
-    },
+    "from": null,
     "until": {
       "year": 1863,
       "calendar": "gregorian"

@@ -10,7 +10,7 @@ describe('historical law fixture', () => {
   const laws = loaded.laws
 
   it('loads every data/laws record with no check failures', () => {
-    expect(loaded.entries.length).toBeGreaterThanOrEqual(20)
+    expect(loaded.entries).toHaveLength(24)
     expect(checkLaws(loaded)).toEqual([])
   })
 

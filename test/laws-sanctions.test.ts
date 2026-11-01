@@ -15,7 +15,7 @@ const records = readdirSync(fileURLToPath(directory)).filter(name => name.endsWi
 // SOURCES uses ordinary language rather than enum names. These are explicit
 // textual equivalents, not permission to infer a sanction from general liability.
 const evidence: Record<SanctionKind, RegExp> = {
-  fine: /\b(?:fine[ds]?|amercement|repaying double|treble damages|4d paid to the lord)\b/i,
+  fine: /\b(?:fine[ds]?|amercement|repaying double|treble damages)\b/i,
   detention: /\b(?:detention|imprisonment|imprisoned|prison|gaol|stocks)\b/i,
   seizure: /\b(?:seizure|forfeit|property to the Crown|property to the immediate lord|takes the tenant's best beast)\b/i,
   corporal: /\b(?:corporal|hanging|quartering|burning|pilloried)\b/i,
@@ -27,8 +27,8 @@ const unstatedPenalty = /^(?:not stated)\b|\b(?:consequence|penalty)(?: for inte
 
 describe('historical sanctions agree with SOURCES.md', () => {
   it('checks every fixture and a unique source section for every record', () => {
-    expect(records.length).toBeGreaterThanOrEqual(20)
-    expect(sections.size).toBe([...sources.matchAll(/^## /gm)].length)
+    expect(records).toHaveLength(24)
+    expect(sections.size).toBe([...sources.matchAll(/^## (?!Parked records\r?$)/gm)].length)
     expect(sections.size).toBe(records.length)
   })
   for (const file of records) {

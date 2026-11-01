@@ -15,11 +15,10 @@ law.empowered-actors — Current recipient actor IDs of an empower law, resolved
 member.fled — A summoned tithing member has fled.
 member.suspected-and-summoned — A tithing member is suspected of crime and summoned.
 object.kind — Kind of object or land involved in the regulated act.
-payment.in-field — Payment is made in the open field rather than elsewhere.
 person.accustomed-to-forest-common — Person is accustomed to common in the royal forest.
 person.able-bodied — Person is able-bodied for labour or alms rules.
 person.age — Person's age in years.
-person.gleaning-eligible — Person is elderly, a small child, or ill or handicapped for gleaning.
+person.gleaning-eligible — Person is among the poorest entitled to the customary gleaning right described in SOURCES.md. A general eligibility threshold is not stated in the source; do not infer age, health or a universal wage test from the later local by-laws.
 person.in-tithing — Person is enrolled in a frankpledge tithing.
 person.independent-means — Person has own land or means and is not dependent on hiring out labour.
 person.place — Non-empty place ID of the subject identified by act.object, independent of the population's jurisdiction ID. Authority queries use act.actor as the power holder, act.action as the domain/power, and act.place as empty until resolved; missing or invalid places fail explicitly.

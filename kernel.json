@@ -21,5 +21,12 @@
       "phase": "government"
     }
   ],
-  "ports": []
+  "ports": [
+    {
+      "mechanism": "government.authority.acquisition_delegation",
+      "quantity": "government.office_may",
+      "unit": "1",
+      "direction": "out"
+    }
+  ]
 }

@@ -40,7 +40,7 @@ function belief(value: number | null): number | null {
  * jurisdiction authority is not automatically the recipient of its own grant.
  */
 export function deJure(laws: readonly Law[], actor: string, domain: string,
-  person: AuthoritySubject, day: number, facts: ActFacts): 0 | 1 {
+  person: { id: string | null; place: string }, day: number, facts: ActFacts): 0 | 1 {
   return laws.some(law => {
     if (law.modality !== 'empower' || law.regulated.power !== domain) return false
     const act: Act = { actor, action: law.regulated.action, object: person.id,

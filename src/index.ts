@@ -14,6 +14,8 @@ export type { Breach, Violation, ViolationStage, SanctionCommand } from './law/v
 export { deJure, recognition, backing, strongestRival, effectiveAuthority, provisionalF, distribution } from './authority/distribution.ts'
 export type { AuthoritySubject, AuthorityFlag, AuthorityInputs, AuthorityFormula, AuthorityRow } from './authority/distribution.ts'
 export type { BeliefReader, WeightReader, CapacityReader, AgentsReader, PopulationReader, AuthorityReaders } from './authority/readers.ts'
+export { createAuthorityProvider, defaultAuthorityProvider } from './ports/authority-provider.ts'
+export type { AuthorityProvider, OfficeOf } from './ports/authority-provider.ts'
 
 /** The engine prefix every government id carries. */
 export const ENGINE = 'government'

@@ -9,6 +9,9 @@ import type { ToDay } from './calendar.ts'
 export interface LoadedLaw { file: string; law: unknown; failures?: string[] }
 export interface LoadedLaws { laws: Law[]; entries: LoadedLaw[]; failures: string[] }
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0
+const authorityId = /^authority\.[a-z0-9]+(?:-[a-z0-9]+)*$/
+// Existing schema/loader and Settlement integration fixture IDs are explicit exceptions.
+const fixtureIds: readonly string[] = ['fixture', 'office.council', 'fixture-council']
 function recordId(value: unknown): string | undefined {
   return value !== null && typeof value === 'object' && 'id' in value && typeof value.id === 'string' ? value.id : undefined
 }
@@ -62,6 +65,17 @@ export function checkLaws(input: LoadedLaws | readonly unknown[]): string[] {
   const seen = new Set<string>()
   for (const { file, law, failures: errors } of entries) {
     failures.push(...(errors ?? validateLaw(law)).map(failure => `${file}: ${failure}`))
+    if (law !== null && typeof law === 'object') {
+      const row = law as Record<string, unknown>
+      const jurisdiction = row.jurisdiction
+      const authority = jurisdiction !== null && typeof jurisdiction === 'object'
+        ? (jurisdiction as Record<string, unknown>).authority : undefined
+      for (const [path, value] of [['issuer', row.issuer], ['jurisdiction.authority', authority]] as const) {
+        if (typeof value === 'string' && !fixtureIds.includes(value) && !authorityId.test(value)) {
+          failures.push(`${file}: ${path}: expected null, authority.<lowercase-kebab-slug>, or fixture ID (fixture, office.council, fixture-council)`)
+        }
+      }
+    }
     const id = recordId(law)
     if (id !== undefined) {
       if (seen.has(id)) failures.push(`${file}: duplicate id ${id}`)

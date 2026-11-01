@@ -12,7 +12,7 @@ export type Consequence = { kind: 'void' } | { kind: 'sanctions'; sanctions: San
 export interface Citation { key: string; title: string; year: number | null; locator: string | null }
 export interface LawException { condition: Predicate; reason: string }
 export interface LawJurisdiction {
-  authority: string
+  authority: string | null
   places: 'all' | string[]
   persons: 'all' | Predicate
   from: number | null
@@ -21,7 +21,7 @@ export interface LawJurisdiction {
 }
 interface LawFields {
   id: LawId
-  issuer: string
+  issuer: string | null
   enactment: string
   jurisdiction: LawJurisdiction
   condition: Predicate
@@ -83,12 +83,12 @@ function validate(value: unknown, calendarDates: boolean): string[] {
   const predicate = (value: unknown, path: string) => { failures.push(...validatePredicate(value, path)) }
   if (!object(value, 'law')) return failures
   id(value.id, 'id')
-  string(value.issuer, 'issuer')
+  if (value.issuer !== null) string(value.issuer, 'issuer')
   string(value.enactment, 'enactment')
   oneOf(value.modality, ['prohibit', 'require', 'permit', 'empower', 'establish'], 'modality')
   if (object(value.jurisdiction, 'jurisdiction')) {
     const j = value.jurisdiction
-    string(j.authority, 'jurisdiction.authority')
+    if (j.authority !== null) string(j.authority, 'jurisdiction.authority')
     if (j.places !== 'all') array(j.places, 'jurisdiction.places', string)
     if (j.persons !== 'all') predicate(j.persons, 'jurisdiction.persons')
     if (calendarDates) {

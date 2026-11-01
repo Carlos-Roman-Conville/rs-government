@@ -43,7 +43,7 @@ function belief(value: number | null): number | null {
 export function deJure(laws: readonly Law[], actor: string, domain: string,
   person: { id: string | null; place: string }, day: number, facts: ActFacts): 0 | 1 {
   return laws.some(law => {
-    if (law.modality !== 'empower' || law.regulated.power !== domain) return false
+    if (law.jurisdiction.authority === null || law.modality !== 'empower' || law.regulated.power !== domain) return false
     const act: Act = { actor, action: law.regulated.action, object: person.id,
       place: person.place, day, attempted: false, succeeded: false }
     // Keep the full law set here so non-empower replacements can supersede grants.
@@ -71,7 +71,9 @@ function delegationGraph(laws: readonly Law[], day: number, facts: ActFacts): Ma
     graph.get(from)!.add(to)
   }
   for (const law of [...active].sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)) {
-    if (law.modality !== 'empower' || active.some(replacement => replacement.id !== law.id
+    if (law.issuer === null || law.modality !== 'empower' || active.some(replacement => replacement.id !== law.id
+      && law.jurisdiction.authority !== null
+      && replacement.jurisdiction.authority !== null
       && replacement.issuer === law.issuer
       && replacement.jurisdiction.authority === law.jurisdiction.authority
       && replacement.supersedes.includes(law.id))) continue

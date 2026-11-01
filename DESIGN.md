@@ -68,14 +68,14 @@ never free text that code interprets:
 ```ts
 type Law = {
   id: LawId                              // kernel id, 'gov:law:…'
-  issuer: AuthorityId                    // the office or body whose rule-making power made it (§1.3)
+  issuer: AuthorityId | null             // the office or body whose rule-making power made it (§1.3), if sourced
   enactment: EventId                     // the event of making it, under a procedure (§1.3); the law's provenance
   modality: 'prohibit' | 'require' | 'permit' | 'empower' | 'establish'
   //   prohibit/require/permit: primary rules on conduct (Hart 1961)
   //   empower: confers a power on an office: "the reeve may seize", "the council may levy" (Hart's power-conferring rules)
   //   establish: creates an office or body (the record is Settlement's createOffice; the rule that it exists is here)
   jurisdiction: {
-    authority: AuthorityId               // whose jurisdiction (§1.6); several laws from rival authorities may cover one act
+    authority: AuthorityId | null        // whose jurisdiction (§1.6), if sourced; rival authorities may cover one act
     places: PlaceSet | 'all'             // Settlement parcels/districts, a polity's territory, a ship
     persons: Predicate | 'all'           // membership, status, religion, residence, age: read from the owners' state
     from: Day; until: Day | null
@@ -143,6 +143,11 @@ sanction**. Compliance is never a field; it is the observed share of opportuniti
   some date, or with no period at all (frankpledge, heriot, merchet, suit of mill), is written `from: null`, meaning
   "no sourced start": in force on every day before `until`. No coverage bound such as 1215 is written as a start;
   the `before <date>` evidence stays in the source note. `from: null` never means "unknown, so not in force".
+- **No sourced issuer:** when the source names no issuer or authority, `issuer` and `jurisdiction.authority` are
+  `null` (`string | null` in the schema and loader), with a note that issuer and authority are not stated in the
+  source. A null-authority law never supersedes another law and is never superseded; `applicableLaws` keeps each
+  in its own set keyed `unstated:<law id>`. `deJure` credits no actor with a null authority (`J = 0`), and
+  `delegationChain` skips null issuers.
 - **Supersession (keeper, 2026-10-31; confirms unit 2864):** a law is superseded only by an in-force law of the
   **same** jurisdiction authority; a rival authority's law never repeals another's (§1.6), it competes with it.
 - Invariants: a law changes no number in another engine; consequences are commands to owners; the same act under the

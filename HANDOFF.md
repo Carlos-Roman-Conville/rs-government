@@ -56,7 +56,9 @@
   permissions and money; Government emits commands and never writes owner state.
 - Supersession is same-authority-only. Distribution rows are per (actor, domain,
   person); rivals exclude the actor's own delegation chain. A jurisdiction is not
-  a place. Gleaning's missing authority strings are placeholders, not real bodies.
+  a place. Unsourced issuer/authority fields are null (including gleaning): each
+  null-authority law has its own unstated:<law id> set, never supersedes or is
+  superseded, and gives J = 0. Delegation skips null issuers.
 - Non-null from is inclusive; null from has no lower bound. Until is exclusive;
   year-only bounds normalize to January 1. Status repealed is for an in-run event.
 - Winchester hue-and-cry/watch-and-ward have null until: repeal century only.

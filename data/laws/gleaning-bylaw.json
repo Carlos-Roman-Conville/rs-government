@@ -1,17 +1,17 @@
 {
   "id": "government/law.gleaning-bylaw",
-  "issuer": "not stated in the source",
+  "issuer": null,
   "enactment": "event.enactment.gleaning-bylaw",
   "modality": "permit",
   "jurisdiction": {
-    "authority": "not stated in the source",
+    "authority": null,
     "places": [
       "place.manor-open-field"
     ],
     "persons": "all",
     "from": null,
     "until": null,
-    "note": "Customary gleaning right of the poorest. Start and end dates, issuer, jurisdiction authority, enforcer and procedure are not stated in the source. Required authority strings mark missing evidence, not an identified body."
+    "note": "Customary gleaning right of the poorest; issuer and authority not stated in the source. Start and end dates, enforcer and procedure are not stated in the source."
   },
   "regulated": {
     "action": "glean",

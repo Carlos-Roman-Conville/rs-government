@@ -23,6 +23,8 @@ export function applicableLaws(laws: readonly Law[], act: Act, facts: ActFacts):
     && (law.jurisdiction.from === null || law.jurisdiction.from <= act.day)
     && (law.jurisdiction.until === null || law.jurisdiction.until > act.day))
   const covered = active.filter(law => !active.some(replacement => replacement.id !== law.id
+    && law.jurisdiction.authority !== null
+    && replacement.jurisdiction.authority !== null
     && replacement.issuer === law.issuer
     && replacement.jurisdiction.authority === law.jurisdiction.authority
     && replacement.supersedes.includes(law.id)))
@@ -31,8 +33,9 @@ export function applicableLaws(laws: readonly Law[], act: Act, facts: ActFacts):
         || evaluatePredicate(law.jurisdiction.persons, name => facts(name, act))))
     .sort(byId)
   const groups = new Map<string, Law[]>()
-  for (const authority of [...new Set(covered.map(law => law.jurisdiction.authority))].sort()) {
-    groups.set(authority, covered.filter(law => law.jurisdiction.authority === authority))
+  const groupKey = (law: Law) => law.jurisdiction.authority ?? `unstated:${law.id}`
+  for (const authority of [...new Set(covered.map(groupKey))].sort()) {
+    groups.set(authority, covered.filter(law => groupKey(law) === authority))
   }
   return groups
 }

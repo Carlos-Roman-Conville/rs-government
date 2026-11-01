@@ -45,8 +45,6 @@
 - Rex (5330, unsourced): stalemate stays `open`, no timeout, no regency dispute rule, no
   elector majority rule. searched: CONTESTED.md opened 6 English Wikipedia pages + Kokkonen
   & Sundell abstract; not opened: Pollock & Maitland, Stubbs, Goody 1966, Golden Bull text.
-- `@rex/settlement` is a `file:../settlement` devDependency (I-1048); the backup mirror
-  has no release tag, so no pin until Settlement tags one.
 
 ## Gotchas
 

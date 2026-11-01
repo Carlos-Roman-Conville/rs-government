@@ -18,7 +18,9 @@
       "calendar": "julian"
     },
     "until": {
-      "year": 2006,
+      "year": 1953,
+      "month": 12,
+      "day": 18,
       "calendar": "gregorian"
     }
   },

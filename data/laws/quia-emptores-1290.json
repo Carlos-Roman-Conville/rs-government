@@ -32,13 +32,8 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "Buyer holds directly of chief lord on same services; no new middle lordship."
-      }
-    ]
+    "sanctions": [],
+    "note": "The buyer holds directly of the seller's chief lord on the same services (in proportion if only part is sold); no new middle lordship is made. SOURCES.md states a tenure change, not a fine; the current consequence schema has no tenure-change command."
   },
   "enforcer": [
     "office.chief-lord"

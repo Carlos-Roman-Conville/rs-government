@@ -51,6 +51,14 @@ describe('law schema', () => {
     for (const value of ['1', Infinity, NaN]) expect(validateLaw(changed(path, value))).toContain(`${path}: expected finite number`)
   })
   it('accepts an inclusive ordered time range', () => expect(validateLaw(changed('jurisdiction.until', 0))).toEqual([]))
+  it.each([null, -10])('accepts no sourced start with until %s', until => {
+    const law = lawFixture()
+    law.jurisdiction = { ...law.jurisdiction, from: null, until }
+    expect(validateLaw(law)).toEqual([])
+  })
+  it('requires from to be present even when no sourced start is allowed', () => {
+    expect(validateLaw(changed('jurisdiction.from', undefined))).toEqual(['jurisdiction.from: expected finite number'])
+  })
   it('rejects until before from', () => expect(validateLaw(changed('jurisdiction.until', -1))).toEqual(['jurisdiction.until: must be at least from']))
   it('requires exception objects', () => expect(validateLaw(changed('exceptions', [null]))).toEqual(['exceptions[0]: expected object']))
   it('accepts exception predicates and reasons', () => expect(validateLaw(changed('exceptions', [{ condition: { not: true }, reason: 'Permission held' }]))).toEqual([]))

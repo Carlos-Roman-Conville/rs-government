@@ -57,14 +57,20 @@ describe('historical fixture applicability in 1300', () => {
       expect(returned(day1300).includes(law.id)).toBe(!later[slug])
       if (later[slug]) {
         expect(law.jurisdiction.from).toBe(toDay(later[slug]))
-        expect(returned(law.jurisdiction.from)).toContain(law.id)
-        expect(returned(law.jurisdiction.from - 1)).not.toContain(law.id)
+        expect(returned(toDay(later[slug]))).toContain(law.id)
+        expect(returned(toDay(later[slug]) - 1)).not.toContain(law.id)
       }
     })
     if (law.jurisdiction.until !== null) {
-      it(`${slug} applies before the repeal bound and excludes the entire repeal year`, () => {
+      it(`${slug} applies before the repeal bound and excludes its first day`, () => {
         expect(returned(law.jurisdiction.until! - 1)).toContain(law.id)
         expect(returned(law.jurisdiction.until!)).not.toContain(law.id)
+      })
+    }
+    if (['frankpledge-tithing-duty', 'heriot', 'merchet', 'suit-of-mill'].includes(slug)) {
+      it(`${slug} has no sourced start and applies before 1215`, () => {
+        expect(law.jurisdiction.from).toBeNull()
+        expect(returned(toDay({ year: 1200, calendar: 'julian' }))).toContain(law.id)
       })
     }
   }

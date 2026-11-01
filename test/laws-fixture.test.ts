@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { checkLaws, loadLaws } from '../src/index.ts'
+import type { CalendarPoint } from '../src/index.ts'
 import { toDay } from '../scripts/calendar.ts'
 const root = fileURLToPath(new URL('../', import.meta.url))
 
@@ -36,16 +37,16 @@ describe('historical law fixture', () => {
     expect(merton.regulated).not.toHaveProperty('power')
     expect(merton.consequence).toEqual({ kind: 'sanctions', sanctions: [], note: expect.stringContaining('tenants may complain by writ') })
     expect(JSON.stringify(merton.consequence).toLowerCase()).not.toContain('fine')
-    const repeals: Record<string, number> = {
-      'merton-1235-c4-approvement-of-commons': 2006,
-      'westminster-2-1285-c46-approvement': 2006,
-      'assize-of-bread-and-ale-c1266': 1863,
-      'forestalling-regrating': 1844,
-      'diet-and-apparel-1363-yeomen-and-servants': 1863,
+    const repeals: Record<string, CalendarPoint> = {
+      'merton-1235-c4-approvement-of-commons': { year: 1953, month: 12, day: 18, calendar: 'gregorian' },
+      'westminster-2-1285-c46-approvement': { year: 2006, calendar: 'gregorian' },
+      'assize-of-bread-and-ale-c1266': { year: 1863, calendar: 'gregorian' },
+      'forestalling-regrating': { year: 1844, calendar: 'gregorian' },
+      'diet-and-apparel-1363-yeomen-and-servants': { year: 1863, calendar: 'gregorian' },
     }
     for (const law of laws) {
-      const year = repeals[law.id.slice('government/law.'.length)]
-      expect(law.jurisdiction.until).toBe(year ? toDay({ year, calendar: 'gregorian' }) : null)
+      const repeal = repeals[law.id.slice('government/law.'.length)]
+      expect(law.jurisdiction.until).toBe(repeal ? toDay(repeal) : null)
     }
   })
 

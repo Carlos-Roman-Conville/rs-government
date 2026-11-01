@@ -60,12 +60,17 @@
       {
         "kind": "detention",
         "amount": null,
-        "note": "Leaving service without reasonable cause."
+        "note": "Leaving service without reasonable cause means imprisonment."
+      },
+      {
+        "kind": "detention",
+        "amount": null,
+        "note": "Hiring or keeping a worker who left service without reasonable cause means imprisonment."
       },
       {
         "kind": "fine",
         "amount": null,
-        "note": "Hiring such a worker; paying or taking above rate means repay double; lord pays treble damages."
+        "note": "Paying or taking more than the rate means repaying double; a lord who breaks it pays treble damages."
       }
     ]
   },

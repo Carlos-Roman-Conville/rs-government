@@ -13,12 +13,9 @@
       "op": "eq",
       "value": "manorial-tenant-heir"
     },
-    "from": {
-      "year": 1215,
-      "calendar": "julian"
-    },
+    "from": null,
     "until": null,
-    "note": "In force before 1215 to well after 1363; 1215 is the sourced fixture coverage bound, not an enactment date. End date not stated."
+    "note": "In force before 1215 to well after 1363; no sourced start. End date not stated."
   },
   "regulated": {
     "action": "deliver-heriot-on-death",

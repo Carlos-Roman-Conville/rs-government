@@ -62,7 +62,8 @@ export function deJure(laws: readonly Law[], actor: string, domain: string,
  * Delegation spans domains and places; this is a graph read, not a subject's J.
  */
 function delegationGraph(laws: readonly Law[], day: number, facts: ActFacts): Map<string, Set<string>> {
-  const active = laws.filter(law => law.status === 'in-force' && law.jurisdiction.from <= day
+  const active = laws.filter(law => law.status === 'in-force'
+    && (law.jurisdiction.from === null || law.jurisdiction.from <= day)
     && (law.jurisdiction.until === null || day < law.jurisdiction.until))
   const graph = new Map<string, Set<string>>()
   const link = (from: string, to: string) => {

@@ -20,7 +20,7 @@ const byId = (a: Law, b: Law) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0
 /** Jurisdiction only: every authority remains visible, including conflicting rules. */
 export function applicableLaws(laws: readonly Law[], act: Act, facts: ActFacts): Map<string, Law[]> {
   const active = laws.filter(law => law.status === 'in-force'
-    && law.jurisdiction.from <= act.day
+    && (law.jurisdiction.from === null || law.jurisdiction.from <= act.day)
     && (law.jurisdiction.until === null || law.jurisdiction.until > act.day))
   const covered = active.filter(law => !active.some(replacement => replacement.id !== law.id
     && replacement.issuer === law.issuer

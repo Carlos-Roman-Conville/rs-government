@@ -32,10 +32,14 @@ export function loadLaws(root: string, toDay: ToDay): LoadedLaws {
     const errors = validateLawData(law)
     if (!errors.length) {
       const data = law as LawData
-      const jurisdiction = { ...data.jurisdiction, from: NaN, until: null as number | null }
+      const jurisdiction = { ...data.jurisdiction, from: null as number | null, until: null as number | null }
       for (const key of ['from', 'until'] as const) {
-        if (key === 'until' && data.jurisdiction[key] === null) continue
-        try { jurisdiction[key] = toDay(normalizeCalendarPoint(data.jurisdiction[key])) }
+        if (data.jurisdiction[key] === null) continue
+        try {
+          const day = toDay(normalizeCalendarPoint(data.jurisdiction[key]))
+          if (typeof day !== 'number' || !Number.isFinite(day)) errors.push(`jurisdiction.${key}: expected finite number`)
+          else jurisdiction[key] = day
+        }
         catch (error) { errors.push(`jurisdiction.${key}: toDay failed: ${error instanceof Error ? error.message : String(error)}`) }
       }
       if (!errors.length) {

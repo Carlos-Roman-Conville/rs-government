@@ -40,13 +40,8 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "Consequence not stated in the source."
-      }
-    ]
+    "sanctions": [],
+    "note": "Consequence not stated in SOURCES.md."
   },
   "enforcer": [],
   "procedure": null,

@@ -9,6 +9,17 @@ const facts: ActFacts = () => undefined
 const ids = (laws: Law[], event = act) => evaluateAct(laws, event, facts).map(breach => breach.law)
 
 describe('applicable laws', () => {
+  it.each([-1000000, -11, -10, 0, 1000000])('no sourced start applies on day %s subject to the exclusive until bound', day => {
+    const law = lawFixture()
+    law.jurisdiction.from = null
+    for (const until of [null, -10]) {
+      law.jurisdiction.until = until
+      const applies = until === null || day < until
+      const event = { ...act, day }
+      expect([...applicableLaws([law], event, facts).values()].flat()).toEqual(applies ? [law] : [])
+      expect(ids([law], event)).toEqual(applies ? [law.id] : [])
+    }
+  })
   it.each([[9, false], [10, true], [19, true], [20, false]])('the in-force window includes from and excludes until on day %s', (day, applies) => {
     const law = lawFixture()
     law.jurisdiction.from = 10

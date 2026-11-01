@@ -13,12 +13,9 @@
       "op": "eq",
       "value": "manorial-tenant"
     },
-    "from": {
-      "year": 1215,
-      "calendar": "julian"
-    },
+    "from": null,
     "until": null,
-    "note": "Start and end dates not stated in SOURCES.md. The inherited fixture boundary 1215 is retained only for fixture coverage; it is not a sourced enactment date. Historical dating is blocked pending a source (HANDOFF.md)."
+    "note": "Start and end dates not stated in SOURCES.md; no sourced start. Low-confidence fixture."
   },
   "regulated": {
     "action": "grind-at-other-mill",
@@ -32,13 +29,8 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "Consequence not stated in source; low-confidence fixture."
-      }
-    ]
+    "sanctions": [],
+    "note": "Consequence not stated in SOURCES.md; low-confidence fixture."
   },
   "enforcer": [
     "office.manor-court"

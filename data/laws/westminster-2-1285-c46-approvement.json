@@ -34,13 +34,8 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "Consequence not stated in the source checked."
-      }
-    ]
+    "sanctions": [],
+    "note": "Consequence not stated in SOURCES.md."
   },
   "enforcer": [
     "office.kings-court"

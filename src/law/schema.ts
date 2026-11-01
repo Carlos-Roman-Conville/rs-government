@@ -15,7 +15,7 @@ export interface LawJurisdiction {
   authority: string
   places: 'all' | string[]
   persons: 'all' | Predicate
-  from: number
+  from: number | null
   until: number | null
   note?: string
 }
@@ -39,7 +39,7 @@ type LawRule = (
 )
 export type Law = LawFields & LawRule
 export type LawData = Omit<LawFields, 'jurisdiction'> & LawRule & {
-  jurisdiction: Omit<LawJurisdiction, 'from' | 'until'> & { from: CalendarPoint; until: CalendarPoint | null }
+  jurisdiction: Omit<LawJurisdiction, 'from' | 'until'> & { from: CalendarPoint | null; until: CalendarPoint | null }
 }
 
 const lawId = /^government\/law\.[a-z0-9]+(?:-[a-z0-9]+)*$/
@@ -50,7 +50,7 @@ export function validateLaw(value: unknown): string[] {
   return validate(value, false)
 }
 
-/** Data files require calendar points; runtime records require numeric days. */
+/** Non-null bounds are calendar points in data and numeric days at runtime. */
 export function validateLawData(value: unknown): string[] {
   return validate(value, true)
 }
@@ -93,12 +93,12 @@ function validate(value: unknown, calendarDates: boolean): string[] {
     if (j.persons !== 'all') predicate(j.persons, 'jurisdiction.persons')
     if (calendarDates) {
       for (const key of ['from', 'until']) {
-        if (key === 'until' && j[key] === null) continue
+        if (j[key] === null) continue
         try { normalizeCalendarPoint(j[key]) }
         catch (error) { fail(`jurisdiction.${key}`, (error as Error).message) }
       }
     } else {
-      number(j.from, 'jurisdiction.from')
+      if (j.from !== null) number(j.from, 'jurisdiction.from')
       if (j.until !== null) number(j.until, 'jurisdiction.until')
       if (finite(j.from) && finite(j.until) && j.until < j.from) fail('jurisdiction.until', 'must be at least from')
     }

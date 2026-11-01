@@ -26,6 +26,16 @@ afterEach(() => {
 })
 
 describe('law loading and checks', () => {
+  it.each([null, { year: 1953, month: 12, day: 18, calendar: 'gregorian' } as const])('preserves no sourced start and converts only a non-null until (%j)', until => {
+    const law = dataFixture()
+    law.jurisdiction = { ...law.jurisdiction, from: null, until }
+    write('fixture.json', law)
+    const hostCalendar = vi.fn(toDay)
+    const loaded = loadLaws(root, hostCalendar)
+    expect(checkLaws(loaded)).toEqual([])
+    expect(loaded.laws[0].jurisdiction).toMatchObject({ from: null, until: until === null ? null : toDay(until) })
+    expect(hostCalendar.mock.calls).toEqual(until === null ? [] : [[until]])
+  })
   it('normalizes year-only from and until to January 1 through the caller calendar', () => {
     const law = dataFixture()
     law.jurisdiction.until = { year: 2006, calendar: 'gregorian' }
@@ -58,7 +68,7 @@ describe('law loading and checks', () => {
     expect(hostCalendar).toHaveBeenCalledTimes(1)
   })
   it.each([
-    1235, null, { year: 1235 }, { year: 1235.5, calendar: 'julian' },
+    1235, undefined, { year: 1235 }, { year: 1235.5, calendar: 'julian' },
     { year: 1235, calendar: 'unknown' }, { year: 1235, month: 13, calendar: 'julian' },
     { year: 1235, day: 2, calendar: 'julian' }, { year: 1235, month: null, calendar: 'julian' },
     { year: 1235, month: 2, day: 29, calendar: 'julian' },
@@ -93,7 +103,7 @@ describe('law loading and checks', () => {
   it('reports host conversion failures and continues with other files', () => {
     write('fixture.json', dataFixture())
     const second = dataFixture('second')
-    second.jurisdiction.from.year = 1285
+    second.jurisdiction.from = { year: 1285, calendar: 'julian' }
     write('second.json', second)
     const loaded = loadLaws(root, point => {
       if (point.year === 1235) throw new Error('host date unavailable')
@@ -102,9 +112,9 @@ describe('law loading and checks', () => {
     expect(loaded.laws.map(law => law.id)).toEqual(['government/law.second'])
     expect(checkLaws(loaded)).toEqual(['data/laws/fixture.json: jurisdiction.from: toDay failed: host date unavailable'])
   })
-  it.each([NaN, Infinity])('rejects a non-finite host day (%s)', day => {
+  it.each([NaN, Infinity, null, undefined])('rejects a non-numeric or non-finite host day (%s)', day => {
     write('fixture.json', dataFixture())
-    const loaded = loadLaws(root, () => day)
+    const loaded = loadLaws(root, () => day as number)
     expect(loaded.laws).toEqual([])
     expect(checkLaws(loaded)).toEqual(['data/laws/fixture.json: jurisdiction.from: expected finite number'])
   })

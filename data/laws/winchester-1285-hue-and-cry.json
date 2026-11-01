@@ -28,13 +28,8 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "The hundred answers for robberies within it; county has 40 days to settle loss or produce offenders."
-      }
-    ]
+    "sanctions": [],
+    "note": "The hundred, with its franchises, answers for robberies within it; the county has 40 days to settle the loss or produce the offenders. SOURCES.md states collective liability, not a fine; no specific sanction kind is given."
   },
   "enforcer": [
     "office.watchman",

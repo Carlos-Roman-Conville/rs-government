@@ -39,13 +39,8 @@
   ],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "Host answers for lodgers; no punishment for detaining a stranger under this rule."
-      }
-    ]
+    "sanctions": [],
+    "note": "A host answers for his lodgers; no one is punished for detaining a stranger in this way. SOURCES.md does not state a fine or another sanction for the host."
   },
   "enforcer": [
     "office.watchman",

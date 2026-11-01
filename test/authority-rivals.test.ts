@@ -38,6 +38,17 @@ function fixture() {
 }
 
 describe('authority rivals and places', () => {
+  it('an undated delegation is active before day zero until its exclusive end', () => {
+    const { grant, facts } = fixture()
+    const law = grant('reeve', 'lord')
+    law.jurisdiction.from = null
+    law.jurisdiction.until = -10
+    expect(delegationChain([law], 'lord', -1000, facts)).toEqual(['reeve'])
+    expect(delegationChain([law], 'lord', -11, facts)).toEqual(['reeve'])
+    expect(delegationChain([law], 'lord', -10, facts)).toEqual([])
+    law.jurisdiction.until = null
+    expect(delegationChain([law], 'lord', -1000, facts)).toEqual(['reeve'])
+  })
   it('a lord and the reeve he empowered exclude each other from rival backing', () => {
     const { grant, run, facts } = fixture()
     const laws = [grant('lord'), grant('reeve', 'lord')]

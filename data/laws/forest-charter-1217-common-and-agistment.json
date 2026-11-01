@@ -38,13 +38,8 @@
   "exceptions": [],
   "consequence": {
     "kind": "sanctions",
-    "sanctions": [
-      {
-        "kind": "fine",
-        "amount": null,
-        "note": "Use lawful when condition holds; penalty for interference not stated in source."
-      }
-    ]
+    "sanctions": [],
+    "note": "The use is lawful; the penalty for interference is not stated in SOURCES.md."
   },
   "enforcer": [
     "office.verderer-court"

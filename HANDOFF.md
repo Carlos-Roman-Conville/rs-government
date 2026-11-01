@@ -2,15 +2,17 @@
 
 ## State
 
-- §1.13 levy duties/confirmed omissions, backing plus supply, and command delegation reads.
-- 3010: shared lawInForce window; tax+spend rejected; enact preserves unresolved vote reasons.
 - §1.1-§1.7: laws, authority, enactment, 9 procedures, succession, jurisdiction, suppression.
 - §1.8 legitimacy read shares authority aggregation; weighted/unweighted beliefs, missing subjects.
-- §1.9 tax assessments and chosen collection commands; confirmed shortfalls use evaluateAct.
+- §1.9 tax assessments, collection commands; shortfalls use evaluateAct; shared
+  lawInForce window; tax+spend rejected.
 - §1.10 appropriations allocate treasury balances; pay commands and evaluator breaches.
 - §1.11 property regime reads reuse evaluation for void commands and nullable transferability.
-- §1.12 collective choice counts host ballots; explicit minima/ties feed enact directly.
+- §1.12 collective choice counts host ballots; minima/ties feed enact, which keeps
+  unresolved vote reasons.
+- §1.13 levy duties/confirmed omissions, backing plus supply, and command delegation reads.
 - §1.14 polity/apex and treaty reads share authority and law evaluation; ties stay explicit.
+- §3 sourced (3084): beadle levies/seizes, suitors judge; D-demo-1/2 (unsourced).
 - 24 laws; Broughton parked. §3 breaches use the presentment procedure; assize keeps
   manor-three-weekly-court (DESIGN §1.4, 2974).
 
@@ -21,7 +23,8 @@
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §3 Demonstration: legitimacy harvest; its theft/levy laws cite the presentment procedure.
+- §3.1 unit 1 (codex): data/demo/manor.json + src/demo/fixture.ts + test/demo-fixture.test.ts.
+- §3.1 unit 2 (codex): src/demo/legitimacy-harvest.ts + test, on in-repo stubs.
 
 ## Blocked
 
@@ -35,6 +38,7 @@
   designed owner command (not in the void/sanctions union).
 - Assize is c. 1266, not exactly dated. Gleaning lacks a sourced period, eligibility
   threshold and issuer/authority. Forestalling attested by 1321; suit of mill unperiod.
+- §3 on real Settlement/Economy/Cognition needs cross-repo wiring; D-demo-1/2 await Rex.
 - `sheaves-payment-bylaw-broughton-1286` parked: Rex must source provision, date, 4d/12d
   (Ault 1972 or a Broughton court roll).
 

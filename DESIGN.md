@@ -379,6 +379,11 @@ lawful (`void` consequence: an unlawful sale does not transfer) and Settlement's
 of the regime when Government is present (§2.3). Test: ROADMAP P8 t3, the same society under open fields vs enclosure
 diverges as the sources describe (Allen 1992, *Enclosure and the Yeoman*; Clark 1998, "Commons sense"; level 3).
 
+**Reading (2979, as built):** `transferable` returns `null` when no in-force `transfer` law's conditions hold, so
+Settlement's setup field stands. When one does, it returns whether the transfer is lawful (no void breach). A
+`require` law on `transfer` whose required condition is met therefore makes `transferable` true, not null: a
+regime that speaks and permits is a yes, not silence.
+
 ### 1.12 Collective choice procedures (`government.collective_choice.procedure`, **proposed new row**)
 
 When a body rather than a person decides (a council, an assembly, an electorate, a jury), the procedure aggregates
@@ -409,6 +414,10 @@ interface is needed (Lanchester 1916 equations as a level-4 aggregate, explicitl
 contests; Rex, 2026-10-31, GOV-Q7: a shared aggregation interface, Reality the physics, Government the decision). Tilly (1990) war-makes-states feedback arises from tax (§1.9)
 funding force (§1.13) enforcing tax.
 
+**Reading (3011, as built):** `chainOfCommand(...).chain` is `delegationChain`'s output: the sorted connected set
+of actors linked to the office through in-force grants, not a ranked chain of superiors. It says who is in the
+command structure, not who outranks whom; rank is not read.
+
 ### 1.14 Diplomacy, war and polities (`government.polity.structure`, `government.diplomacy.relations`, **proposed new rows**)
 
 - **Polity** (proposed `government.polity.structure`): a read of the authority graph. A polity is a set of
@@ -429,6 +438,12 @@ funding force (§1.13) enforcing tax.
   The **reasons** are those of real minds under Fearon's (1995, "Rationalist explanations for war") bargaining
   failures (private information and incentives to misrepresent, commitment problems, indivisible stakes; level 3)
   plus non-rational reasons Cognition owns (honour, revenge, doctrine). No war is scripted.
+
+**Reading (2981, as built):** territory is decided per domain × person, not per place. `polities` records each
+(jurisdiction, place, domain, person) winner in `territory`, the place being the person's `person.place`, and adds
+it to each winning apex's list, so one place can sit in two polities (one apex wins taxation there and another
+justice, different persons living there have different winners, or a tie keeps both apexes). No single territorial
+score is formed; a polity's `territory` is a union of places, not a partition.
 
 ### 1.15 What is deliberately not a mechanism here
 
@@ -488,13 +503,35 @@ inventory transfers; Life injury (sanction).
 **Name:** `demo/legitimacy-harvest`. Headless, seeded, writes its trace, passes the P0 conservation checks, no pirate
 content.
 
-**World (proposed fixture; every number labelled; historical first):** one village of ~60 households modelled on a
-documented English manor c. 1300 (Bennett 1937 *Life on the English Manor*; Dyer 1989 *Standards of Living in the
-Later Middle Ages* for grain yields and subsistence per household, level 3). One institution: a lord's manorial court
-with a reeve (Settlement office) holding `levy`, `seize` and `judge` powers by `empower` laws. Laws: a rent-in-kind
-tax (variant A: fixed quantity; variant B: proportional with remission in dearth — both forms are documented
-historically), a theft prohibition enforced by the reeve with a presentment-jury procedure, and a duty of the lord to
-keep the granary (variant B only).
+**World (proposed fixture; every number labelled; historical first; reconciled with `data/demo/SOURCES.md`,
+3084):** one village of ~60 households modelled on a documented English manor c. 1300. The ~60 is Bennett's own
+estimate for an average village (about 300 souls, roughly 60 families; Bennett 1937 ch. IX, `households-per-village`),
+not a count for any one manor; using it for this manor is a **modelling choice**. Grain yield (8–9 bushels per acre,
+about four times the seed; `grain-yield`) and household need (36–40 bushels a year; `household-subsistence`) are
+Bennett's; Dyer 1989 was not opened, so it is no longer cited for numbers. One institution: a lord's manorial court
+whose offices are Settlement offices holding powers by `empower` laws, each power on the office the sources give it:
+
+| Power | Office | Source |
+|---|---|---|
+| `levy` (taking pledges, distraining for rent and dues) | **beadle** | Bennett about p. 179 (`reeve-office`); in Maitland's rolls distraint is ordered by the court |
+| `seize` (taking a holding into the lord's hand) | **beadle**, by the court's order | Bennett p. 179; Maitland: court-ordered distraint (one reeve seizure, Gidding p. 98, is noted, not followed) |
+| `judge` (finding the judgment) | **suitors** (the homage) of the court | Maitland 1889 (`data/procedures/SOURCES.md`) |
+| `present` (bringing offences to court), supervising labour, the yearly account | **reeve** | Bennett pp. 22, 172–175, 188–191 |
+
+So the reeve keeps supervision, presentment and the account, not `levy`, `seize` or `judge`. Laws: a rent-in-kind
+tax (variant A: fixed quantity, supported by Bennett's fixed tallage that "made no allowance for bad seasons", about
+p. 141; variant B: proportional with remission in dearth, a **modelling assumption**, see D-demo-1), a theft
+prohibition enforced by presentment (tithingmen or jurors present, the court amerces in money; `theft-presentment`),
+and a duty of the lord to keep the granary (variant B only; a **modelling assumption**, see D-demo-2). The rent
+amount itself is unsourced (`rent-in-kind` is null): it is a **modelling choice**, labelled in the fixture.
+
+| D-row | Case | Behaviour | Status |
+|---|---|---|---|
+| D-demo-1 | Variant B rent remission in dearth | proportional rent with remission after a failed harvest, the experiment's treatment | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end of the text, Maitland 1889 vol. 1 to the glossary, web search on the 1315 famine and manorial remission; only individual or office remissions and pardons for poverty found (`rent-remission-in-dearth`), nothing found for a dearth remission; Dyer 1989 and Homans 1941 not opened (HTTP 401/403). Question for Rex: keep variant B as a labelled counterfactual, or find a source (Dyer, Homans, a court roll). |
+| D-demo-2 | Lord's duty to keep a granary for tenants | variant B only, a labelled duty law | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end and its index, Maitland 1889 rolls to the glossary, web search on 1315 famine and manorial relief; nothing found (`lord-granary-duty`). Same question for Rex. |
+| D-demo-3 | Reeve's powers in the earlier draft (`levy`, `seize`, `judge`) | reassigned as in the table above | sourced: Bennett gives distraint to the beadle, Maitland judgment to the suitors; the one reeve seizure (Gidding) is not general. |
+
+The earlier sentence that "both forms are documented historically" is withdrawn: only variant A's fixed form is.
 
 **Run:** five years daily; a harvest failure in year 3 from Economy's harvest (or a scripted *input* shock, clearly
 marked as the experiment's treatment, not an outcome). Households are Cognition minds (baseline, null personality)
@@ -504,7 +541,7 @@ subsistence (Life's nutrition), thefts seen punished or not, seizures seen as fa
 **What must show (acceptance):**
 
 1. Under variant A after the failure, the levy takes a larger share of what is left; beliefs `b_i` fall; payment
-   breaches rise; seizures (Settlement `transfer` kind seizure) follow where enforcers comply; the reeve's backing
+   breaches rise; seizures (Settlement `transfer` kind seizure) follow where enforcers comply; the beadle's backing
    falls as enforcers' own `y_j` falls; revenue (Settlement ledger) falls. **No number called legitimacy is ever
    incremented**; the trace shows each change as a belief update with its attributed cause.
 2. Under variant B the same shock leaves `R` near its pre-shock level or raises it (relief attributed to the court).
@@ -524,6 +561,33 @@ Society's norms and is reported as not yet represented, never faked.
 attribution — needs an institution as a belief subject, to agree), Life labour and nutrition reads (partly built),
 Society networks **stubbed** (witnessing by direct observation only; gossip later). This is why the demo is first:
 every input exists but one interface.
+
+### 3.1 Build units
+
+Two codex units, in this order. Both are Government-repo only and use the in-repo reads; wiring a real engine that
+lives in another repo is not part of either (HANDOFF Blocked).
+
+1. **Fixture.** `data/demo/manor.json`: the households (~60, a modelling choice), the offices (lord, reeve, beadle,
+   the suitors as a body) and the laws of both variants as law records that pass `checkLaws`: the `empower` laws of
+   the power table above, variant A's fixed rent, variant B's proportional rent with remission (D-demo-1) and the
+   granary duty (D-demo-2), and the theft prohibition citing the presentment procedure. Every number cites a
+   `data/demo/SOURCES.md` slug or carries a `modelling choice` label; D-demo-1/2 laws carry `(unsourced)` notes.
+   Loader `src/demo/fixture.ts` (loads, runs `checkLaws`, returns the variant's laws and households);
+   test `test/demo-fixture.test.ts` (loads, every law passes, every number has a source slug or the label, the
+   power table's office assignments hold). Reads used: none at run time; offices are Settlement-shaped records only.
+2. **Run.** `src/demo/legitimacy-harvest.ts`: headless, seeded, five years daily, the year-3 harvest failure as a
+   marked input shock, trace returned as data (belief updates with attributed cause, assessments, breaches,
+   commands), never a legitimacy number. Test `test/demo-legitimacy-harvest.test.ts`: same seed same trace; the
+   A–B direction of §3's acceptance 1–2 across seeds or a reported failure; conservation of every grain and coin
+   moved by command. Reads and their providers:
+   - Settlement offices, ledger and `transfer`: in-repo stub provider (the `AuthorityProvider` default and a
+     fixture ledger), not the real Settlement engine.
+   - Economy `economy.harvest`: in-repo stub (READS.md marks it stubbed), yields from `grain-yield`.
+   - Cognition `BeliefReader.recognition` and household decisions to pay, defy or report: in-repo stub provider
+     whose update rule is labelled a modelling stand-in, not the real Cognition baseline; until that is wired
+     (HANDOFF Blocked) the demo reports its A–B result as stub-provider evidence, never as validation.
+   - Life nutrition and `person.*` reads: in-repo stubs (READS.md), subsistence from `household-subsistence`.
+   - Society witnessing: direct observation only, stubbed (§3 "What it needs").
 
 ## 4. Validation plan (PLATFORM §11a, §11b)
 

@@ -1,0 +1,51 @@
+{
+  "id": "government/law.winchester-1285-hue-and-cry",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.winchester-1285-hue-and-cry",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": "all",
+    "from": 1285,
+    "until": null
+  },
+  "regulated": {
+    "action": "pursue-felon",
+    "object": "any"
+  },
+  "condition": {
+    "read": "felony.or-robbery-done",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "The hundred answers for robberies within it; county has 40 days to settle loss or produce offenders."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.watchman",
+    "office.sheriff",
+    "office.bailiff"
+  ],
+  "procedure": null,
+  "status": "repealed",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "winchester-1285-hue-and-cry",
+      "title": "Statute of Winchester 1285 (13 Edw. I)",
+      "year": 1285,
+      "locator": "https://en.wikisource.org/wiki/Statute_of_Winchester"
+    }
+  ]
+}

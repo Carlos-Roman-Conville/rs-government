@@ -1,0 +1,71 @@
+{
+  "id": "government/law.winchester-1285-highways",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.winchester-1285-highways",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "roadside-landholder"
+    },
+    "from": 1285,
+    "until": null
+  },
+  "regulated": {
+    "action": "clear-highway-cover",
+    "object": "any"
+  },
+  "condition": {
+    "all": [
+      {
+        "read": "road.between-market-towns",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "read": "place.in",
+        "op": "eq",
+        "value": "within-200-feet-of-road"
+      }
+    ]
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "object.kind",
+        "op": "eq",
+        "value": "large-tree-clear-understory"
+      },
+      "reason": "Large trees allowed if ground beneath is clear"
+    }
+  ],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Lord liable for robbery on uncleared land; murder fine at king's discretion."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.county"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "winchester-1285-highways",
+      "title": "Statute of Winchester 1285 (13 Edw. I) highways clause",
+      "year": 1285,
+      "locator": "https://en.wikisource.org/wiki/Statute_of_Winchester"
+    }
+  ]
+}

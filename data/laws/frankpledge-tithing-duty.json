@@ -1,0 +1,74 @@
+{
+  "id": "government/law.frankpledge-tithing-duty",
+  "issuer": "authority.manorial-custom",
+  "enactment": "event.enactment.frankpledge-tithing-duty",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.manorial-custom",
+    "places": [
+      "place.england",
+      "place.borough"
+    ],
+    "persons": {
+      "all": [
+        {
+          "read": "person.in-tithing",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "read": "person.age",
+          "op": "gt",
+          "value": 12
+        }
+      ]
+    },
+    "from": 1215,
+    "until": null
+  },
+  "regulated": {
+    "action": "produce-tithing-member",
+    "object": "any"
+  },
+  "condition": {
+    "read": "member.suspected-and-summoned",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "member.fled",
+        "op": "eq",
+        "value": true
+      },
+      "reason": "Remaining tithing may clear themselves on oath if summoned man flees"
+    }
+  ],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Tithing fined for member's offence; amount not stated in source."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.sheriff-tourn",
+    "office.manor-leet",
+    "office.borough-franchise"
+  ],
+  "procedure": "procedure.view-of-frankpledge",
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "frankpledge-tithing-duty",
+      "title": "View of frankpledge and tithing",
+      "year": null,
+      "locator": "https://en.wikipedia.org/wiki/Frankpledge"
+    }
+  ]
+}

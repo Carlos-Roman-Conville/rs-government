@@ -1,0 +1,56 @@
+{
+  "id": "government/law.diet-and-apparel-1363-yeomen-and-servants",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.diet-and-apparel-1363-yeomen-and-servants",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "in",
+      "value": [
+        "yeoman",
+        "servant",
+        "ploughman",
+        "carter"
+      ]
+    },
+    "from": 1363,
+    "until": null
+  },
+  "regulated": {
+    "action": "wear-apparel",
+    "object": "any"
+  },
+  "condition": {
+    "read": "apparel.above-rank-limit",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Consequence not stated in the source."
+      }
+    ]
+  },
+  "enforcer": [],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "diet-and-apparel-1363-yeomen-and-servants",
+      "title": "Statute Concerning Diet and Apparel 1363 (37 Edw. III cc.1, 3–19)",
+      "year": 1363,
+      "locator": "https://en.wikipedia.org/wiki/Statute_Concerning_Diet_and_Apparel_1363"
+    }
+  ]
+}

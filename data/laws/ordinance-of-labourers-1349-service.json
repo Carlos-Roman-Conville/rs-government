@@ -1,0 +1,84 @@
+{
+  "id": "government/law.ordinance-of-labourers-1349-service",
+  "issuer": "authority.king-in-council",
+  "enactment": "event.enactment.ordinance-of-labourers-1349-service",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.king-in-council",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "all": [
+        {
+          "read": "person.able-bodied",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "read": "person.age",
+          "op": "lt",
+          "value": 60
+        },
+        {
+          "read": "person.independent-means",
+          "op": "eq",
+          "value": false
+        }
+      ]
+    },
+    "from": 1349,
+    "until": null
+  },
+  "regulated": {
+    "action": "serve-when-required",
+    "object": "any"
+  },
+  "condition": {
+    "read": "wages.at-pre-plague-rate",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "person.independent-means",
+        "op": "eq",
+        "value": true
+      },
+      "reason": "Those with own land or means"
+    }
+  ],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "detention",
+        "amount": null,
+        "note": "Leaving service without reasonable cause."
+      },
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Hiring such a worker; paying or taking above rate means repay double; lord pays treble damages."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.sheriff",
+    "office.constable",
+    "office.mayor",
+    "office.bailiff"
+  ],
+  "procedure": "procedure.two-true-men",
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "ordinance-of-labourers-1349-service",
+      "title": "Ordinance of Labourers 1349 (23 Edw. III)",
+      "year": 1349,
+      "locator": "https://en.wikipedia.org/wiki/Ordinance_of_Labourers_1349"
+    }
+  ]
+}

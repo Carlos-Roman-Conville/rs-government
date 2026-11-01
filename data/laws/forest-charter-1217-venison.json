@@ -1,0 +1,58 @@
+{
+  "id": "government/law.forest-charter-1217-venison",
+  "issuer": "authority.regency-henry-iii",
+  "enactment": "event.enactment.forest-charter-1217-venison",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.regency-henry-iii",
+    "places": [
+      "place.royal-forest"
+    ],
+    "persons": "all",
+    "from": 1217,
+    "until": null
+  },
+  "regulated": {
+    "action": "take-venison",
+    "object": {
+      "read": "object.kind",
+      "op": "eq",
+      "value": "deer"
+    }
+  },
+  "condition": {
+    "read": "holds.permission",
+    "op": "ne",
+    "value": "forest-leave"
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "No life or limb; fine or imprisonment possible (amounts not stated)."
+      },
+      {
+        "kind": "detention",
+        "amount": null,
+        "note": "Imprisonment mentioned without detail in source."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.verderer-court"
+  ],
+  "procedure": "procedure.verderers-court",
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "forest-charter-1217-venison",
+      "title": "Charter of the Forest 1217 clause 10",
+      "year": 1217,
+      "locator": "https://en.wikipedia.org/wiki/Charter_of_the_Forest"
+    }
+  ]
+}

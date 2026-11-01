@@ -1,0 +1,59 @@
+{
+  "id": "government/law.winchester-1285-arms-assize",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.winchester-1285-arms-assize",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "all": [
+        {
+          "read": "person.age",
+          "op": "gte",
+          "value": 15
+        },
+        {
+          "read": "person.age",
+          "op": "lte",
+          "value": 60
+        }
+      ]
+    },
+    "from": 1285,
+    "until": null
+  },
+  "regulated": {
+    "action": "keep-arms",
+    "object": "any"
+  },
+  "condition": true,
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Defaults reported to justices; penalty not stated in the source checked."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.constable",
+    "office.justice-itinerant"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "winchester-1285-arms-assize",
+      "title": "Statute of Winchester 1285 (13 Edw. I) arms clause",
+      "year": 1285,
+      "locator": "https://en.wikisource.org/wiki/Statute_of_Winchester"
+    }
+  ]
+}

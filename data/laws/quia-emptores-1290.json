@@ -1,0 +1,53 @@
+{
+  "id": "government/law.quia-emptores-1290",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.quia-emptores-1290",
+  "modality": "permit",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "read": "holds.permission",
+      "op": "eq",
+      "value": "fee-simple"
+    },
+    "from": 1290,
+    "until": null
+  },
+  "regulated": {
+    "action": "sell-land",
+    "object": "any"
+  },
+  "condition": {
+    "read": "day.in",
+    "op": "gte",
+    "value": "st-andrews-following-1290"
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Buyer holds directly of chief lord on same services; no new middle lordship."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.chief-lord"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "quia-emptores-1290",
+      "title": "Quia Emptores 1290 (18 Edw. I) c.1",
+      "year": 1290,
+      "locator": "https://www.legislation.gov.uk/aep/Edw1/18/1"
+    }
+  ]
+}

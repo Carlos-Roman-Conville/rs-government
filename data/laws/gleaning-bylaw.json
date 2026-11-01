@@ -1,0 +1,49 @@
+{
+  "id": "government/law.gleaning-bylaw",
+  "issuer": "authority.village-community",
+  "enactment": "event.enactment.gleaning-bylaw",
+  "modality": "permit",
+  "jurisdiction": {
+    "authority": "authority.manor-court",
+    "places": [
+      "place.manor-open-field"
+    ],
+    "persons": "all",
+    "from": 1286,
+    "until": null
+  },
+  "regulated": {
+    "action": "glean",
+    "object": "any"
+  },
+  "condition": {
+    "read": "person.gleaning-eligible",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Fine at court; amount for gleaning not stated in source."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.manor-court"
+  ],
+  "procedure": "procedure.manor-presentment",
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "gleaning-bylaw",
+      "title": "Manorial gleaning by-law (Ault 1972; Islip by-laws)",
+      "year": null,
+      "locator": "https://lahs.org.uk/blog/the-early-fifteenth-century-wymeswold-bye-laws-revisited"
+    }
+  ]
+}

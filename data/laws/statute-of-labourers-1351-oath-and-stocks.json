@@ -1,0 +1,74 @@
+{
+  "id": "government/law.statute-of-labourers-1351-oath-and-stocks",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.statute-of-labourers-1351-oath-and-stocks",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england",
+      "place.town"
+    ],
+    "persons": {
+      "any": [
+        {
+          "read": "person.sworn-to-wage-rates",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "all": [
+            {
+              "read": "person.able-bodied",
+              "op": "eq",
+              "value": true
+            },
+            {
+              "read": "person.independent-means",
+              "op": "eq",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    "from": 1351,
+    "until": null
+  },
+  "regulated": {
+    "action": "take-wage-oath-or-serve",
+    "object": "any"
+  },
+  "condition": true,
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "detention",
+        "amount": null,
+        "note": "Breaking oath: 40 days prison, longer on repeat; refusing to serve until guarantor."
+      },
+      {
+        "kind": "detention",
+        "amount": null,
+        "note": "Refusing oath: three days or more in stocks or gaol."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.town",
+    "office.county-gaol"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "statute-of-labourers-1351-oath-and-stocks",
+      "title": "Statute of Labourers 1351",
+      "year": 1351,
+      "locator": "https://en.wikipedia.org/wiki/Statute_of_Labourers_1351"
+    }
+  ]
+}

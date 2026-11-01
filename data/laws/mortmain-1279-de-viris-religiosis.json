@@ -1,0 +1,62 @@
+{
+  "id": "government/law.mortmain-1279-de-viris-religiosis",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.mortmain-1279-de-viris-religiosis",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "religious-house-or-person"
+    },
+    "from": 1279,
+    "until": null
+  },
+  "regulated": {
+    "action": "acquire-land",
+    "object": "any"
+  },
+  "condition": {
+    "read": "object.kind",
+    "op": "eq",
+    "value": "land"
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "holds.permission",
+        "op": "eq",
+        "value": "lord-inaction-allows-gift"
+      },
+      "reason": "Lord who does not act in time lets the gift stand"
+    }
+  ],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "seizure",
+        "amount": null,
+        "note": "Land forfeit; overlords may enter within fixed deadlines (length not stated in source)."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.overlord-chain"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "mortmain-1279-de-viris-religiosis",
+      "title": "Statute of Mortmain 1279 (7 Edw. I) De viris religiosis",
+      "year": 1279,
+      "locator": "https://en.wikipedia.org/wiki/Statute_of_Mortmain"
+    }
+  ]
+}

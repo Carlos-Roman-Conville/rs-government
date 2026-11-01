@@ -1,0 +1,63 @@
+{
+  "id": "government/law.treason-1351",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.treason-1351",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": "all",
+    "from": 1351,
+    "until": null
+  },
+  "regulated": {
+    "action": "commit-treason-act",
+    "object": "any"
+  },
+  "condition": {
+    "read": "act.overt-proved",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "act.adhering-rebels-not-enemies",
+        "op": "eq",
+        "value": true
+      },
+      "reason": "Courts' reading: adhering to rebels or pirates is not adhering to enemies"
+    }
+  ],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "corporal",
+        "amount": null,
+        "note": "High treason: hanging, drawing and quartering (men); drawing and burning (women)."
+      },
+      {
+        "kind": "seizure",
+        "amount": null,
+        "note": "Property to the Crown for high treason; to immediate lord for petty treason."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.kings-judge"
+  ],
+  "procedure": "procedure.kings-court",
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "treason-1351",
+      "title": "Treason Act 1351 (25 Edw. III Stat. 5 c.2)",
+      "year": 1351,
+      "locator": "https://en.wikipedia.org/wiki/Treason_Act_1351"
+    }
+  ]
+}

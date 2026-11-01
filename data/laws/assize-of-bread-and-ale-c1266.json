@@ -1,0 +1,62 @@
+{
+  "id": "government/law.assize-of-bread-and-ale-c1266",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.assize-of-bread-and-ale-c1266",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england",
+      "place.town",
+      "place.manor"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "in",
+      "value": [
+        "baker",
+        "brewer"
+      ]
+    },
+    "from": 1266,
+    "until": null
+  },
+  "regulated": {
+    "action": "sell-bread-or-ale",
+    "object": "any"
+  },
+  "condition": {
+    "read": "object.kind",
+    "op": "in",
+    "value": [
+      "bread",
+      "ale"
+    ]
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Amercement; amount not stated in the source checked."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.manor-court",
+    "office.ale-taster"
+  ],
+  "procedure": "procedure.manor-three-weekly-court",
+  "status": "repealed",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "assize-of-bread-and-ale-c1266",
+      "title": "Assize of Bread and Ale (c. 1266)",
+      "year": 1266,
+      "locator": "https://en.wikipedia.org/wiki/Assize_of_Bread_and_Ale"
+    }
+  ]
+}

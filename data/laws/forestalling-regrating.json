@@ -1,0 +1,57 @@
+{
+  "id": "government/law.forestalling-regrating",
+  "issuer": "authority.marshalsea-custom",
+  "enactment": "event.enactment.forestalling-regrating",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.marshalsea-custom",
+    "places": [
+      "place.market",
+      "place.fair"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "trader"
+    },
+    "from": 1321,
+    "until": null
+  },
+  "regulated": {
+    "action": "forestall-or-regrate",
+    "object": "any"
+  },
+  "condition": {
+    "read": "trade.to-raise-price",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Fine; amounts not stated in source."
+      },
+      {
+        "kind": "corporal",
+        "amount": null,
+        "note": "Repeat offenders may be pilloried."
+      }
+    ]
+  },
+  "enforcer": [],
+  "procedure": null,
+  "status": "repealed",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "forestalling-regrating",
+      "title": "Forestalling and regrating",
+      "year": null,
+      "locator": "https://en.wikipedia.org/wiki/Forestalling"
+    }
+  ]
+}

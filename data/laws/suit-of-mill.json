@@ -1,0 +1,53 @@
+{
+  "id": "government/law.suit-of-mill",
+  "issuer": "authority.manorial-custom",
+  "enactment": "event.enactment.suit-of-mill",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.manor-court",
+    "places": [
+      "place.manor"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "manorial-tenant"
+    },
+    "from": 1215,
+    "until": null
+  },
+  "regulated": {
+    "action": "grind-at-other-mill",
+    "object": "any"
+  },
+  "condition": {
+    "read": "holds.permission",
+    "op": "eq",
+    "value": "suit-of-mill"
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Consequence not stated in source; low-confidence fixture."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.manor-court"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "suit-of-mill",
+      "title": "Manorial suit of mill (Bennett 1937; Dyer 1989 cited to check)",
+      "year": null,
+      "locator": null
+    }
+  ]
+}

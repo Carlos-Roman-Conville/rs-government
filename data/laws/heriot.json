@@ -1,0 +1,53 @@
+{
+  "id": "government/law.heriot",
+  "issuer": "authority.manorial-custom",
+  "enactment": "event.enactment.heriot",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.manor-court",
+    "places": [
+      "place.manor"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "manorial-tenant-heir"
+    },
+    "from": 1215,
+    "until": null
+  },
+  "regulated": {
+    "action": "deliver-heriot-on-death",
+    "object": "any"
+  },
+  "condition": {
+    "read": "tenant.died-holding",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "seizure",
+        "amount": null,
+        "note": "Lord takes tenant's best beast traditionally; rule for tenant with no beast not stated in source."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.manor-court"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "heriot",
+      "title": "Manorial heriot custom",
+      "year": null,
+      "locator": "https://www.nottingham.ac.uk/ManuscriptsandSpecialCollections/ResearchGuidance/Manorial/Glossary.aspx"
+    }
+  ]
+}

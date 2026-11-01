@@ -1,0 +1,53 @@
+{
+  "id": "government/law.westminster-2-1285-c46-approvement",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.westminster-2-1285-c46-approvement",
+  "modality": "permit",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "lord-manor"
+    },
+    "from": 1285,
+    "until": null
+  },
+  "regulated": {
+    "action": "enclose-neighbour-common",
+    "object": "any"
+  },
+  "condition": {
+    "read": "common.sufficient-for-neighbours",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Consequence not stated in the source checked."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.kings-court"
+  ],
+  "procedure": null,
+  "status": "repealed",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "westminster-2-1285-c46-approvement",
+      "title": "Statute of Westminster II 1285 (13 Edw. I) c.46",
+      "year": 1285,
+      "locator": "https://www.legislation.gov.uk/aep/Edw1/13/46/data.html"
+    }
+  ]
+}

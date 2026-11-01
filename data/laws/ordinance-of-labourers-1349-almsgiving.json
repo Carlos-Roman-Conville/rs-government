@@ -1,0 +1,61 @@
+{
+  "id": "government/law.ordinance-of-labourers-1349-almsgiving",
+  "issuer": "authority.king-in-council",
+  "enactment": "event.enactment.ordinance-of-labourers-1349-almsgiving",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.king-in-council",
+    "places": [
+      "place.england"
+    ],
+    "persons": "all",
+    "from": 1349,
+    "until": null
+  },
+  "regulated": {
+    "action": "give-alms",
+    "object": "any"
+  },
+  "condition": {
+    "all": [
+      {
+        "read": "person.able-bodied",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "read": "gift.colour-of-pity",
+        "op": "eq",
+        "value": true
+      }
+    ]
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "detention",
+        "amount": null,
+        "note": "Imprisonment; disabled implied exempt but not named in source."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.sheriff",
+    "office.constable",
+    "office.mayor",
+    "office.bailiff"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "ordinance-of-labourers-1349-almsgiving",
+      "title": "Ordinance of Labourers 1349",
+      "year": 1349,
+      "locator": "https://en.wikipedia.org/wiki/Ordinance_of_Labourers_1349"
+    }
+  ]
+}

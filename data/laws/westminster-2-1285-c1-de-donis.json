@@ -1,0 +1,64 @@
+{
+  "id": "government/law.westminster-2-1285-c1-de-donis",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.westminster-2-1285-c1-de-donis",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england"
+    ],
+    "persons": "all",
+    "from": 1285,
+    "until": null
+  },
+  "regulated": {
+    "action": "alienate-land",
+    "object": {
+      "read": "object.kind",
+      "op": "eq",
+      "value": "conditional-gift-land"
+    }
+  },
+  "condition": {
+    "all": [
+      {
+        "read": "gift.conditional",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "read": "gift.after-statute",
+        "op": "eq",
+        "value": true
+      }
+    ]
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "gift.before-statute",
+        "op": "eq",
+        "value": true
+      },
+      "reason": "Gifts before the statute"
+    }
+  ],
+  "consequence": {
+    "kind": "void"
+  },
+  "enforcer": [
+    "office.kings-court"
+  ],
+  "procedure": "procedure.kings-court",
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "westminster-2-1285-c1-de-donis",
+      "title": "Statute of Westminster II 1285 (13 Edw. I) c.1 De donis conditionalibus",
+      "year": 1285,
+      "locator": "https://www.legislation.gov.uk/aep/Edw1/13/1"
+    }
+  ]
+}

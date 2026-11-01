@@ -1,0 +1,62 @@
+{
+  "id": "government/law.winchester-1285-watch-and-ward",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.winchester-1285-watch-and-ward",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.walled-town",
+      "place.borough",
+      "place.town"
+    ],
+    "persons": "all",
+    "from": 1285,
+    "until": null
+  },
+  "regulated": {
+    "action": "keep-night-watch",
+    "object": "any"
+  },
+  "condition": {
+    "read": "day.in",
+    "op": "eq",
+    "value": "sunset-to-sunrise-ascension-michaelmas"
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "person.stranger-without-suspicion",
+        "op": "eq",
+        "value": true
+      },
+      "reason": "Strangers with no ground for suspicion released in the morning"
+    }
+  ],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Host answers for lodgers; no punishment for detaining a stranger under this rule."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.watchman",
+    "office.sheriff",
+    "office.bailiff"
+  ],
+  "procedure": null,
+  "status": "repealed",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "winchester-1285-watch-and-ward",
+      "title": "Statute of Winchester 1285 (13 Edw. I)",
+      "year": 1285,
+      "locator": "https://en.wikisource.org/wiki/Statute_of_Winchester"
+    }
+  ]
+}

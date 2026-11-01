@@ -1,0 +1,54 @@
+{
+  "id": "government/law.merton-1235-c4-approvement-of-commons",
+  "issuer": "authority.king-in-council",
+  "enactment": "event.enactment.merton-1235-c4-approvement-of-commons",
+  "modality": "empower",
+  "jurisdiction": {
+    "authority": "authority.king-in-council",
+    "places": [
+      "place.england"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "lord-manor"
+    },
+    "from": 1235,
+    "until": null
+  },
+  "regulated": {
+    "action": "enclose-common",
+    "object": "any",
+    "power": "approve-common"
+  },
+  "condition": {
+    "read": "common.sufficient-for-tenants",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "If too little common remains tenants may complain by writ; writ and remedy not stated in source. SOURCES Modality: permit."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.kings-court"
+  ],
+  "procedure": null,
+  "status": "repealed",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "merton-1235-c4-approvement-of-commons",
+      "title": "Statute of Merton 1235 (20 Hen. III) c.4",
+      "year": 1235,
+      "locator": "https://en.wikipedia.org/wiki/Statute_of_Merton"
+    }
+  ]
+}

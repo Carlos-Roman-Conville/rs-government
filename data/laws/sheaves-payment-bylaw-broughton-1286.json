@@ -1,0 +1,49 @@
+{
+  "id": "government/law.sheaves-payment-bylaw-broughton-1286",
+  "issuer": "authority.village-community",
+  "enactment": "event.enactment.sheaves-payment-bylaw-broughton-1286",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.manor-court",
+    "places": [
+      "place.broughton-fields"
+    ],
+    "persons": "all",
+    "from": 1286,
+    "until": null
+  },
+  "regulated": {
+    "action": "pay-with-sheaves-in-field",
+    "object": "any"
+  },
+  "condition": {
+    "read": "payment.in-field",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": 4,
+        "note": "4d to the lord per excerpt; separate 12d case in excerpt not linked in source."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.manor-court"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "sheaves-payment-bylaw-broughton-1286",
+      "title": "Broughton court rolls 1286 (textbook excerpt)",
+      "year": 1286,
+      "locator": "https://digfir-published.macmillanusa.com/mckaywest12e/mckaywest12e_ch10_5.html"
+    }
+  ]
+}

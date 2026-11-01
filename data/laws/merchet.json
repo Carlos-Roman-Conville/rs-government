@@ -1,0 +1,62 @@
+{
+  "id": "government/law.merchet",
+  "issuer": "authority.manorial-custom",
+  "enactment": "event.enactment.merchet",
+  "modality": "require",
+  "jurisdiction": {
+    "authority": "authority.manor-court",
+    "places": [
+      "place.manor"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "eq",
+      "value": "villein-tenant"
+    },
+    "from": 1215,
+    "until": null
+  },
+  "regulated": {
+    "action": "pay-merchet",
+    "object": "any"
+  },
+  "condition": {
+    "all": [
+      {
+        "read": "tenant.unfree",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "read": "daughter.marries",
+        "op": "eq",
+        "value": true
+      }
+    ]
+  },
+  "exceptions": [],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Fine to lord; amount not stated in source; free tenants implied exempt."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.manor-court"
+  ],
+  "procedure": null,
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "merchet",
+      "title": "Manorial merchet custom",
+      "year": null,
+      "locator": "https://www.nottingham.ac.uk/ManuscriptsandSpecialCollections/ResearchGuidance/Manorial/Glossary.aspx"
+    }
+  ]
+}

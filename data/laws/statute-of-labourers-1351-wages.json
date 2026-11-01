@@ -1,0 +1,71 @@
+{
+  "id": "government/law.statute-of-labourers-1351-wages",
+  "issuer": "authority.king-in-parliament",
+  "enactment": "event.enactment.statute-of-labourers-1351-wages",
+  "modality": "prohibit",
+  "jurisdiction": {
+    "authority": "authority.king-in-parliament",
+    "places": [
+      "place.england",
+      "place.london",
+      "place.borough"
+    ],
+    "persons": {
+      "read": "person.status",
+      "op": "in",
+      "value": [
+        "servant",
+        "labourer",
+        "artificer"
+      ]
+    },
+    "from": 1351,
+    "until": null
+  },
+  "regulated": {
+    "action": "pay-or-take-wages",
+    "object": "any"
+  },
+  "condition": {
+    "read": "wages.exceeds-statutory-rate",
+    "op": "eq",
+    "value": true
+  },
+  "exceptions": [
+    {
+      "condition": {
+        "read": "place.in",
+        "op": "eq",
+        "value": "region-lower-historical-rate"
+      },
+      "reason": "Regions where pay had been lower keep the lower rate"
+    }
+  ],
+  "consequence": {
+    "kind": "sanctions",
+    "sanctions": [
+      {
+        "kind": "fine",
+        "amount": null,
+        "note": "Fine, ransom and imprisonment at justices' discretion; overpayment recoverable by suit."
+      }
+    ]
+  },
+  "enforcer": [
+    "office.justice-of-labour",
+    "office.steward",
+    "office.bailiff",
+    "office.constable"
+  ],
+  "procedure": "procedure.justices-quarterly",
+  "status": "in-force",
+  "supersedes": [],
+  "sources": [
+    {
+      "key": "statute-of-labourers-1351-wages",
+      "title": "Statute of Labourers 1351 (25 Edw. III Stat. 2)",
+      "year": 1351,
+      "locator": "https://en.wikipedia.org/wiki/Statute_of_Labourers_1351"
+    }
+  ]
+}

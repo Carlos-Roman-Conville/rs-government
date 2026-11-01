@@ -10,8 +10,7 @@
 - §1.12 host ballots; minima/ties feed enact; unresolved vote reasons retained.
 - §1.13 levy duties/confirmed omissions, backing plus supply, and command delegation reads.
 - §1.14 polity/apex and treaty reads share authority and law evaluation; ties stay explicit.
-- §3 fixture + seeded A/B run return command, breach, belief, R/backing traces; 24 laws; D-demo-1/2 unsourced.
-- §3.1 acceptance on stub providers decided (5007): assert/report/wiring per §3 item 1-5.
+- §3 fixture/run/acceptance (5008): A/B, beliefs, conservation pass; seed diversity blocked.
 
 ## Next
 
@@ -20,10 +19,11 @@
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §3.1 unit 3 (codex): `test/demo-acceptance.test.ts`, A-B direction across seeds, conservation; no retuning.
 
 ## Blocked
 
+- §3.1 seeds 42/43: identical breach sets (A all 60, B none); required diversity test fails.
+  Needs spec decision.
 - GOV-Q7 battle aggregation awaits Reality's interface.
 - Cognition seam: institution as a belief subject; host maps institution IDs to mind handles.
 - GOV-Q6 custom issuer awaits Society agreement.
@@ -39,20 +39,22 @@
 
 ## Gotchas
 
-- Stub seeds 42/43: A R .912/.916 -> 0, 60 payment breaches; B .987/.990 ->
-  .154/.166, 0 breaches. B above A but fails §3 item 2; backing falls in both.
-- Host test choices (unsourced): 365-day years, harvest day 0, 5 acres, no stores, 90% loss.
+- Stub evidence only (pre -> shock):
+  seed 42 A R .912 -> 0, breaches 0 -> 60, grain 480 -> 255.911, backing .872 -> 0;
+  B R .987 -> .154, breaches 0 -> 0, grain 255.798 -> 0, backing .971 -> .108.
+  seed 43 A R .916 -> 0, breaches 0 -> 60, grain 480 -> 254.654, backing .933 -> 0;
+  B R .990 -> .166, breaches 0 -> 0, grain 256.024 -> 0, backing 1 -> .194.
+  B above A, fails §3 item 2; null fines move no coins.
+- Unsourced host: 365-day years, harvest day 0, 5 acres, no stores, 90% loss.
 - Theft fine null; no inferred seizure/granary relief. §3 presentment is not assize's
   manor-three-weekly-court. READS is data/laws/READS.md.
 - Polities need host jurisdictions/domains/readers; treaties use jurisdiction.authorities.
 - Spending: array order; paid = commanded allocation, not ledger; host prevents replay.
 - Tax bases return {amount, unit}; hosts supply confirmed totals to taxBreaches; missing = unknown.
-- Law refs use `procedure.<slug>`; records `government/procedure.<slug>`. `checkLaws` maps
-  the `procedure.` prefix; the 6 minimal procedure records cite law sources.
+- Law refs `procedure.<slug>` map to records `government/procedure.<slug>`; 6 records cite law sources.
 - `status: repealed` is for an in-run event.
-- Succession host supplies office {id, place}, recognition and per-law choices
-  ([] = none, null = unknown). No preference default; no direct heir stays unresolved.
-- No stored government type or legitimacy meter; Government only emits commands.
+- Succession: host office/place, recognition, per-law choices ([] none, null unknown); no default heir.
+- No stored type/legitimacy meter; emit commands only.
 - Supersession is same-authority-only. Null issuer/authority: own unstated:<law id>
   set, never supersedes, J = 0; delegation skips it. A jurisdiction is not a place.
 - From inclusive, until exclusive; null unbounded, not perpetual. Year-only = Jan 1.

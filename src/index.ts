@@ -61,3 +61,4 @@ export const ENGINE = 'government'
 export function governmentId(local: string): string {
   return qualify(ENGINE, local)
 }
+export { summarizeHarvest, harvestLedgerDay } from './demo/acceptance.ts'

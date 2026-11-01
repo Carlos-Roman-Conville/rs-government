@@ -16,7 +16,7 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Exceptions: not stated in the source.
 - Consequence: the enclosure stands; if too little is left the tenants may complain by writ (the writ and its remedy are not stated in the source checked).
 - Enforcer and procedure: the king's courts on a tenant's writ; the procedure is not stated in the source.
-- Period in force: 1235 until repeal by the Commons Act 2006.
+- Period in force: 1235 until repeal in England and Wales by the Statute Law Revision Act 1953 (2 & 3 Eliz. 2 c. 5), in force 18 December 1953 (Northern Ireland: Statute Law Revision Act 1950); per https://en.wikipedia.org/wiki/Commons_Act_1236 , which links the repealing Acts at https://legislation.gov.uk/ukpga/Eliz2/2-3/5/ and https://legislation.gov.uk/ukpga/Geo6/14/6/ . The legislation.gov.uk record for the chapter itself could not be fetched (404 on the URLs tried), so the date follows the Wikipedia list; the earlier "Commons Act 2006" was not found in any source.
 - Note: first English statutory enclosure power. The precise writ is not given in the pages checked.
 
 ## westminster-2-1285-c1-de-donis
@@ -254,7 +254,7 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Note: early on, only landholders could be made to pay.
 
 ## gleaning-bylaw
-- Source: Warren O. Ault, *Open-Field Farming in Medieval England* (1972), via secondary descriptions at https://digfir-published.macmillanusa.com/mckaywest12e/mckaywest12e_ch10_5.html and https://lahs.org.uk/blog/the-early-fifteenth-century-wymeswold-bye-laws-revisited ; Ault pp. 155–159 and the Islip by-laws (ed. Harvey, pp. 104–105) were not opened.
+- Source: Warren O. Ault, *Open-Field Farming in Medieval England* (1972), via the secondary description at https://lahs.org.uk/blog/the-early-fifteenth-century-wymeswold-bye-laws-revisited , which says gleaning was a customary right of the poorest and that later by-laws (Wymeswold; Islip 1407) limited it, e.g. a two-pence-a-day wage test at Wymeswold. The earlier textbook excerpt URL is dead and no working source was found for the list of permitted gleaners, the fine or the c. 1286 date below; those lines are unsupported by a working source. Ault's book itself was not opened.
 - Who made it: the village community, by common consent, recorded as an entry in the manorial court roll.
 - Applies to: persons in the manor's open fields at harvest.
 - Act regulated: gleaning, picking up fallen grain after reaping.
@@ -267,7 +267,7 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Note: the sheaves by-law below shows what fines looked like at the same kind of court.
 
 ## sheaves-payment-bylaw-broughton-1286
-- Source: Broughton court rolls 1286 as reproduced in a textbook excerpt, https://digfir-published.macmillanusa.com/mckaywest12e/mckaywest12e_ch10_5.html , citing Ault 1972 pp. 86, 89, 155–159 (not opened).
+- Source: Broughton court rolls 1286, via Ault 1972 *Open-Field Farming in Medieval England* (not opened). The textbook excerpt first cited is dead and no working source was found that states this provision, so the fields below (including the 4d and 12d amounts) are carried over from that earlier excerpt and are not confirmed by a working source.
 - Who made it: the village at the manorial court, by by-law.
 - Applies to: those working in the Broughton fields.
 - Act regulated: paying a worker with whole sheaves in the field.

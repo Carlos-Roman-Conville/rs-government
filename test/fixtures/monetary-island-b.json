@@ -1,0 +1,92 @@
+{
+  "note": "test fiction",
+  "office": "office.island-b-treasury",
+  "officeGrantId": "office.island-b-treasury",
+  "authority": "authority.island-b",
+  "place": "place.island-b-market",
+  "collector": "person.island-b-collector",
+  "currency": "currency.island-b-gold",
+  "coin": {
+    "id": "good.island-b-gold-coin",
+    "metal": "good.island-b-gold-bullion",
+    "metalContent": 0.25,
+    "note": "test fiction coin metal content, not a production specification"
+  },
+  "laws": [
+    {
+      "id": "government/law.island-b-legal-tender",
+      "issuer": "authority.island-b",
+      "enactment": "event.enactment.island-b-legal-tender",
+      "modality": "require",
+      "jurisdiction": {
+        "authority": "authority.island-b",
+        "places": ["place.island-b-market"],
+        "persons": "all",
+        "from": { "year": 1200, "calendar": "julian" },
+        "until": { "year": 1305, "calendar": "julian" },
+        "note": "test fiction legal tender for island B tax and debt obligations"
+      },
+      "regulated": { "action": "accept-payment", "object": "any" },
+      "tender": {
+        "assets": ["currency.island-b-gold"],
+        "purposes": ["tax", "debt"]
+      },
+      "condition": true,
+      "exceptions": [],
+      "consequence": {
+        "kind": "sanctions",
+        "sanctions": [{ "kind": "fine", "amount": null, "note": "test fiction: amount not stated" }]
+      },
+      "enforcer": ["office.island-b-reeve"],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [{ "key": "island-b-legal-tender", "title": "Island B legal tender (test fiction)", "year": null, "locator": null }]
+    },
+    {
+      "id": "government/law.island-b-monetary-powers",
+      "issuer": "authority.island-b",
+      "enactment": "event.enactment.island-b-monetary-powers",
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.island-b",
+        "places": ["place.island-b-market"],
+        "persons": "all",
+        "from": { "year": 1200, "calendar": "julian" },
+        "until": null,
+        "note": "test fiction: one office may issue the gold currency and mint its coin"
+      },
+      "regulated": { "action": "exercise:issue", "object": "any", "power": "issue" },
+      "condition": { "read": "actor.office", "op": "eq", "value": "office.island-b-treasury" },
+      "exceptions": [],
+      "consequence": { "kind": "void" },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [{ "key": "island-b-issue", "title": "Island B issue power (test fiction)", "year": null, "locator": null }]
+    },
+    {
+      "id": "government/law.island-b-monetary-mint",
+      "issuer": "authority.island-b",
+      "enactment": "event.enactment.island-b-monetary-mint",
+      "modality": "empower",
+      "jurisdiction": {
+        "authority": "authority.island-b",
+        "places": ["place.island-b-market"],
+        "persons": "all",
+        "from": { "year": 1200, "calendar": "julian" },
+        "until": null
+      },
+      "regulated": { "action": "exercise:mint", "object": "any", "power": "mint" },
+      "condition": { "read": "actor.office", "op": "eq", "value": "office.island-b-treasury" },
+      "exceptions": [],
+      "consequence": { "kind": "void" },
+      "enforcer": [],
+      "procedure": null,
+      "status": "in-force",
+      "supersedes": [],
+      "sources": [{ "key": "island-b-mint", "title": "Island B mint power (test fiction)", "year": null, "locator": null }]
+    }
+  ]
+}

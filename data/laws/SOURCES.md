@@ -228,7 +228,7 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Note: petty treason was abolished in 1828.
 
 ## diet-and-apparel-1363-yeomen-and-servants
-- Source: Statute Concerning Diet and Apparel 1363 (37 Edw. III cc.1, 3–19), https://en.wikipedia.org/wiki/Statute_Concerning_Diet_and_Apparel_1363 ; class limits come from a search summary only (https://rosaliegilbert.com/sumptuarylaws.html); the statute text itself was not read.
+- Source: Statute Concerning Diet and Apparel 1363 (37 Edw. III cc.1, 3–19), https://en.wikipedia.org/wiki/Statute_Concerning_Diet_and_Apparel_1363 ; class limits come from a secondary summary (https://rosaliegilbert.com/sumptuarylaws.html, 1363 entry, opened in full); the statute text itself (Statutes of the Realm) was not opened.
 - Who made it: the king in parliament, as a statute.
 - Applies to: yeomen, servants, ploughmen and carters, and their families.
 - Act regulated: wearing cloth, furs and ornaments above one's rank.
@@ -267,7 +267,7 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Note: detailed age/health eligibility is not stated in the source. Later local restrictions are not encoded as a universal rule. The JSON's required issuer and jurisdiction authority strings explicitly mark missing evidence; its enactment and place references are fixture identifiers, not a sourced event or named manor.
 
 ## heriot
-- Source: Oxford article on heriot in fifteenth-century England, https://ora.ox.ac.uk/objects/uuid:99772e85-4e77-433f-b423-cca94af96c05 (seen as a search summary); Nottingham manorial glossary https://www.nottingham.ac.uk/ManuscriptsandSpecialCollections/ResearchGuidance/Manorial/Glossary.aspx
+- Source: Oxford article on heriot in fifteenth-century England, https://ora.ox.ac.uk/objects/uuid:99772e85-4e77-433f-b423-cca94af96c05 (abstract fetched in full: heriot is a due paid to lords on a tenant's death, traditionally the tenant's best beast); Nottingham manorial glossary https://www.nottingham.ac.uk/ManuscriptsandSpecialCollections/ResearchGuidance/Manorial/Glossary.aspx
 - Who made it: manorial custom, enforced by the lord's court.
 - Applies to: manorial tenants and their heirs.
 - Act regulated: the tenant's death.

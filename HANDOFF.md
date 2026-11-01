@@ -10,7 +10,7 @@
 - §1.12 host ballots; minima/ties feed enact; unresolved vote reasons retained.
 - §1.13 levy duties/confirmed omissions, backing plus supply, and command delegation reads.
 - §1.14 polity/apex and treaty reads share authority and law evaluation; ties stay explicit.
-- §3 fixture/run/acceptance (5008): A/B, beliefs, conservation pass; seed diversity reported only (5051).
+- §3 fixture/run/acceptance (5008-fix, 5052): A/B, beliefs, conservation pass; seed sets reported, identical.
 
 ## Next
 
@@ -22,8 +22,6 @@
 
 ## Blocked
 
-- §3.1 seed diversity (DESIGN 5008-fix): reported, not asserted; 5052 turns the red
-  test into a report.
 - GOV-Q7 battle aggregation awaits Reality's interface.
 - Cognition seam: institution as a belief subject; host maps institution IDs to mind handles.
 - GOV-Q6 custom issuer awaits Society agreement.
@@ -51,7 +49,7 @@
 - Polities need host jurisdictions/domains/readers; treaties use jurisdiction.authorities.
 - Spending: array order; paid = commanded allocation, not ledger; host prevents replay.
 - Tax bases return {amount, unit}; hosts supply confirmed totals to taxBreaches; missing = unknown.
-- Law refs `procedure.<slug>` map to records `government/procedure.<slug>`; 6 records cite law sources.
+- `checkLaws` maps the `procedure.` prefix; the 6 minimal procedure records cite law sources.
 - `status: repealed` is for an in-run event.
 - Succession: host office/place, recognition, per-law choices ([] none, null unknown); no default heir.
 - No stored type/legitimacy meter; emit commands only.

@@ -22,3 +22,4 @@
 11. Never edit another repo.
 12. One commit, not pushed, ending with `Co-Authored-By: OpenAI Codex <codex@openai.com>`. Nothing left uncommitted.
     Close with a short report: done or parked, tests, commit hash.
+13. Never commit a failing test: if an assertion the spec requires can't hold without retuning, leave the work uncommitted and report the reason as a failure.

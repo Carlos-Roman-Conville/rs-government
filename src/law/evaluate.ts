@@ -42,16 +42,21 @@ export function applicableLaws(laws: readonly Law[], act: Act, facts: ActFacts):
 
 /** Objective breaches; the host attaches kernel record IDs with createViolation. */
 export function evaluateAct(laws: readonly Law[], act: Act, facts: ActFacts): Breach[] {
-  const read = (name: string) => facts(name, act)
   return [...applicableLaws(laws, act, facts).values()].flat().sort(byId)
     .filter(law => (law.modality === 'prohibit' && law.regulated.action === act.action)
       || (law.modality === 'require' && `omit:${law.regulated.action}` === act.action))
-    .filter(law => (law.regulated.object === 'any' || evaluatePredicate(law.regulated.object, read))
-      && evaluatePredicate(law.condition, read)
-      && !law.exceptions.some(exception => evaluatePredicate(exception.condition, read)))
+    .filter(law => lawConditionsHold(law, act, facts))
     .map(law => ({
       law: law.id, act: { ...act }, stage: 'breach', known_to: [], reason: null,
       sanction: law.consequence.kind === 'sanctions'
         ? law.consequence.sanctions.map(item => ({ ...item })) : null,
     }))
+}
+
+/** Shared object/condition/exception matching after jurisdiction and action selection. */
+export function lawConditionsHold(law: Law, act: Act, facts: ActFacts): boolean {
+  const read = (name: string) => facts(name, act)
+  return (law.regulated.object === 'any' || evaluatePredicate(law.regulated.object, read))
+    && evaluatePredicate(law.condition, read)
+    && !law.exceptions.some(exception => evaluatePredicate(exception.condition, read))
 }

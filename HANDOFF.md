@@ -2,6 +2,8 @@
 
 ## State
 
+- §1.11 property regime reads reuse evaluation for void commands and nullable transferability.
+
 - §1.10 appropriations allocate treasury balances and emit pay commands and evaluator breaches.
 
 - §1.9 tax assessments and chosen collection commands; confirmed shortfalls use evaluateAct.
@@ -25,8 +27,7 @@
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §1.11 Property regimes;
-  §1.13 Military; §1.14 Diplomacy and polities.
+- §1.13 Military; §1.14 Diplomacy and polities.
 - §3 Demonstration: legitimacy harvest; its theft/levy laws cite the presentment procedure.
 
 ## Blocked

@@ -554,6 +554,36 @@ it to each winning apex's list, so one place can sit in two polities (one apex w
 justice, different persons living there have different winners, or a tie keeps both apexes). No single territorial
 score is formed; a polity's `territory` is a union of places, not a partition.
 
+### 1.16 Legal tender and monetary authority (`government.monetary.authority`, specialises `government.law.schema`)
+
+Agreed in HQ/handoffs/economy/MULTI-ECONOMY-DESIGN.md v2 (Rex 2026-11-01, Government amendments 1–3). Keeper calls,
+2026-11-01, so units apply them and decide nothing:
+- **The law.** Legal tender is a `require` law with an optional `tender: { assets: string[]; purposes: ('tax' |
+  'debt')[] }` field, allowed only for `require` (as `tax` is). `regulated` is `{ action: 'accept-payment', object:
+  'any' }`. No new modality and no new record.
+- **The read.** `legalTender(jurisdiction, day, purpose) → string[]` is the sorted, de-duplicated union of `tender.assets`
+  over the laws in force on `day` (§1.1 dates, `until`, status) whose jurisdiction covers `jurisdiction` and whose
+  `purposes` include `purpose`. It is computed on every read and never stored. With no Government, no laws, or none
+  matching, it returns `[]`. It is the `government.legal_tender` out port (record). Minds never read it (they perceive
+  it through the host).
+- **Powers.** `issue` and `mint` are `empower` powers (`regulated.power`), checked only through
+  `AuthorityProvider.may(office, power, currency, day)`. Retiring money is the reverse of issuing and uses the same
+  `issue` power; there is no third power.
+- **Issue and retire** are Government commands that, when `may` is true, emit one Settlement `credit` (issue) or `debit`
+  (retire) with `currency` and `process: 'government.monetary.issue'` / `'government.monetary.retire'`, and log one
+  `government.monetary` event naming law, office, currency, holder, amount, day. When `may` is false they emit nothing
+  and log a refusal with the reason. They never move money any other way.
+- **Mint** is a host-carried command (like `shared.host.work_resolution`): when `may(office, 'mint', coin, day)` is true,
+  Government emits `{ type: 'mint', office, holder, metal, metalUnits, coin, coinUnits, day }` for the host to resolve
+  as one Economy `transfer()` of metal good → coin good. Government checks only that the coin's metal content (read
+  from the coin good's own data, never a Government constant) times `coinUnits` equals `metalUnits`; if the content is
+  missing it refuses (null, flagged), never assumes one.
+- **Refusal as breach.** A `shared.action.outcome` `failed` `not-accepted` record (Economy) is a breach of a legal-tender
+  law when the refused asset is in `legalTender(jurisdiction, day, purpose)` for the record's purpose. A record with no
+  purpose is not a breach (unknown, not inferred). The breach enters the existing chain (§1.3–§1.5): detection,
+  prosecution and sanction stay separate stages and may fail; the sanction is the law's own `consequence`, never a
+  default.
+
 ### 1.15 What is deliberately not a mechanism here
 
 No government type state, no legitimacy meter, no stability meter, no rebellion threshold, no corruption rate, no

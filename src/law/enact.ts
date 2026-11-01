@@ -16,7 +16,8 @@ export type EnactmentResult =
   | { law: null; failure: 'not-quorate' | 'not-adopted' }
   | { law: Law; failure: null; recognised: boolean; ineffective: LawId[] }
 
-/** Record the host's procedural outcome without choosing votes or obedience.
+/** Accept decide's body result directly, or a host's procedural outcome, without
+ * recounting ballots or choosing votes or obedience.
  * day is the enactment day; the draft retains its stated effective dates/status.
  * Recognition is a read of existing laws, never of the new law itself. The host
  * owns persistence; neither the draft nor the supplied law set is changed.

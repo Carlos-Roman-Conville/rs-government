@@ -2,6 +2,8 @@
 
 ## State
 
+- §1.12 collective choice counts host ballots; explicit minima/ties feed enact directly.
+
 - §1.8 legitimacy read shares authority aggregation; reports weighted/unweighted beliefs and missing subjects.
 
 - §1.1-§1.7 implemented: law schema/loader/evaluation, authority distribution, enactment
@@ -18,7 +20,7 @@
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
 - §1.9 Taxation; §1.10 Spending; §1.11 Property regimes;
-  §1.12 Collective choice; §1.13 Military; §1.14 Diplomacy and polities.
+  §1.13 Military; §1.14 Diplomacy and polities.
 - §3 Demonstration: legitimacy harvest; its theft/levy laws cite the presentment procedure.
 
 ## Blocked

@@ -634,8 +634,6 @@ prohibition enforced by presentment (tithingmen or jurors present, the court ame
 and a duty of the lord to keep the granary (variant B only; a **modelling assumption**, see D-demo-2). The rent
 amount itself is unsourced (`rent-in-kind` is null): it is a **modelling choice**, labelled in the fixture.
 
-| D-row | Case | Behaviour | Status |
-|---|---|---|---|
 **Variant B's status (controller, 2026-11-01: label and continue, not Rex's to decide once the search is written
 down).** D-demo-1 (rent remission in dearth) and D-demo-2 (the lord's granary duty) are kept as **labelled
 counterfactual hypotheses, PLATFORM §4 level 5**: the demonstration tests what *would* follow if a lord remitted rent
@@ -646,6 +644,8 @@ B becomes researched, otherwise the demonstration reports B as a counterfactual.
 household stores), so the investigation (unit 5084) tests them first, against a sourced harvest-loss figure for
 1315–17 and sourced peasant stores if 5083 finds them, and reports whether B holds.
 
+| D-row | Case | Behaviour | Status |
+|---|---|---|---|
 | D-demo-1 | Variant B rent remission in dearth | proportional rent with remission after a failed harvest, the experiment's treatment | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end of the text, Maitland 1889 vol. 1 to the glossary, web search on the 1315 famine and manorial remission; only individual or office remissions and pardons for poverty found (`rent-remission-in-dearth`), nothing found for a dearth remission; Dyer 1989 and Homans 1941 not opened (3083: Dyer's archive.org page showed only site navigation; Homans not found on archive.org, 404). Question for Rex: keep variant B as a labelled counterfactual, or find a source (Dyer, Homans, a court roll). |
 | D-demo-2 | Lord's duty to keep a granary for tenants | variant B only, a labelled duty law | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end and its index, Maitland 1889 rolls to the glossary, web search on 1315 famine and manorial relief; nothing found (`lord-granary-duty`). Same question for Rex. |
 | D-demo-3 | Reeve's powers in the earlier draft (`levy`, `seize`, `judge`) | reassigned as in the table above | sourced: Bennett gives distraint to the beadle, Maitland judgment to the suitors; the one reeve seizure (Gidding) is not general. |

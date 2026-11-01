@@ -1,31 +1,37 @@
-# Law fixture check (2889)
+# Law fixture check (2903, after fixes 2901 and 2902)
 
-Independent check of each `data/laws/<slug>.json` against its `## <slug>` section in `SOURCES.md` and, where the Source line gives a URL, one fetch of that page (2026-10-31). Reported only; nothing was changed.
+Independent re-check of each `data/laws/<slug>.json` against its `## <slug>` section in SOURCES.md, and the
+Source URL fetched once (WebFetch, 2026-11-01). Report only; nothing fixed here.
 
-merton-1235-c4-approvement-of-commons: mismatch: until 2006 is not supported; the fetched Commons Act 1236 page says chapter 4 was repealed for England and Wales in 1953 (Statute Law Revision Act 1953)
+Notes on fetch limits: the Wikipedia pages were fetched as summaries; c.4 of Merton, the Winchester chapters and
+the Westminster II chapters were checked against summaries, not the chapter text. The Broughton textbook URL in
+the sheaves JSON no longer resolves (DNS failure), and the Wymeswold/Islip page does not support the gleaning
+eligibility list.
+
+merton-1235-c4-approvement-of-commons: ok
 westminster-2-1285-c1-de-donis: ok
-westminster-2-1285-c46-approvement: mismatch: added a fine sanction; SOURCES says the consequence is not stated and the fetched legislation.gov.uk entry gives no penalty
+westminster-2-1285-c46-approvement: ok
 winchester-1285-hue-and-cry: ok
 winchester-1285-watch-and-ward: ok
-winchester-1285-arms-assize: mismatch: condition is `true`, dropping the wealth-based arms obligation (richest keep hauberk, helm, lance, knife, horse; under 40 shillings keep falchions and small arms) that SOURCES and the fetched Wikisource text both state
+winchester-1285-arms-assize: mismatch: condition is `true` (all keepers of arms, ages 15-60), but SOURCES.md and the fetched Statute of Winchester summary make the duty depend on wealth (hauberk, helm, lance and horse for the richest; small arms for those under 40 shillings a year); the wealth tiers are missing
 winchester-1285-highways: ok
 mortmain-1279-de-viris-religiosis: ok
-quia-emptores-1290: mismatch: added a fine sanction; SOURCES gives no fine and the fetched legislation.gov.uk text states no penalty (the consequence is a tenure change)
-assize-of-bread-and-ale-c1266: ok
+quia-emptores-1290: ok
+assize-of-bread-and-ale-c1266: mismatch: from is the exact year 1266, but SOURCES.md gives only "c. 1266" (exact date not stated) and the fetched Wikipedia article gives only the 13th-century tag; the exact year is not supported
 forest-charter-1217-venison: ok
 forest-charter-1217-common-and-agistment: ok
-ordinance-of-labourers-1349-service: mismatch: hiring or keeping a worker who left service is recorded as a fine; SOURCES and the fetched Wikipedia page say imprisonment
+ordinance-of-labourers-1349-service: ok
 ordinance-of-labourers-1349-almsgiving: ok
 statute-of-labourers-1351-wages: ok
 statute-of-labourers-1351-oath-and-stocks: ok
 treason-1351: ok
-diet-and-apparel-1363-yeomen-and-servants: mismatch: added a fine sanction; SOURCES says the consequence and enforcement are not stated, and the fetched Wikipedia page gives no penalty
-frankpledge-tithing-duty: mismatch: from 1215 is not supported; SOURCES says in force before 1215, and the fetched Wikipedia page does not mention 1215
-gleaning-bylaw: unverifiable: the textbook excerpt (digfir-published.macmillanusa.com) did not resolve (DNS error); the lahs.org.uk page fetched does not state who may glean or the fine, so the eligibility rule could not be checked
-sheaves-payment-bylaw-broughton-1286: unverifiable: the textbook excerpt URL did not resolve (DNS error); matches SOURCES (4d to the lord) but the source page could not be read
-heriot: mismatch: from 1215 is not supported; SOURCES says before 1215. The fetched Nottingham glossary does not state "best beast" (the JSON's note relies on the Oxford summary, which was not fetched)
-merchet: mismatch: from 1215 is not supported; SOURCES says before 1215
-suit-of-mill: mismatch: from 1215 is not supported (SOURCES gives no start date); a fine sanction is added although SOURCES says the consequence is not stated; no source URL to fetch
+diet-and-apparel-1363-yeomen-and-servants: unverifiable: the class limits and persons list rest on a search summary; the fetched Wikipedia article gives no class limits, no covered persons and no penalties, so the JSON's person list cannot be checked against it
+frankpledge-tithing-duty: ok
+gleaning-bylaw: unverifiable: the eligibility condition (elderly, small children, ill) and the c.1286 start come from a textbook excerpt that SOURCES.md says has no working source; the fetched Wymeswold/Islip page gives no eligibility list and does not mention 1286
+heriot: ok
+merchet: ok
+suit-of-mill: unverifiable: SOURCES.md has no source with this rule's content and no URL; nothing could be fetched
 forestalling-regrating: ok
+sheaves-payment-bylaw-broughton-1286: unverifiable: the Source URL does not resolve (DNS failure); SOURCES.md says the rule and the 4d amount are carried over from a dead textbook excerpt and not confirmed by a working source
 
-Result: fail (10 mismatches)
+Result: fail (2 mismatches)

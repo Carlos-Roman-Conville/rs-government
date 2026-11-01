@@ -504,8 +504,8 @@ inventory transfers; Life injury (sanction).
 content.
 
 **World (proposed fixture; every number labelled; historical first; reconciled with `data/demo/SOURCES.md`,
-3084):** one village of ~60 households modelled on a documented English manor c. 1300. The ~60 is Bennett's own
-estimate for an average village (about 300 souls, roughly 60 families; Bennett 1937 ch. IX, `households-per-village`),
+3084):** one village of 60 households modelled on a documented English manor c. 1300. The 60 is Bennett's own
+estimate for an average village (about 300 souls, some 60 families; Bennett 1937 ch. IX p. 239, `households-per-village`, 5006),
 not a count for any one manor; using it for this manor is a **modelling choice**. Grain yield (8–9 bushels per acre,
 about four times the seed; `grain-yield`) and household need (36–40 bushels a year; `household-subsistence`) are
 Bennett's; Dyer 1989 was not opened, so it is no longer cited for numbers. One institution: a lord's manorial court
@@ -527,7 +527,7 @@ amount itself is unsourced (`rent-in-kind` is null): it is a **modelling choice*
 
 | D-row | Case | Behaviour | Status |
 |---|---|---|---|
-| D-demo-1 | Variant B rent remission in dearth | proportional rent with remission after a failed harvest, the experiment's treatment | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end of the text, Maitland 1889 vol. 1 to the glossary, web search on the 1315 famine and manorial remission; only individual or office remissions and pardons for poverty found (`rent-remission-in-dearth`), nothing found for a dearth remission; Dyer 1989 and Homans 1941 not opened (HTTP 401/403). Question for Rex: keep variant B as a labelled counterfactual, or find a source (Dyer, Homans, a court roll). |
+| D-demo-1 | Variant B rent remission in dearth | proportional rent with remission after a failed harvest, the experiment's treatment | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end of the text, Maitland 1889 vol. 1 to the glossary, web search on the 1315 famine and manorial remission; only individual or office remissions and pardons for poverty found (`rent-remission-in-dearth`), nothing found for a dearth remission; Dyer 1989 and Homans 1941 not opened (3083: Dyer's archive.org page showed only site navigation; Homans not found on archive.org, 404). Question for Rex: keep variant B as a labelled counterfactual, or find a source (Dyer, Homans, a court roll). |
 | D-demo-2 | Lord's duty to keep a granary for tenants | variant B only, a labelled duty law | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end and its index, Maitland 1889 rolls to the glossary, web search on 1315 famine and manorial relief; nothing found (`lord-granary-duty`). Same question for Rex. |
 | D-demo-3 | Reeve's powers in the earlier draft (`levy`, `seize`, `judge`) | reassigned as in the table above | sourced: Bennett gives distraint to the beadle, Maitland judgment to the suitors; the one reeve seizure (Gidding) is not general. |
 
@@ -564,10 +564,11 @@ every input exists but one interface.
 
 ### 3.1 Build units
 
-Two codex units, in this order. Both are Government-repo only and use the in-repo reads; wiring a real engine that
-lives in another repo is not part of either (HANDOFF Blocked).
+Three codex units, in this order. All are Government-repo only and use the in-repo reads; wiring a real engine that
+lives in another repo is not part of any (HANDOFF Blocked).
 
-1. **Fixture.** `data/demo/manor.json`: the households (~60, a modelling choice), the offices (lord, reeve, beadle,
+1. **Fixture.** `data/demo/manor.json`: the households (60: Bennett's average-village estimate,
+   `households-per-village`, ch. IX p. 239; applying it to this manor is a modelling choice), the offices (lord, reeve, beadle,
    the suitors as a body) and the laws of both variants as law records that pass `checkLaws`: the `empower` laws of
    the power table above, variant A's fixed rent, variant B's proportional rent with remission (D-demo-1) and the
    granary duty (D-demo-2), and the theft prohibition citing the presentment procedure. Every number cites a
@@ -578,8 +579,8 @@ lives in another repo is not part of either (HANDOFF Blocked).
 2. **Run.** `src/demo/legitimacy-harvest.ts`: headless, seeded, five years daily, the year-3 harvest failure as a
    marked input shock, trace returned as data (belief updates with attributed cause, assessments, breaches,
    commands), never a legitimacy number. Test `test/demo-legitimacy-harvest.test.ts`: same seed same trace; the
-   A–B direction of §3's acceptance 1–2 across seeds or a reported failure; conservation of every grain and coin
-   moved by command. Reads and their providers:
+   marked shock; every command routed to its owner provider; the daily grain balance; seed 42/43 R and backing
+   printed as diagnostics (3087). The acceptance outcomes moved to unit 3. Reads and their providers:
    - Settlement offices, ledger and `transfer`: in-repo stub provider (the `AuthorityProvider` default and a
      fixture ledger), not the real Settlement engine.
    - Economy `economy.harvest`: in-repo stub (READS.md marks it stubbed), yields from `grain-yield`.
@@ -588,6 +589,36 @@ lives in another repo is not part of either (HANDOFF Blocked).
      (HANDOFF Blocked) the demo reports its A–B result as stub-provider evidence, never as validation.
    - Life nutrition and `person.*` reads: in-repo stubs (READS.md), subsistence from `household-subsistence`.
    - Society witnessing: direct observation only, stubbed (§3 "What it needs").
+3. **Acceptance (codex).** `test/demo-acceptance.test.ts`, plus any helper it needs under `src/demo/` (for example
+   a per-seed summary of R, payment breaches and paid grain before and after the shock); src/ outside `src/demo/`
+   and unit 2's run are not changed. Over the test's seed list, both variants on the same seed and the same
+   shock: the A–B direction (per seed, B's post-shock R is at least A's and B's payment breaches at most A's;
+   different seeds give different sets of breaching households); conservation of every grain and coin moved by
+   command (each Economy `transfer` and Settlement `pay` command matches the stub ledger's change, grain closes as
+   opening + harvested − consumed, coins moved equal the sum of commanded coin amounts, and every sanction in the
+   trace is a command in the owner provider's log). What it asserts for each of §3's acceptance 1–5 is set below.
+
+**Acceptance on the stub providers (5007):** 3087's trace (HANDOFF Gotchas) has variant B's R fall from about .99
+to about .15 at the shock, so §3 acceptance 2 fails on the stub providers. That trace comes from the test host's
+stub `updateBelief` (post-levy grain over annual need), a labelled modelling stand-in for Cognition, not the
+Cognition baseline, so the failure says nothing yet about the institution; it is reported, never tuned away. Unit 3
+treats §3's acceptance as follows:
+
+| §3 acceptance | Unit 3 on the stub providers |
+|---|---|
+| 1. Variant A after the shock | **Asserts** R falls from its pre-shock day and payment breaches rise; every belief change is a belief update carrying its attributed cause; no legitimacy number is stored or incremented (R is recomputed from beliefs each day). **Reports** backing and revenue (lord's grain received) as stub-provider evidence only: backing reads one stub agent's belief. Seizures are **left to real-engine wiring**: the run infers no seizure (no title, recipient or amount is supplied) and the stub executes no Settlement `transfer` of kind seizure. |
+| 2. Variant B keeps R near pre-shock | **Reports** B's pre- and post-shock R as stub-provider evidence, stating that it fails on the stub; the absolute level is **left to real-engine wiring** (real Cognition baseline). Only the A–B direction is asserted (row 3). |
+| 3. Across seeds | **Asserts** the A–B direction on every listed seed and that seeds differ in which households breach. If the direction fails on a seed, the unit does not change seeds or parameters: the helper's summary names the seed, the test asserts that report, and HANDOFF records it. |
+| 4. Conservation | **Asserts** grain and coin conservation and the command log as in unit 3 above, on the stub ledger. Conservation on the real Settlement and Economy ledgers is **left to real-engine wiring**. |
+| 5. Classifier label unchanged | **Left to real-engine wiring**: no classifier is among the in-repo reads. Unit 3 asserts only that every trace day reads the same institution and domain and that no type field is written. |
+
+The host choices the test may fix: the seed list (42 and 43 plus any further seeds it names), the shock size (90%
+harvest loss, `shockMultiplier` 0.1), stores (none: household grain 0, granary 0), acres (5 per household), the
+calendar (365-day years, harvest on day 0), the payment choice (pay available grain), and 3087's stub
+`updateBelief`. **None of them is a sourced value**; the test labels them host modelling choices in its `note`, as
+3087's does. Unit 3 must not retune the stub update rule, shock, stores or acres to make variant B pass, and adds no
+constant presented as sourced. Every result on these providers is stub-provider evidence, never validation (§4);
+§3 acceptance on real Settlement, Economy and Cognition stays in HANDOFF Blocked.
 
 ## 4. Validation plan (PLATFORM §11a, §11b)
 

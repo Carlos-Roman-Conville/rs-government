@@ -110,17 +110,29 @@ export function delegationChain(laws: readonly Law[], actor: string, day: number
 
 export function recognition(actor: string, domain: string, persons: readonly string[],
   readers: BeliefReader & WeightReader): { R: number | null; flags: AuthorityFlag[] } {
-  let weighted = 0, total = 0
-  for (const person of ids(persons)) {
+  const { R, flags } = recognitionAggregate(actor, domain, persons, readers)
+  return { R, flags }
+}
+
+/** Shared aggregation for authority and legitimacy; each unique belief is read once. */
+export function recognitionAggregate(actor: string, domain: string, persons: readonly string[],
+  readers: BeliefReader & WeightReader) {
+  let weighted = 0, total = 0, sum = 0, known = 0
+  const population = ids(persons)
+  const missingSubjects: string[] = []
+  for (const person of population) {
     const b = belief(readers.recognition(person, actor, domain))
-    if (b === null) continue
+    if (b === null) { missingSubjects.push(person); continue }
     const weight = nonnegative(readers.weight(person), 'weight')
     weighted += weight * b
     total += weight
+    sum += b
+    known++
   }
-  return total === 0
-    ? { R: null, flags: [{ kind: 'no-weighted-belief', actor, domain }] }
-    : { R: weighted / total, flags: [] }
+  const flags: AuthorityFlag[] = total === 0 ? [{ kind: 'no-weighted-belief', actor, domain }] : []
+  return { R: total === 0 ? null : weighted / total,
+    shareBelieving: known === 0 ? null : sum / known,
+    populationSize: population.length, missingCount: missingSubjects.length, missingSubjects, flags }
 }
 
 export function backing(actor: string, domain: string,

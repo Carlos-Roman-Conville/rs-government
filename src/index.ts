@@ -28,6 +28,8 @@ export type { Breach, Violation, ViolationStage, SanctionCommand } from './law/v
 export { deJure, delegationChain, recognition, backing, strongestRival, effectiveAuthority, provisionalF, distribution } from './authority/distribution.ts'
 export type { AuthoritySubject, AuthorityClaimants, AuthorityFlag, AuthorityInputs, AuthorityFormula, AuthorityRow } from './authority/distribution.ts'
 export type { BeliefReader, WeightReader, CapacityReader, AgentsReader, PopulationReader, AuthorityReaders } from './authority/readers.ts'
+export { legitimacyRead } from './legitimacy/aggregate.ts'
+export type { LegitimacyRead } from './legitimacy/aggregate.ts'
 export { createAuthorityProvider, defaultAuthorityProvider } from './ports/authority-provider.ts'
 export type { AuthorityProvider, OfficeOf } from './ports/authority-provider.ts'
 

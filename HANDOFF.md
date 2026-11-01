@@ -2,6 +2,8 @@
 
 ## State
 
+- §1.8 legitimacy read shares authority aggregation; reports weighted/unweighted beliefs and missing subjects.
+
 - §1.1-§1.7 implemented: law schema/loader/evaluation, authority distribution, enactment
   and amendment, 9 sourced procedures and deterrence, succession, jurisdiction and
   suppression commands. Git holds the per-unit history.
@@ -15,11 +17,13 @@
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §1.8 Legitimacy; §1.9 Taxation; §1.10 Spending; §1.11 Property regimes;
+- §1.9 Taxation; §1.10 Spending; §1.11 Property regimes;
   §1.12 Collective choice; §1.13 Military; §1.14 Diplomacy and polities.
 - §3 Demonstration: legitimacy harvest; its theft/levy laws cite the presentment procedure.
 
 ## Blocked
+
+- Cognition seam: institution as a belief subject; host maps institution IDs to mind handles.
 
 - GOV-Q6 custom as issuer awaits agreement with the Society keeper; not implemented.
 - SOURCES.md lacks a sourced empower rule; the "one empower" assertion stays removed.

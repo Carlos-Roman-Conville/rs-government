@@ -130,6 +130,17 @@ sanction**. Compliance is never a field; it is the observed share of opportuniti
 - Outputs: `government.violation` records with their stage.
 - State: the law set (owned by `rule.creation_amendment`; this row is the schema and the evaluator).
 - Timescale: event-driven, on each act outcome; aggregate mode (§1.5) per day for distant populations.
+- **Dates and repeal (keeper, 2026-10-31, after review of unit 2866).** In a running world `jurisdiction.from` and
+  `until` are kernel days (the schema's `number`). A data file written from a source writes them as calendar points
+  `{year, month?, day?, calendar}` (calendar `julian` for England before 1752, as the source gives); `loadLaws(root,
+  toDay)` converts them with a host-supplied `toDay`, the host's calendar (the Catalogue's date normalisation,
+  `catalogue/src/dates.ts`, is the intended one; Government imports no engine). A year-only `from` is the first day of
+  that year; a year-only `until` is the first day of the repeal year (the law is not in force during it). A century or
+  "date not stated" repeal is `until: null` with a note. A law repealed after its source period is written
+  `status: in-force` with the repeal in `until`; `status: repealed` is reserved for a repeal that happens inside a
+  run (an event). The fixture's subject is England c. 1300; no date is added that SOURCES.md does not give.
+- **Supersession (keeper, 2026-10-31; confirms unit 2864):** a law is superseded only by an in-force law of the
+  **same** jurisdiction authority; a rival authority's law never repeals another's (§1.6), it competes with it.
 - Invariants: a law changes no number in another engine; consequences are commands to owners; the same act under the
   same laws gives the same breach set (deterministic); a repealed law produces no breach for acts after repeal.
 - Evidence: the schema is legal theory (Hart 1961, *The Concept of Law*: primary and secondary rules; Hohfeld 1913,
@@ -205,6 +216,14 @@ Catalogue's vocabulary with its features. **No mechanism reads the label.** The 
   (occupation) or high `R` and low `C` (a respected but powerless court).
 - Validation: (V) Seshat polity variables (Turchin et al. 2015, *Seshat*, cliodynamics) as the independent check on
   the label vs simulated structure for the benchmark societies; (T) swapping the label vocabulary changes no run.
+- **Granularity, rivals and places (keeper, 2026-10-31; settles unit 2867's three assumptions).** (1) `J` is per
+  subject person, so the distribution is computed per (actor, domain, person); an aggregate over a jurisdiction is a
+  read of those rows, never a stored total. (2) Rivals are **not** every other actor: `C_opp` is the largest backing
+  among actors that claim the same domain over the same persons and are not on the actor's own delegation chain (an
+  `empower` chain linking them either way); a lord and his reeve are never rivals. The host may also name rivals
+  explicitly (a contested succession). (3) A jurisdiction id is not a place id: the persons come from
+  `PopulationReader.persons(jurisdiction)` and each person's place from a `facts` read (`person.place`), which is what
+  law applicability tests.
 - Consumers: `rule.creation_amendment`, `jurisdiction.competing`, `succession.institutional`, `polity.structure`.
 
 ### 1.3 Rule creation and amendment (`government.rule.creation_amendment`, adopted)

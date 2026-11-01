@@ -1,4 +1,17 @@
 {
-  "processes": [],
+  "processes": [
+    {
+      "id": "government.law",
+      "mechanisms": [
+        "government.law.schema",
+        "government.compliance.enforcement",
+        "government.jurisdiction.competing"
+      ],
+      "writes": ["government.violation", "government.jurisdiction"],
+      "reads": ["government.law", "mind.intention", "mind.observation", "settlement.lease_record"],
+      "period": "event",
+      "phase": "government"
+    }
+  ],
   "ports": []
 }

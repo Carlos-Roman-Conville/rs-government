@@ -339,6 +339,9 @@ What moves `b_i` (evidence for Cognition's update, the inputs Government makes o
 - **Seam to watch:** Cognition's belief update must accept an institution as a belief subject (GOV-I to Cognition
   keeper); Society's population aggregate must be the one aggregate (no second in Government). Proposed DUP-free by
   construction; registry keeper to confirm.
+- **Reading (2975, as built):** the unweighted counterpart is `shareBelieving`, the mean P(true) over subjects with a
+  known belief, with no belief threshold and no resource weighting; null beliefs are excluded from it and from `R`,
+  and `populationSize` still counts them.
 
 ### 1.9 Taxation (`government.fiscal.taxation`, **proposed new row**; closes DUP-42 with Settlement)
 
@@ -363,6 +366,10 @@ true (already built). Government owns the appropriation rules and the record of 
 expenditure itself. Failure mode: an appropriation without funds is unpaid (a breach of the institution's own law,
 which is evidence for legitimacy beliefs).
 
+**Reading (2978, as built):** appropriations allocate within the balance in enactment order, which is the
+host-supplied law array order (enactment IDs are opaque, not dates). A spending law's amount is its top-level
+`schedule` (`fixed` amount, or a rate on a base read), not a field inside the predicate.
+
 ### 1.11 Property-rights regimes (`government.property.regime`, **proposed new row**)
 
 A regime is the set of laws over Settlement's title and lease commands: which title classes may exist, whether and to
@@ -379,6 +386,17 @@ the members' individual intentions (Cognition) into one decision: who may vote, 
 order. Data, executed exactly; strategic voting and coalition-making are the members' minds. Evidence: social choice
 is level 1 for what a rule does with given ballots (Arrow 1951; May 1952); level 3 for which rules real bodies used.
 Consumers: rule creation, succession by election, war declaration by a council, treaty ratification.
+
+**Reading (2976, as built):** `decide` reports `unresolved: 'tie' | 'chair-choice-missing'` with `adopted: false`
+when a tie has no rule (`tie: null`) or a chair rule lacks the host's casting choice. `enact` reads only `quorate` and
+`adopted`, so such an outcome reaches it as plain `not-adopted`.
+
+**Decision (keeper, 3009):** `EnactmentResult` should carry the `unresolved` reason. An unresolved tie is a gap the
+host must fill (no source decided it), not a rejection under the body's rule; collapsing it to `not-adopted` hides
+unknown as no, against the null-means-unknown convention used elsewhere (succession keeps no heir unresolved). Shape:
+the body outcome accepts `decide`'s `unresolved`; `EnactmentResult` gains
+`{ law: null; failure: 'unresolved'; unresolved: 'tie' | 'chair-choice-missing' }`, checked after `not-quorate` and
+before `not-adopted`. No law is created and no default vote is invented. Implementation: codex unit 3010.
 
 ### 1.13 Military organisation (`government.military.organisation`, **proposed new row**)
 

@@ -248,6 +248,10 @@ event; Rex, 2026-10-31, GOV-Q6; to agree with the Society keeper).
 - Outputs: `government.law` records. Timescale: event (an enactment). Rate limiter: the procedure (a council meets
   when it meets; a decree needs the issuer's intention). Failure mode: a procedure without quorum produces no law;
   rival legislators produce rival law sets (§1.6). Evidence 3. Validation: the enclosure test (§4, ROADMAP P8 t3).
+- **Domain of a draft (2934's reading, adopted):** the "domain" the `legislate` power is checked over is the draft's
+  `regulated.action`. Enactment calls `deJure(laws, issuer, 'legislate', {id: subject, place}, day, facts, action)`
+  with that action as `deJure`'s optional (last) action argument (src/law/enact.ts). A null issuer is never
+  recognised.
 
 ### 1.4 Compliance and enforcement (`government.compliance.enforcement`, adopted) — courts and policing inside
 
@@ -265,6 +269,16 @@ The stages 4–7 of §1.1. Two resolutions (PLATFORM §9; refinement B: one owne
   evidence for Cognition's legitimacy belief (§1.8), not as a compliance multiplier here.
 - **Adjudication** (`procedure`): judge office, proof standard (two witnesses, oath, ordeal, jury), appeal. A
   procedure is data; the judge's decision is a mind's.
+- **Procedure for the §3 manorial breach (decision, 2026-11-01): keep both records, each with its own scope.**
+  The §3 theft and levy-payment breaches use `government/procedure.manorial-court-presentment-by-jurors-or-homage`
+  (data/procedures/SOURCES.md, 2935): it is the only record whose source states how an offence with no private
+  plaintiff begins (jurors or tithingmen present it), who presents (a jury of twelve, often chief pledges, before
+  the steward) and what stands as proof (the presentment; untraversable unless it touches freehold). Its limits
+  carry over: the evidence is Maitland on 13th-century leets, the homage reading is modern, appeal is not stated.
+  `government/procedure.manor-three-weekly-court` (built by 2936 from data/laws/SOURCES.md) stays the assize law's
+  procedure: its source names only the lord's three-weekly court and ale-tasters sworn at the court leet, and
+  states no judges, start, proof or appeal. The two are not linked or merged, because no source read says the
+  three-weekly court proceeded by presentment; no law's procedure ref changes.
 
 Rate limiter: enforcer person-hours and their capacity (Settlement posts, Life labour supply). Failure mode: no
 witness → undetected; enforcer refuses (low `y_j`) or is bribed (an Economy exchange decided by two minds) → no

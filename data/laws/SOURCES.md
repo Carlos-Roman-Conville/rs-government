@@ -264,7 +264,7 @@ pages named in that section's Source line did not give it; it does not mean the 
 - Consequence: not stated in the source.
 - Enforcer and procedure: not stated in the source for the customary right.
 - Period in force: not stated in the source for the customary right; the later local by-laws do not establish its start or end.
-- Note: detailed age/health eligibility is not stated in the source. Later local restrictions are not encoded as a universal rule. The JSON's required issuer and jurisdiction authority strings explicitly mark missing evidence; its enactment and place references are fixture identifiers, not a sourced event or named manor.
+- Note: detailed age/health eligibility is not stated in the source. Later local restrictions are not encoded as a universal rule. The JSON's issuer and authority are null (not stated in the source; DESIGN §1.1 No sourced issuer); its enactment and place references are fixture identifiers, not a sourced event or named manor.
 
 ## heriot
 - Source: Oxford article on heriot in fifteenth-century England, https://ora.ox.ac.uk/objects/uuid:99772e85-4e77-433f-b423-cca94af96c05 (abstract fetched in full: heriot is a due paid to lords on a tenant's death, traditionally the tenant's best beast); Nottingham manorial glossary https://www.nottingham.ac.uk/ManuscriptsandSpecialCollections/ResearchGuidance/Manorial/Glossary.aspx

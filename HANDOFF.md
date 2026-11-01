@@ -24,14 +24,15 @@
 
 - GOV-Q7 battle aggregation awaits Reality's interface.
 - Cognition seam: institution as a belief subject; host maps institution IDs to mind handles.
-- GOV-Q6 custom issuer awaits Society agreement.
-- No sourced empower rule in SOURCES.md; no "one empower" assertion.
+- GOV-Q6 custom issuer awaits Society agreement. No sourced "one empower" rule.
 - `winchester-1285-arms-assize` wealth condition stays `true`: no wealth/arms read in
   READS.md; SOURCES.md lacks middle bands and richest threshold.
 - Quia Emptores tenure and Winchester collective liability need new owner commands.
 - Assize is c. 1266, not exactly dated. Gleaning lacks a sourced period, eligibility
   threshold and issuer/authority. Forestalling attested by 1321; suit of mill unperiod.
 - §3 on real Settlement/Economy/Cognition needs cross-repo wiring; D-demo-1/2 await Rex.
+- GOV-16 (DESIGN §3 5091): sourced losses, B falls 9/10, above A 10/10 (stub belief, granary
+  gives no grain). Rex: keep D-demo-2 and wait on wiring (default), or redesign it.
 - `sheaves-payment-bylaw-broughton-1286` parked: Rex must source provision, date, 4d/12d
   (Ault 1972 or a Broughton court roll).
 - Open contest unsourced (5075 search in SOURCES.md: nothing); unresolved. Rex: coparceners in one office,
@@ -42,9 +43,8 @@
 
 ## Gotchas
 
-- Stub evidence: B stays above A, fails §3 item 2 (figures: test/demo-acceptance.test.ts);
-  null fines move no coins.
-- Unsourced host: 365-day years, harvest day 0, 5 acres, no stores, 90% loss.
+- SENSITIVITY.md's reproduce line uses `npx --yes tsx` (undeclared download): re-run only via the
+  test until Rex approves a tsx devDependency. Null fines move no coins.
 - Theft fine null; no inferred seizure/granary relief. §3 presentment is not assize's
   manor-three-weekly-court. READS is data/laws/READS.md.
 - Spending: array order; paid = commanded allocation, not ledger; host prevents replay.

@@ -644,6 +644,21 @@ B becomes researched, otherwise the demonstration reports B as a counterfactual.
 household stores), so the investigation (unit 5084) tests them first, against a sourced harvest-loss figure for
 1315–17 and sourced peasant stores if 5083 finds them, and reports whether B holds.
 
+**GOV-16 result and decision (5091).** Unit 5084 (`data/demo/SENSITIVITY.md`, Verdict) re-ran the shock with the
+sourced 1315–17 harvest losses: B still falls in 9 of 10 runs (holds or rises in 1 of 10, the mildest loss, where
+the change is small either way) and stays strictly above A in 10 of 10. So the collapse is not an artefact of the
+unsourced 90 % loss; its size follows the shock. The driver is the host's stub food-adequacy callback (belief =
+min(1, post-levy grain / annual subsistence), unsmoothed, so one bad year sets the belief outright), together with
+the fact that the D-demo-2 granary duty, as built, returns no grain to households: B's only relief is the remitted
+rent, a few bushels against a loss of tens. Decision: nothing is tuned, and §3 item 2 stays a reported failure on
+the stub providers. It does not simply wait on a real Cognition provider, because a real belief update that reads
+nutrition would still see no grain from the court. Redesigning D-demo-2 so the granary releases grain needs how
+much it holds, how much it releases, to whom and when, and no source gives any of these (D-demo-2's search); every
+answer would be a new invented rule. That is a choice only Rex can make, so it is a **question for Rex** (HANDOFF
+Blocked): (a) keep D-demo-2 as built and let §3 item 2 wait on real Cognition, Economy and Life wiring, reporting
+the failure meanwhile, or (b) redesign D-demo-2 as a releasing granary with labelled level-5 quantities he chooses.
+Until he answers, (a) holds by default.
+
 | D-row | Case | Behaviour | Status |
 |---|---|---|---|
 | D-demo-1 | Variant B rent remission in dearth | proportional rent with remission after a failed harvest, the experiment's treatment | **(unsourced)**, modelling assumption. Searched: Bennett 1937 to the end of the text, Maitland 1889 vol. 1 to the glossary, web search on the 1315 famine and manorial remission; only individual or office remissions and pardons for poverty found (`rent-remission-in-dearth`), nothing found for a dearth remission; Dyer 1989 and Homans 1941 not opened (3083: Dyer's archive.org page showed only site navigation; Homans not found on archive.org, 404). Question for Rex: keep variant B as a labelled counterfactual, or find a source (Dyer, Homans, a court roll). |

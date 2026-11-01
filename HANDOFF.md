@@ -2,6 +2,8 @@
 
 ## State
 
+- §1.10 appropriations allocate treasury balances and emit pay commands and evaluator breaches.
+
 - §1.9 tax assessments and chosen collection commands; confirmed shortfalls use evaluateAct.
 
 - §1.12 collective choice counts host ballots; explicit minima/ties feed enact directly.
@@ -16,12 +18,14 @@
 
 ## Next
 
+- Discretionary spending: Cognition supplies the empowered holder's choice.
+
 - Society keeper: confirm comm_restriction shape {law, action, object, places, from,
   until} and owner/type envelope.
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
 - Succession: rotation, tanistry, representation, collateral heirs; open contests.
-- §1.10 Spending; §1.11 Property regimes;
+- §1.11 Property regimes;
   §1.13 Military; §1.14 Diplomacy and polities.
 - §3 Demonstration: legitimacy harvest; its theft/levy laws cite the presentment procedure.
 
@@ -43,6 +47,9 @@
   and 4d/12d amounts (Ault 1972 or a Broughton court-roll edition).
 
 ## Gotchas
+
+- Spending takes laws in enactment order; host supplies treasury context and receipts.
+  paid means commanded allocation, not ledger confirmation; host prevents period replay.
 
 - Tax bases return {amount, unit}; hosts execute collection commands and supply
   confirmed totals to taxBreaches at the deadline. Missing outcomes are unknown.

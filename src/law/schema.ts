@@ -15,6 +15,8 @@ export type TaxSchedule = { kind: 'fixed'; amount: number; unit: string }
   | { kind: 'rate'; rate: number }
   | { kind: 'proportional-with-remission'; rate: number; remitBelow: number }
 export interface TaxRule { base: string; schedule: TaxSchedule; treasury: string; collector?: string }
+export type SpendingSchedule = Extract<TaxSchedule, { kind: 'fixed' | 'rate' }>
+export interface SpendRule { treasury: string; payee: string }
 export interface SuccessionRule {
   rule: 'primogeniture' | 'appointment' | 'election' | 'open-contest'
   prefer?: 'male' | 'none'
@@ -46,6 +48,9 @@ interface LawFields {
   succession?: SuccessionRule
   /** validateLaw restricts tax obligations to require laws. */
   tax?: TaxRule
+  /** Appropriation amount reuses tax.schedule shapes; valid only with spend. */
+  schedule?: SpendingSchedule
+  spend?: SpendRule
 }
 type LawRule = (
   | { modality: 'empower'; regulated: { action: string; object: 'any' | Predicate; power: string } }
@@ -98,6 +103,26 @@ function validate(value: unknown, calendarDates: boolean): string[] {
   const predicate = (value: unknown, path: string) => { failures.push(...validatePredicate(value, path)) }
   if (!object(value, 'law')) return failures
   id(value.id, 'id')
+  if ('spend' in value) {
+    if (value.modality !== 'require') fail('spend', 'allowed only for require')
+    if (object(value.spend, 'spend')) {
+      string(value.spend.treasury, 'spend.treasury')
+      string(value.spend.payee, 'spend.payee')
+      for (const key of Object.keys(value.spend)) {
+        if (!['treasury', 'payee'].includes(key)) fail(`spend.${key}`, 'unknown field')
+      }
+    }
+    if (object(value.schedule, 'schedule')) {
+      const s = value.schedule
+      oneOf(s.kind, ['fixed', 'rate'], 'schedule.kind')
+      const field = s.kind === 'fixed' ? 'amount' : 'rate'
+      if (!finite(s[field]) || s[field] < 0) fail(`schedule.${field}`, 'expected finite non-negative number')
+      if (s.kind === 'fixed') string(s.unit, 'schedule.unit')
+      for (const key of Object.keys(s)) {
+        if (!['kind', field, ...(s.kind === 'fixed' ? ['unit'] : [])].includes(key)) fail(`schedule.${key}`, 'unknown field')
+      }
+    }
+  } else if ('schedule' in value) fail('schedule', 'requires spend')
   if (value.issuer !== null) string(value.issuer, 'issuer')
   if (value.enactment !== null && !(calendarDates && !('enactment' in value))) string(value.enactment, 'enactment')
   oneOf(value.modality, ['prohibit', 'require', 'permit', 'empower', 'establish'], 'modality')

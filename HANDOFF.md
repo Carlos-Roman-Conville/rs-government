@@ -18,7 +18,7 @@
 - Society keeper: confirm comm_restriction {law, action, object, places, from, until}.
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.
-- Succession: rotation, tanistry, representation, collateral heirs; open contests.
+- Succession: codex 5077 builds DESIGN §1.5 (5076) english-descent, tanistry, rotation, designation.
 
 ## Blocked
 
@@ -34,15 +34,16 @@
 - §3 on real Settlement/Economy/Cognition needs cross-repo wiring; D-demo-1/2 await Rex.
 - `sheaves-payment-bylaw-broughton-1286` parked: Rex must source provision, date, 4d/12d
   (Ault 1972 or a Broughton court roll).
+- Open contest unsourced (5075 searched Goody 1966 catalogues, 3 web searches, en.wiki
+  Order of succession: nothing); unresolved. Rex: coparceners in one office,
+  half-blood heirs absent whole blood, stocks beyond cousins (5076, unresolved).
 
 ## Gotchas
 
-- Stub evidence only (pre -> shock):
-  seed 42 A R .912 -> 0, breaches 0 -> 60, grain 480 -> 255.911, backing .872 -> 0;
-  B R .987 -> .154, breaches 0 -> 0, grain 255.798 -> 0, backing .971 -> .108.
-  seed 43 A R .916 -> 0, breaches 0 -> 60, grain 480 -> 254.654, backing .933 -> 0;
-  B R .990 -> .166, breaches 0 -> 0, grain 256.024 -> 0, backing 1 -> .194.
-  B above A, fails §3 item 2; null fines move no coins.
+- Stub evidence (pre -> shock), seed 42: A R .912 -> 0, breaches 0 -> 60, grain 480 ->
+  255.911, backing .872 -> 0; B R .987 -> .154, grain 255.798 -> 0, backing .971 -> .108.
+  Seed 43 alike (A R .916 -> 0; B R .990 -> .166). B above A, fails §3 item 2; null
+  fines move no coins.
 - Unsourced host: 365-day years, harvest day 0, 5 acres, no stores, 90% loss.
 - Theft fine null; no inferred seizure/granary relief. §3 presentment is not assize's
   manor-three-weekly-court. READS is data/laws/READS.md.

@@ -296,6 +296,93 @@ procedure or force, never a script. Evidence: Kokkonen & Sundell 2014 (primogeni
 monarchs, *APSR*; level 2–3); Goody 1966 *Succession to High Office* (3). Rate limiter: the event. Failure mode: no
 eligible claimant → vacancy (Settlement `vacate`); the office's authority then decays only through §1.2's inputs.
 
+**Decision (5076): the deferred rules, from `data/succession/SOURCES.md` (5075) only.** The `succession`
+field keeps 2937's shape `{ rule, prefer?, superior?, body? }` and gains the values and fields below; `primogeniture`,
+`appointment`, `election` and `open-contest` are unchanged. Every new read is a stub until its owner builds it, uses
+the kin.children query context (actor = outgoing holder, action `succeed`, place = host office place,
+attempted/succeeded false; object = the person, or the office for `office.*`/`estate.*` reads), and `null` is unknown,
+which returns `unresolved` naming the read and ID. No field below has a default: an omitted or `null` field returns
+`unresolved('<field> not stated: <law id>')`. `SuccessionClaimant` gains `through?: string[]` (the dead persons a
+claimant represents, nearest the holder first) and `coparcener?: true`. `successionClaimants` returns `claimants: []`
+(so `resolveSuccession` emits `settlement.vacate`) only for the escheat case of (a); every other "no one" is
+`unresolved` with a reason, never vacancy.
+(a) **`english-descent`** (sections `english-descent-with-representation` and `english-collateral-heirs`, Blackstone
+canons 1–7): `{ rule: 'english-descent' }`, no options, because the canons fix every choice. Reads: `kin.children`,
+`person.alive`, `person.born`, `person.sex` (read for every child; only `'male'` and `'female'` are sons and
+daughters, any other label is unresolved), new `kin.parents` (Society: `{ father, mother }`, each an ID or null) and
+new `estate.first-purchaser` (Settlement title history, host-supplied: the person who first acquired the office
+other than by descent; read only when the issue fails). Lineal order (canons 1–4), applied recursively from the
+holder: the holder's children's lines, sons before daughters; among sons the eldest by `person.born` alone, taking him if
+alive, else that son's issue by the same canons in his place (representation, `through` grows); a dead son with
+`kin.children = []` is skipped; equal birth days stay rival claims. With no son's line left, all daughters' lines
+together, each daughter alive or represented by her issue (per stirpes), marked `coparcener`. Descent never
+ascends. Collateral order (canons 5–7), when the holder's issue is known extinct: eligible persons are of the first
+purchaser's blood (the purchaser's descendants, or every kinsman when the purchaser is the holder); take the issue of the holder's parents
+(brothers, then sisters, by canons 1–4 with representation, so a dead elder brother's son takes before a younger
+brother), then of his grandparents (uncles, then cousins through them), the paternal grandparents' issue before the
+maternal; whole blood only (descended from both parents of the couple, as a whole brother shares `father` and
+`mother`). Canon 7's female-ancestor exception needs no read: an
+estate that came down from a female ancestor has its purchaser on her side, and canon 5 already confines the search
+there. No one: `claimants: []` (escheat to the lord → `settlement.vacate`) when the search covered every descendant
+of the purchaser (the purchaser is the holder's parent or grandparent);
+`unresolved` when only half-blood kin remain (5075 says they yield to any whole-blood kinsman, not that they take
+otherwise), when the purchaser sits above the grandparents (5075 names brothers, uncles and cousins and no order for
+remoter stocks), when the purchaser is the holder and no kin through the grandparents is found (same reason),
+and for coparceners in `resolveSuccession` (`'coparceners: joint holding of one office not
+stated'`; `successionClaimants` still lists them).
+(b) **`tanistry`** (section `tanistry`): `{ rule: 'tanistry', kin: 'derbfine' | 'gelfhine' | null, line: 'male' |
+'any' | null }`. `kin` names the common ancestor of the ruling line (the holder's father's father's father, or
+father's father); `line: 'male'` admits descent from him through males only, `'any'` also through females (the
+Scottish practice); the source leaves both open. Reads: `kin.parents`, `kin.children`, `person.alive`,
+`person.sex`, new Life reads `person.full-age` and `person.blemished` (booleans; the host owns the age threshold).
+Eligible: living, `'male'`, full age, not blemished, of the kin group, not the holder. Claimant order: none in the
+source beyond election by the eligible kin in assembly before the vacancy, so the claimant is the host's `choice(law)`
+(the recorded election; several IDs keep a disputed one), checked against the eligible set. No one: `choice` null,
+`[]`, a chosen person outside the eligible set or dead, or an empty eligible set → `unresolved` (the source states
+no outcome).
+(c) **`rotation`** (section `rus-rota-rotation`, 11th-century seniority by birth; the 12th-century seizure of Kiev is
+force, already `open-contest`): `{ rule: 'rotation', ladder: string[] | null }`, the office IDs most senior first,
+host-supplied data (the source gives no fixed ladder); the law's office must be on it. Reads: `kin.parents`,
+`kin.children`, `person.alive`, `person.born`, `person.sex`, new `office.past-holders` (Settlement or host history:
+IDs who held the office before, including the holder) and `office.holder` (SettlementReader.offices: current holder
+ID, `''` vacant). Eligible: living `'male'` persons whose father is a past holder of `ladder[0]` (an izgoi, the son
+of a man who died before the throne, and his line fail this). Claimant order for `ladder[0]`: the holder's eldest
+living eligible brother by `person.born`; with none, the eldest living son of the eldest brother who reigned. For a
+lower rung `ladder[k]` vacated by a prince who moved up: the holder of `ladder[k + 1]`, if eligible (the host runs
+the rungs top down, one call each). No one (no brother and no living son of the eldest reigning brother, an
+ineligible next rung holder, or the lowest rung) → `unresolved`; the source states no outcome and calls the fourth
+brother only the usual limit, so no cap is built.
+(d) **`designation`** (section `buganda-designation-by-the-king`): `{ rule: 'designation' }`. The king's secret
+choice, revealed at his lying in state, is the host's `choice(law)`; the advising council is the host's to model.
+Reads: new `person.prince` (Society: the person is a prince of the office's royal line), `kin.parents`,
+`kin.children`, `person.born`, `person.sex`, `office.past-holders`. Eligible: a prince who is not the firstborn
+prince (the earliest-born `'male'` child of a past holder); the 1888 exception is an event, not a rule, and is not
+built. Claimant order: the designee only. No one: `choice` null or `[]`, or an ineligible designee → `unresolved`;
+several designees stay rival claims (contested).
+`open-contest` stays unresolved: 5075's section is `Searched: … nothing found` (HANDOFF Blocked).
+Build list for codex unit 5077:
+1. Schema: the three new `rule` values and fields `kin`, `line`, `ladder` (validated, unknown keys still fail);
+   claimant `through`/`coparcener`; basis copied deeply.
+2. READS.md entries for `kin.parents`, `estate.first-purchaser`, `office.past-holders`, `office.holder`,
+   `person.full-age`, `person.blemished`, `person.prince`, with the query context above.
+3. `english-descent` in `collect`; tests: eldest son over younger son and elder daughter; dead eldest son with a
+   living son, whose son takes before the living younger brother (`through: [dead son]`); dead eldest son leaving
+   only daughters, who take as coparceners before the younger brother; daughters with one dead daughter represented
+   by her son; dead son with `[]` children skipped; twin sons stay rivals; unknown `kin.children` of a dead son,
+   unknown `person.born`, and sex `'other'` each unresolved; whole brother over half-brother; dead elder brother's son
+   over a younger brother; paternal uncle before maternal uncle; purchaser = father with no siblings → `[]` and
+   `settlement.vacate`; only half-blood kin → unresolved; purchaser above grandparents with none found → unresolved;
+   `estate.first-purchaser` null → unresolved, and not read while issue exists; coparceners → `resolveSuccession`
+   unresolved.
+4. `tanistry`; tests: eligible elected tanist → succession event; `kin`/`line` null → unresolved; choice null and
+   `[]` → unresolved; gelfhine excludes a great-grandfather's other line that derbfine admits; `line: 'male'`
+   excludes a daughter's son that `'any'` admits; female, not full age, blemished, dead tanist → unresolved.
+5. `rotation`; tests: next brother by birth; no brother → eldest living son of the eldest reigning brother; an
+   izgoi's son excluded; rung k → holder of rung k+1; lowest rung, `ladder` null, office not on ladder → unresolved.
+6. `designation`; tests: eligible designee → event; firstborn prince, non-prince, choice null and `[]` →
+   unresolved; two designees → contested.
+7. `open-contest` and the existing primogeniture/appointment/election tests unchanged.
+
 ### 1.6 Competing jurisdiction (`government.jurisdiction.competing`, adopted)
 
 Which authority's laws cover a person, place or act. Jurisdiction claims are laws (`jurisdiction.authority`); claims

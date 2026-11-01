@@ -139,6 +139,10 @@ sanction**. Compliance is never a field; it is the observed share of opportuniti
   "date not stated" repeal is `until: null` with a note. A law repealed after its source period is written
   `status: in-force` with the repeal in `until`; `status: repealed` is reserved for a repeal that happens inside a
   run (an event). The fixture's subject is England c. 1300; no date is added that SOURCES.md does not give.
+  **No sourced start (keeper, 2026-10-31, after review of 2888/2889):** a law the sources show in force only "before"
+  some date, or with no period at all (frankpledge, heriot, merchet, suit of mill), is written `from: null`, meaning
+  "no sourced start": in force on every day before `until`. No coverage bound such as 1215 is written as a start;
+  the `before <date>` evidence stays in the source note. `from: null` never means "unknown, so not in force".
 - **Supersession (keeper, 2026-10-31; confirms unit 2864):** a law is superseded only by an in-force law of the
   **same** jurisdiction authority; a rival authority's law never repeals another's (§1.6), it competes with it.
 - Invariants: a law changes no number in another engine; consequences are commands to owners; the same act under the

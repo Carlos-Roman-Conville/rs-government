@@ -1,0 +1,30 @@
+{
+  "id": "government/procedure.manorial-court-presentment-by-jurors-or-homage",
+  "court": "The later private leet in Maitland's Introduction; court baron and homage in modern summaries.",
+  "presidingOfficer": "The lord's steward in the later private leet (Maitland, about p. xxviii); lord or steward for the court baron in Wikipedia's general summary.",
+  "judges": "A jury of twelve, often chief pledges, makes the presentment before the steward (Maitland, about pp. xxxiv-xxxv). The homage is the attending tenants; the Nottingham glossary calls a presentment the jury's statement of matters for the court to deal with.",
+  "begins": "Jurors or individual tithingmen present offences without a private plaintiff. Maitland connects this with frankpledge and the sheriff's tourn: chief pledges answer the articles of the view and twelve freeholders make the final presentment (about pp. xxviii-xxx).",
+  "proof": "The jury's own presentment stands as proof. Maitland says twelve-person jury presentments not touching freehold were afterwards untraversable; those touching freehold could be traversed (about p. xxviii). Applicability to every court c. 1300 is not stated.",
+  "appeal": null,
+  "sources": [
+    {
+      "key": "maitland-1889-select-pleas-presentment",
+      "title": "Maitland, Select Pleas in Manorial and Other Seignorial Courts, vol. 1, Introduction",
+      "year": 1889,
+      "locator": "https://archive.org/stream/selectpleasinman00mait/selectpleasinman00mait_djvu.txt"
+    },
+    {
+      "key": "nottingham-manorial-glossary",
+      "title": "University of Nottingham Manuscripts and Special Collections, manorial glossary: homage, presentment, court baron, suit of court",
+      "year": null,
+      "locator": "https://www.nottingham.ac.uk/manuscriptsandspecialcollections/researchguidance/manorial/glossary.aspx"
+    },
+    {
+      "key": "wikipedia-manorial-court",
+      "title": "Manorial court (general encyclopaedia summary)",
+      "year": null,
+      "locator": "https://en.wikipedia.org/wiki/Manorial_court"
+    }
+  ],
+  "note": "data/procedures/SOURCES.md: Maitland discusses 13th-century leets; the homage explanation uses modern summaries, not c. 1300 evidence. Jury presentment is not a statement that the jurors decide every contested judgment. Appeal/removal for presentments is not stated. Maitland separately mentions Templars and Hospitallers sued only in the king's court (about p. xxv), and lords' men exempt from hundred and county suit (about p. xxiv); neither supplies an appeal rule here. Printed page numbers are approximate in the extracted scan."
+}

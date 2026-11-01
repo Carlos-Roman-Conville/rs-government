@@ -1,0 +1,18 @@
+{
+  "id": "government/procedure.view-of-frankpledge",
+  "court": "The sheriff's tourn, or the leet of a lord or borough holding the franchise.",
+  "presidingOfficer": null,
+  "judges": null,
+  "begins": null,
+  "proof": "If a summoned man flees, the remaining tithing members may clear themselves on oath; no general proof standard is stated.",
+  "appeal": null,
+  "sources": [
+    {
+      "key": "frankpledge-tithing-duty",
+      "title": "View of frankpledge and tithing",
+      "year": null,
+      "locator": "https://en.wikipedia.org/wiki/Frankpledge"
+    }
+  ],
+  "note": "Minimal record for the existing procedure.view-of-frankpledge reference, from data/laws/SOURCES.md sections frankpledge-tithing-duty. The source names the view and collection of a tithing penny. It does not separately specify a presiding officer, judge, case initiation or appeal. The oath is the stated exception for a fleeing member, not a general trial rule. The Magna Carta clause was not confirmed in the source summary."
+}

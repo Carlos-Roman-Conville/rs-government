@@ -1,0 +1,24 @@
+{
+  "id": "government/procedure.kings-court",
+  "court": "The king's courts.",
+  "presidingOfficer": null,
+  "judges": null,
+  "begins": null,
+  "proof": null,
+  "appeal": null,
+  "sources": [
+    {
+      "key": "westminster-2-1285-c1-de-donis",
+      "title": "Statute of Westminster II 1285 (13 Edw. I) c.1 De donis conditionalibus",
+      "year": 1285,
+      "locator": "https://www.legislation.gov.uk/aep/Edw1/13/1"
+    },
+    {
+      "key": "treason-1351",
+      "title": "Treason Act 1351 (25 Edw. III Stat. 5 c.2)",
+      "year": 1351,
+      "locator": "https://en.wikipedia.org/wiki/Treason_Act_1351"
+    }
+  ],
+  "note": "Minimal record for the existing procedure.kings-court reference, from data/laws/SOURCES.md sections westminster-2-1285-c1-de-donis, treason-1351. This shared court reference is not a uniform trial procedure. De donis names the king's courts and says heirs with a reversion who are of full age, in England and free need not make a claim. For treason the king's judges hear cases, an overt act is proved (the courts' reading), and a doubtful unlisted case waits for parliament and the king to decide whether it is treason or felony. These law-specific statements do not supply a common presiding officer, judge, initiation, proof or appeal rule; those fields remain null."
+}

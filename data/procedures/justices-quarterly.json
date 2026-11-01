@@ -1,0 +1,18 @@
+{
+  "id": "government/procedure.justices-quarterly",
+  "court": "Justices sitting in each county at least four times a year.",
+  "presidingOfficer": null,
+  "judges": "The justices; fines, ransom and imprisonment are at their discretion.",
+  "begins": null,
+  "proof": null,
+  "appeal": null,
+  "sources": [
+    {
+      "key": "statute-of-labourers-1351-wages",
+      "title": "Statute of Labourers 1351 (25 Edw. III Stat. 2)",
+      "year": 1351,
+      "locator": "https://en.wikipedia.org/wiki/Statute_of_Labourers_1351"
+    }
+  ],
+  "note": "Minimal record for the existing procedure.justices-quarterly reference, from data/laws/SOURCES.md sections statute-of-labourers-1351-wages. Stewards, bailiffs and constables are sworn to report. Overpayment may be recovered by suit. A distinct presiding officer, formal case initiation, proof standard and appeal are not stated. The source summary reports weak enforcement aimed more at labourers than employers; no probability is inferred."
+}

@@ -1,0 +1,24 @@
+{
+  "id": "government/procedure.manorial-court-baron-action-wager-of-law",
+  "court": "The lord's manorial court (court baron), including Tooting and Wantage in the Bec rolls.",
+  "presidingOfficer": null,
+  "judges": "The suitors, tenants who owe suit of court, give judgment according to Maitland's Introduction; the entries name no judge.",
+  "begins": "A private plaint: a tenant sues another, for example for crop damage by animals or a 16d debt, and produces supporting witnesses (suit); the defendant is under pledges.",
+  "proof": "A defendant denying the whole claim goes to his law with oath-helpers. The Tooting entry gives five compurgators (sixth hand); numbers in the other cases are not stated. These entries use no jury.",
+  "appeal": null,
+  "sources": [
+    {
+      "key": "maitland-1889-select-pleas-bec-wager-of-law",
+      "title": "Maitland, Select Pleas in Manorial and Other Seignorial Courts, vol. 1, Introduction (about pp. xi-xli) and Bec rolls 1246-1248 (Tooting, Wantage)",
+      "year": 1889,
+      "locator": "https://archive.org/stream/selectpleasinman00mait/selectpleasinman00mait_djvu.txt"
+    },
+    {
+      "key": "pollock-maitland-history-english-law-vol2-debt",
+      "title": "Pollock & Maitland, History of English Law, 2nd ed., vol. 2, pp. 212-214",
+      "year": null,
+      "locator": "https://archive.org/stream/historyofenglish02poll_0/historyofenglish02poll_0_djvu.txt"
+    }
+  ],
+  "note": "data/procedures/SOURCES.md: rolls of 1246-1248 and a general 13th-century custom; use c. 1300 is an inference. The entries name no presiding officer; Maitland argues the steward toured with the rolls, but the suitors judged. Appeal/removal is not stated; no removal occurs in these entries. The Introduction (about p. xvii) says only that a writ of right had to begin in the lord's court. P&M describes royal debt practice c. 1300: without a sealed document a defendant could wage law; its disputed royal oath-helper counts are not applied here. Printed page numbers are approximate in the extracted scans."
+}

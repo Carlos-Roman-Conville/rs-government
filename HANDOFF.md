@@ -2,14 +2,13 @@
 
 ## State
 
+- §1.4: 9 sourced procedures, checked law refs and provenance-required deterrence (2936).
 - §1.3 enactment records host outcomes, deJure recognition and ineffective amendments (2934).
 - Law schema, loader, evaluation stages and computed authority are implemented;
   authority includes delegation-chain rival exclusion and person.place lookup (2890).
-- The fixture has 24 records. Broughton is parked; assize and gleaning have no
-  sourced start. Gleaning retains the customary right of the poorest, without the
-  unsupported age/health list, fine or court procedure. SOURCES.md records limits.
-- Sanctions are checked against each record's own source Consequence line.
-  Calendar loading preserves source precision and converts through host toDay.
+- 24 laws; Broughton parked; assize/gleaning lack sourced starts. Gleaning keeps
+  the poorest's customary right, without unsourced age/health, fine or procedure.
+- Sanctions match source Consequence lines; dates retain precision via host toDay.
 
 ## Next
 
@@ -17,7 +16,6 @@
   supply it; GOVERNMENT-SETTLEMENT.md does not list it yet. Reconcile on integration.
 - Hosts must supply toDay with the same epoch as act days; update external callers
   of the former one-argument loader. Resolve source gaps below before integration.
-- §1.4 Compliance and enforcement, including courts and policing.
 - §1.5 Institutional succession.
 - §1.6 Competing jurisdiction.
 - §1.7 Censorship and suppression.
@@ -65,5 +63,5 @@
 - Winchester hue-and-cry/watch-and-ward have null until: repeal century only.
   Null does not prove perpetual validity. Apparel uses England's 1863 repeal;
   the unconfirmed 1364 claim is not a bound.
-- Notes are provenance, never executable predicates or tenure-change commands.
-  Empty sanctions invent no remedy. CHECK.md remains the pre-fix review record.
+- Procedure refs accept legacy procedure.*; 6 minimal records use law sources.
+- Notes never execute; empty sanctions invent no remedy. CHECK.md is pre-fix.

@@ -4,6 +4,8 @@ import { validateLaw, validateLawData } from './schema.ts'
 import type { Law, LawData } from './schema.ts'
 import { normalizeCalendarPoint } from './calendar.ts'
 import type { ToDay } from './calendar.ts'
+import { checkProcedures } from './procedure.ts'
+import type { LoadedProcedures, Procedure } from './procedure.ts'
 
 /** Entries retain invalid parsed data so the checker can report every file. */
 export interface LoadedLaw { file: string; law: unknown; failures?: string[] }
@@ -57,16 +59,23 @@ export function loadLaws(root: string, toDay: ToDay): LoadedLaws {
 }
 
 /** Check loaded files (including parse failures), or an in-memory collection. */
-export function checkLaws(input: LoadedLaws | readonly unknown[]): string[] {
+export function checkLaws(input: LoadedLaws | readonly unknown[], procedures?: LoadedProcedures | readonly Procedure[]): string[] {
   const loaded = !Array.isArray(input) ? input as LoadedLaws : undefined
   const entries: LoadedLaw[] = loaded?.entries ?? (input as readonly unknown[]).map((law, i) => ({ file: `laws[${i}]`, law }))
-  const failures = [...(loaded?.failures ?? [])]
+  const failures = [...(loaded?.failures ?? []), ...(procedures ? checkProcedures(procedures) : [])]
+  const procedureIds = procedures === undefined ? undefined : new Set(
+    (Array.isArray(procedures) ? procedures as readonly Procedure[] : (procedures as LoadedProcedures).procedures).map(procedure => procedure.id))
   const ids = new Set(entries.map(entry => recordId(entry.law)).filter((id): id is string => id !== undefined))
   const seen = new Set<string>()
   for (const { file, law, failures: errors } of entries) {
     failures.push(...(errors ?? validateLaw(law)).map(failure => `${file}: ${failure}`))
     if (law !== null && typeof law === 'object') {
       const row = law as Record<string, unknown>
+      // Existing law fixtures use local procedure.* references; records carry the engine prefix.
+      if (procedureIds && typeof row.procedure === 'string') {
+        const target = row.procedure.startsWith('procedure.') ? `government/${row.procedure}` : row.procedure
+        if (!procedureIds.has(target as Procedure['id'])) failures.push(`${file}: procedure target missing: ${row.procedure}`)
+      }
       const jurisdiction = row.jurisdiction
       const authority = jurisdiction !== null && typeof jurisdiction === 'object'
         ? (jurisdiction as Record<string, unknown>).authority : undefined

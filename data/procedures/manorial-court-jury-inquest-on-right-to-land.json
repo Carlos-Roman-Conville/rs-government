@@ -1,0 +1,18 @@
+{
+  "id": "government/procedure.manorial-court-jury-inquest-on-right-to-land",
+  "court": "The lord's manorial court at Ruislip, Middlesex, in the Bec rolls.",
+  "presidingOfficer": null,
+  "judges": "Twelve sworn jurors find the fact; the court (suitors) gives the result, with seisin following the finding in this entry.",
+  "begins": "A litigant pays the lord for a jury to decide the better right to land: 12d for a headland in this entry. The other party objects that she holds only as guardian of a minor heir and cannot bring the land into judgment.",
+  "proof": "An inquest by twelve sworn jurors finds the greater right and who receives seisin. The entry is partly cut off in the text read.",
+  "appeal": null,
+  "sources": [
+    {
+      "key": "maitland-1889-select-pleas-ruislip-1248",
+      "title": "Maitland, Select Pleas in Manorial and Other Seignorial Courts, vol. 1, Ruislip roll 1248",
+      "year": 1889,
+      "locator": "https://archive.org/stream/selectpleasinman00mait/selectpleasinman00mait_djvu.txt"
+    }
+  ],
+  "note": "data/procedures/SOURCES.md: the roll is from 1248; use c. 1300 is an inference. Presiding officer and appeal/removal are not stated in the source. The fee and objection describe this entry, not a universal rule. The extracted entry is incomplete."
+}

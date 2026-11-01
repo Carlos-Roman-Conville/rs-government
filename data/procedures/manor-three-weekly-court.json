@@ -1,0 +1,18 @@
+{
+  "id": "government/procedure.manor-three-weekly-court",
+  "court": "The lord's court in the country, held three-weekly.",
+  "presidingOfficer": "The lord at his court.",
+  "judges": null,
+  "begins": null,
+  "proof": null,
+  "appeal": null,
+  "sources": [
+    {
+      "key": "assize-of-bread-and-ale-c1266",
+      "title": "Assize of Bread and Ale (c. 1266)",
+      "year": 1266,
+      "locator": "https://en.wikipedia.org/wiki/Assize_of_Bread_and_Ale"
+    }
+  ],
+  "note": "Minimal record for the existing procedure.manor-three-weekly-court reference, from data/laws/SOURCES.md sections assize-of-bread-and-ale-c1266. The source names the lord at court and ale-tasters chosen yearly at the court leet and sworn to assay ale. It does not separately state who gives judgment, how a case begins, proof or appeal. No equivalence with wager of law, land inquest or jury presentment is asserted."
+}

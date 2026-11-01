@@ -215,7 +215,7 @@ describe('checker proleptic calendar adapter', () => {
 
 describe('check-laws CLI', () => {
   function cli() {
-    for (const file of ['scripts/check-laws.ts', 'scripts/calendar.ts', 'src/law/calendar.ts', 'src/law/load.ts', 'src/law/schema.ts', 'src/law/predicate.ts']) {
+    for (const file of ['scripts/check-laws.ts', 'scripts/calendar.ts', 'src/law/calendar.ts', 'src/law/load.ts', 'src/law/procedure.ts', 'src/law/schema.ts', 'src/law/predicate.ts']) {
       const destination = join(root, file)
       mkdirSync(join(destination, '..'), { recursive: true })
       copyFileSync(join(repo, file), destination)

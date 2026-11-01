@@ -1,0 +1,18 @@
+{
+  "id": "government/procedure.two-true-men",
+  "court": null,
+  "presidingOfficer": null,
+  "judges": null,
+  "begins": null,
+  "proof": "Offences proved by two true men.",
+  "appeal": null,
+  "sources": [
+    {
+      "key": "ordinance-of-labourers-1349-service",
+      "title": "Ordinance of Labourers 1349 (23 Edw. III)",
+      "year": 1349,
+      "locator": "https://en.wikipedia.org/wiki/Ordinance_of_Labourers_1349"
+    }
+  ],
+  "note": "Minimal record for the existing procedure.two-true-men reference, from data/laws/SOURCES.md sections ordinance-of-labourers-1349-service. Sheriffs, constables, mayors and bailiffs arrest; the ordinance is to be proclaimed publicly. Court, presiding officer, judge, formal case initiation and appeal are not stated. Arresting officers are not assumed to be judges."
+}

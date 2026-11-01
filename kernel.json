@@ -11,6 +11,14 @@
       "reads": ["government.law", "mind.intention", "mind.observation", "settlement.lease_record"],
       "period": "event",
       "phase": "government"
+    },
+    {
+      "id": "government.authority",
+      "mechanisms": ["government.authority.acquisition_delegation"],
+      "writes": ["government.authority_distribution"],
+      "reads": ["mind.belief", "government.law", "body.capacity_functional", "settlement.office"],
+      "period": "day",
+      "phase": "government"
     }
   ],
   "ports": []

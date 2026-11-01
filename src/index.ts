@@ -11,6 +11,9 @@ export { applicableLaws, evaluateAct } from './law/evaluate.ts'
 export type { Act, ActFacts } from './law/evaluate.ts'
 export { createViolation, detect, prosecute, sanction, drop, fail, sanctionCommands } from './law/violation.ts'
 export type { Breach, Violation, ViolationStage, SanctionCommand } from './law/violation.ts'
+export { deJure, recognition, backing, strongestRival, effectiveAuthority, provisionalF, distribution } from './authority/distribution.ts'
+export type { AuthoritySubject, AuthorityFlag, AuthorityInputs, AuthorityFormula, AuthorityRow } from './authority/distribution.ts'
+export type { BeliefReader, WeightReader, CapacityReader, AgentsReader, PopulationReader, AuthorityReaders } from './authority/readers.ts'
 
 /** The engine prefix every government id carries. */
 export const ENGINE = 'government'

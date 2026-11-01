@@ -15,6 +15,8 @@ export type TaxSchedule = { kind: 'fixed'; amount: number; unit: string }
   | { kind: 'rate'; rate: number }
   | { kind: 'proportional-with-remission'; rate: number; remitBelow: number }
 export interface TaxRule { base: string; schedule: TaxSchedule; treasury: string; collector?: string }
+export type TenderPurpose = 'tax' | 'debt'
+export interface TenderRule { assets: string[]; purposes: TenderPurpose[] }
 export type SpendingSchedule = Extract<TaxSchedule, { kind: 'fixed' | 'rate' }>
 export interface SpendRule { treasury: string; payee: string }
 export interface SuccessionRule {
@@ -54,6 +56,8 @@ interface LawFields {
   succession?: SuccessionRule
   /** validateLaw restricts tax obligations to require laws. */
   tax?: TaxRule
+  /** validateLaw restricts legal-tender obligations to require laws. */
+  tender?: TenderRule
   /** Appropriation amount reuses tax.schedule shapes; valid only with spend. */
   schedule?: SpendingSchedule
   spend?: SpendRule
@@ -218,6 +222,20 @@ function validate(value: unknown, calendarDates: boolean): string[] {
         for (const key of Object.keys(schedule)) {
           if (!allowed.includes(key)) fail(`tax.schedule.${key}`, 'unknown field')
         }
+      }
+    }
+  }
+  if ('tender' in value) {
+    if (value.modality !== 'require') fail('tender', 'allowed only for require')
+    if (object(value.tender, 'tender')) {
+      const tender = value.tender
+      array(tender.assets, 'tender.assets', string)
+      array(tender.purposes, 'tender.purposes', (purpose, path) => oneOf(purpose, ['tax', 'debt'], path))
+      for (const field of ['assets', 'purposes']) {
+        if (Array.isArray(tender[field]) && !tender[field].length) fail(`tender.${field}`, 'expected non-empty array')
+      }
+      for (const key of Object.keys(tender)) {
+        if (!['assets', 'purposes'].includes(key)) fail(`tender.${key}`, 'unknown field')
       }
     }
   }

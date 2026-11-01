@@ -1,6 +1,14 @@
 {
   "processes": [
     {
+      "id": "government.monetary",
+      "mechanisms": ["government.monetary.authority"],
+      "writes": ["government.legal_tender"],
+      "reads": ["government.law"],
+      "period": "event",
+      "phase": "government"
+    },
+    {
       "id": "government.law",
       "mechanisms": [
         "government.law.schema",
@@ -22,6 +30,12 @@
     }
   ],
   "ports": [
+    {
+      "mechanism": "government.monetary.authority",
+      "quantity": "government.legal_tender",
+      "unit": null,
+      "direction": "out"
+    },
     {
       "mechanism": "government.authority.acquisition_delegation",
       "quantity": "government.office_may",

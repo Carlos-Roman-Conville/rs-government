@@ -12,6 +12,36 @@ function changed(path: string, value: unknown): unknown {
 }
 
 describe('law schema', () => {
+  it('accepts a require law with tender assets and tax or debt purposes', () => {
+    for (const purposes of [['tax'], ['debt'], ['tax', 'debt']]) {
+      expect(validateLaw({ ...lawFixture(), modality: 'require',
+        regulated: { action: 'accept-payment', object: 'any' },
+        tender: { assets: ['asset.a'], purposes } })).toEqual([])
+    }
+  })
+  it.each(['prohibit', 'permit', 'empower', 'establish'])('rejects tender on %s laws', modality => {
+    const law = { ...lawFixture(), modality,
+      regulated: { action: 'accept-payment', object: 'any', ...(modality === 'empower' ? { power: 'accept-payment' } : {}) },
+      tender: { assets: ['asset.a'], purposes: ['tax'] } }
+    expect(validateLaw(law)).toEqual(['tender: allowed only for require'])
+  })
+  it.each([
+    [null, 'tender: expected object'],
+    [[], 'tender: expected object'],
+    [{ assets: [], purposes: ['tax'] }, 'tender.assets: expected non-empty array'],
+    [{ assets: ['asset.a'], purposes: [] }, 'tender.purposes: expected non-empty array'],
+    [{ purposes: ['tax'] }, 'tender.assets: expected array'],
+    [{ assets: ['asset.a'] }, 'tender.purposes: expected array'],
+    [{ assets: 'asset.a', purposes: ['tax'] }, 'tender.assets: expected array'],
+    [{ assets: ['asset.a'], purposes: 'tax' }, 'tender.purposes: expected array'],
+    [{ assets: [' '], purposes: ['tax'] }, 'tender.assets[0]: expected non-empty string'],
+    [{ assets: [3], purposes: ['tax'] }, 'tender.assets[0]: expected non-empty string'],
+    [{ assets: ['asset.a'], purposes: ['trade'] }, 'tender.purposes[0]: expected tax|debt'],
+    [{ assets: ['asset.a'], purposes: [null] }, 'tender.purposes[0]: expected tax|debt'],
+    [{ assets: ['asset.a'], purposes: ['tax'], extra: true }, 'tender.extra: unknown field'],
+  ])('rejects invalid tender %j', (tender, error) => {
+    expect(validateLaw({ ...lawFixture(), modality: 'require', tender })).toEqual([error])
+  })
   it('both tax and spend', () => {
     const law = { ...lawFixture(), modality: 'require',
       tax: { base: 'harvest', schedule: { kind: 'rate', rate: 0.1 }, treasury: 'account.treasury' },

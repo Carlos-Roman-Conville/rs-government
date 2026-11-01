@@ -1,6 +1,7 @@
-# Government ↔ Settlement contract (PROPOSED 2026-10-31, Government keeper; for the Settlement keeper to agree)
+# Government ↔ Settlement contract (AGREED 2026-10-31, both keepers)
 
-**Status: PROPOSED 2026-10-31.** Drafted by the Government keeper from the boundary both keepers agreed on 2026-10-31
+**Status: AGREED 2026-10-31 (both keepers).** The Settlement keeper's amendment is marked inline as
+(settlement: ...), confirmed by the Government keeper with no changes the same day. Drafted by the Government keeper from the boundary both keepers agreed on 2026-10-31
 (Government DESIGN §2.3, points 1–7, checked by the Settlement keeper) and the DUP-62 acceptance test both keepers
 agreed and sent to the registry keeper (owner split approved by Rex in overlap batch 2b, 2026-10-31). When agreed,
 this file and `Toolchain/settlement/GOVERNMENT-SETTLEMENT.md` hold the same text, byte for byte. Rules as for the
@@ -11,7 +12,8 @@ keeper's proposal, open to the other; **(open)** a question for Rex.
 ## 1. One sentence per side
 
 - **Settlement** keeps the records: offices `{id, name, holder, seat}`, who holds each (written only by `appoint`,
-  `vacate` and `inherit`), permissions and their expiry, titles, leases, the ledger, accounts and `pay`.
+  `vacate` and `inherit`) (settlement: an office's holder is written only by `appoint` and `vacate`; `inherit`
+  writes a title's holder, with the other title commands), permissions and their expiry, titles, leases, the ledger, accounts and `pay`.
 - **Government** decides what an office may do and how authority passes (delegation, succession), from its law
   records; its decisions reach Settlement only as commands and port answers (Rex, batch 2b, DUP-62).
 
@@ -85,3 +87,5 @@ authority.
 | Date | What |
 |---|---|
 | 2026-10-31 | Proposed by the Government keeper from the agreed DESIGN §2.3 and DUP-62 acceptance test |
+| 2026-10-31 | Agreed by the Settlement keeper with one amendment (§1: `inherit` writes title holders, not office holders) |
+| 2026-10-31 | Confirmed by the Government keeper; AGREED (both keepers) |

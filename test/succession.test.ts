@@ -208,13 +208,47 @@ describe('5076 English descent and representation', () => {
     t.data.firstPurchasers![office.id] = 'pgf'
     expect(t.decide(english)).toEqual({ type: 'settlement.vacate', office: office.id })
   })
-  // (5076)
-  it('only half-blood kin remain unresolved, including with a parent purchaser', () => {
+  // (5079) Source: 5078, Blackstone canon 6: half blood is excluded absolutely.
+  it('purchaser=father with only a living half-brother escheats and emits vacate', () => {
     const t = descentFamily()
     t.data.firstPurchasers![office.id] = 'father'
     t.add('other-mother', 'female', -59, false)
     t.add('half', 'male', -40, true, 'father', 'other-mother')
-    expect(t.decide(english)).toMatchObject({ kind: 'unresolved', reason: expect.stringContaining('half-blood') })
+    expect(t.claim(english)).toEqual({ kind: 'claimants', claimants: [] })
+    expect(t.decide(english)).toEqual({ type: 'settlement.vacate', office: office.id })
+  })
+  // (5079) Source: 5078, Blackstone canon 6: remoter whole blood takes before half blood.
+  it('skips a living half-brother for a whole-blood paternal uncle son with purchaser=grandfather', () => {
+    const t = descentFamily()
+    t.data.firstPurchasers![office.id] = 'pgf'
+    t.add('other-mother', 'female', -59, false)
+    t.add('half', 'male', -40, true, 'father', 'other-mother')
+    t.add('uncle', 'male', -50, false, 'pgf', 'pgm')
+    t.add('cousin', 'male', -10, true, 'uncle')
+    expect(t.claim(english)).toEqual({ kind: 'claimants', claimants: [
+      { person: 'cousin', through: ['uncle'], law: law().id, basis: english },
+    ] })
+    expect(t.decide(english)).toMatchObject({ type: 'government.succession_event', successor: 'cousin' })
+  })
+  // (5079) Source: 5078, Blackstone canon 6: half-blood stocks are excluded.
+  it('skips an older half-uncle for a whole-blood uncle', () => {
+    const t = descentFamily()
+    t.data.firstPurchasers![office.id] = 'pgf'
+    t.add('other-grandmother', 'female', -89, false)
+    t.add('half-uncle', 'male', -70, true, 'pgf', 'other-grandmother')
+    t.add('uncle', 'male', -50, true, 'pgf', 'pgm')
+    expect(t.claim(english)).toEqual({ kind: 'claimants', claimants: [
+      { person: 'uncle', law: law().id, basis: english },
+    ] })
+  })
+  // (5079) Source: 5078 excludes half blood; remoter stocks remain unsourced in 5076.
+  it('purchaser=holder with only a half-brother leaves collateral stocks beyond grandparents unresolved', () => {
+    const t = descentFamily()
+    t.add('other-mother', 'female', -59, false)
+    t.add('half', 'male', -40, true, 'father', 'other-mother')
+    const expected = { kind: 'unresolved', reason: 'collateral stocks beyond grandparents: succession not stated' }
+    expect(t.claim(english)).toEqual(expected)
+    expect(t.decide(english)).toEqual(expected)
   })
   // (5076)
   it('whole-blood paternal uncle precedes a nearer half-brother', () => {

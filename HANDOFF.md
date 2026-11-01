@@ -3,7 +3,7 @@
 ## State
 
 - §1.1-§1.7: laws, authority, enactment, 9 procedures, succession, jurisdiction; suppression uses inForceLaws.
-- §1.5 (5077): english-descent, tanistry, rotation, designation built and tested.
+- §1.5 (5077, 5080): rules built; half blood excluded, search continues to whole blood, then escheat where covered.
 - §1.8 legitimacy read shares authority aggregation; weighted/unweighted beliefs, missing subjects.
 - §1.9 tax assessments/commands; evaluateAct shortfalls; lawInForce; tax+spend rejected.
 - §1.10 appropriations allocate treasury balances; pay commands and evaluator breaches.
@@ -14,8 +14,6 @@
 - §3 fixture/run/acceptance (5008-fix, 5052): A/B, beliefs, conservation pass; seed sets reported, identical.
 
 ## Next
-
-- 5080 (codex): DESIGN §1.5 (5079) build list: half blood skipped, search goes on, escheat.
 
 - Discretionary spending: Cognition supplies the empowered holder's choice.
 - Society keeper: confirm comm_restriction {law, action, object, places, from, until}.

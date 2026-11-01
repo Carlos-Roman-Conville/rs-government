@@ -110,7 +110,6 @@ function englishDescent(f: Family, holder: string, office: string): Heir[] {
   const issue = lines(f.children(holder))
   if (issue.length) return issue
   const purchaser = f.id('estate.first-purchaser', office)
-  const halfBlood = new Set<string>()
   const ancestry = new Map<string, boolean>()
   function purchaserBlood(person: string, path: string[] = []): boolean {
     if (purchaser === holder || person === purchaser) return true
@@ -132,10 +131,6 @@ function englishDescent(f: Family, holder: string, office: string): Heir[] {
     ancestry.set(person, false)
     return false
   }
-  function surviving(person: string, path: string[] = []): boolean {
-    if (path.includes(person)) throw new Error(`kin.children: cyclic descent at ${person}`)
-    return f.alive(person) || f.children(person).some(child => surviving(child, [...path, person]))
-  }
   function stock(child: string): { heirs: Heir[]; couple: string[] } {
     const father = f.parent(child, 'father'), mother = f.parent(child, 'mother')
     const whole: string[] = []
@@ -144,7 +139,6 @@ function englishDescent(f: Family, holder: string, office: string): Heir[] {
       const parents = f.parents(person)
       if (parents.father === null || parents.mother === null) unknown(`missing kin.parents: ${person}`)
       if (parents.father === father && parents.mother === mother) whole.push(person)
-      else halfBlood.add(person)
     }
     // If the purchaser belongs to a different known side, none of this stock is of that blood.
     const eligible = whole.filter(person => purchaserBlood(person))
@@ -152,10 +146,7 @@ function englishDescent(f: Family, holder: string, office: string): Heir[] {
   }
   const siblings = stock(holder)
   if (siblings.heirs.length) return siblings.heirs
-  if (siblings.couple.includes(purchaser)) {
-    return [...halfBlood].some(person => surviving(person))
-      ? unknown('only half-blood kin remain: succession not stated') : []
-  }
+  if (siblings.couple.includes(purchaser)) return []
   // A known purchaser on the maternal side confines canon 5's search to that side.
   const paternal = f.parents(siblings.couple[0]), maternal = f.parents(siblings.couple[1])
   const grandparents = [paternal.father, paternal.mother, maternal.father, maternal.mother]
@@ -165,7 +156,6 @@ function englishDescent(f: Family, holder: string, office: string): Heir[] {
     const kin = stock(side)
     if (kin.heirs.length) return kin.heirs
   }
-  if ([...halfBlood].some(person => surviving(person))) return unknown('only half-blood kin remain: succession not stated')
   if (grandparents.includes(purchaser)) return []
   return unknown('collateral stocks beyond grandparents: succession not stated')
 }

@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync, copyFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync, copyFileSync, readFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
@@ -26,6 +26,15 @@ afterEach(() => {
 })
 
 describe('law loading and checks', () => {
+  it('loads a missing historical enactment as null without changing the source file', () => {
+    const law = dataFixture()
+    delete law.enactment
+    write('fixture.json', law)
+    const loaded = loadLaws(root, toDay)
+    expect(checkLaws(loaded)).toEqual([])
+    expect(loaded.laws[0].enactment).toBeNull()
+    expect(JSON.parse(readFileSync(join(root, 'data', 'laws', 'fixture.json'), 'utf8'))).not.toHaveProperty('enactment')
+  })
   it.each([null, { year: 1953, month: 12, day: 18, calendar: 'gregorian' } as const])('preserves no sourced start and converts only a non-null until (%j)', until => {
     const law = dataFixture()
     law.jurisdiction = { ...law.jurisdiction, from: null, until }

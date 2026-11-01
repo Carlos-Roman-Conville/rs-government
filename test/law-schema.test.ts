@@ -12,6 +12,9 @@ function changed(path: string, value: unknown): unknown {
 }
 
 describe('law schema', () => {
+  it('accepts null enactment for a law predating the run', () => {
+    expect(validateLaw({ ...lawFixture(), enactment: null })).toEqual([])
+  })
   it('accepts a complete fixture law without sources', () => expect(validateLaw(lawFixture())).toEqual([]))
   it.each([null, [], true, 'law'])('requires a law object (%j)', value => expect(validateLaw(value)).toEqual(['law: expected object']))
   it.each(Object.keys(lawFixture()))('requires the %s field', key => {

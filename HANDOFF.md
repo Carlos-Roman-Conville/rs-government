@@ -2,6 +2,7 @@
 
 ## State
 
+- §1.3 enactment records host outcomes, deJure recognition and ineffective amendments (2934).
 - Law schema, loader, evaluation stages and computed authority are implemented;
   authority includes delegation-chain rival exclusion and person.place lookup (2890).
 - The fixture has 24 records. Broughton is parked; assize and gleaning have no
@@ -16,7 +17,6 @@
   supply it; GOVERNMENT-SETTLEMENT.md does not list it yet. Reconcile on integration.
 - Hosts must supply toDay with the same epoch as act days; update external callers
   of the former one-argument loader. Resolve source gaps below before integration.
-- §1.3 Rule creation and amendment.
 - §1.4 Compliance and enforcement, including courts and policing.
 - §1.5 Institutional succession.
 - §1.6 Competing jurisdiction.
@@ -32,6 +32,7 @@
 
 ## Blocked
 
+- GOV-Q6 custom as issuer awaits agreement with the Society keeper; not implemented.
 - SOURCES.md has no sourced empower rule; a historical power-conferring fixture
   needs additional source work. The former "one empower" assertion stays removed.
 - `winchester-1285-arms-assize` wealth condition remains `true`: READS.md has no

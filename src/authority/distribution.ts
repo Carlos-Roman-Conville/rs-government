@@ -39,11 +39,13 @@ function belief(value: number | null): number | null {
  * actor is the would-be power holder and object is the subject person. The host
  * resolves office membership and other predicates through facts. An issuer or
  * jurisdiction authority is not automatically the recipient of its own grant.
+ * Optional action scopes a power (e.g. legislate) to a particular action domain.
  */
 export function deJure(laws: readonly Law[], actor: string, domain: string,
-  person: { id: string | null; place: string }, day: number, facts: ActFacts): 0 | 1 {
+  person: { id: string | null; place: string }, day: number, facts: ActFacts, action?: string): 0 | 1 {
   return laws.some(law => {
     if (law.jurisdiction.authority === null || law.modality !== 'empower' || law.regulated.power !== domain) return false
+    if (action !== undefined && law.regulated.action !== action) return false
     const act: Act = { actor, action: law.regulated.action, object: person.id,
       place: person.place, day, attempted: false, succeeded: false }
     // Keep the full law set here so non-empower replacements can supersede grants.

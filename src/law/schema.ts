@@ -22,7 +22,7 @@ export interface LawJurisdiction {
 interface LawFields {
   id: LawId
   issuer: string | null
-  enactment: string
+  enactment: string | null
   jurisdiction: LawJurisdiction
   condition: Predicate
   exceptions: LawException[]
@@ -38,7 +38,8 @@ type LawRule = (
   | { modality: Exclude<LawModality, 'empower'>; regulated: { action: string; object: 'any' | Predicate; power?: never } }
 )
 export type Law = LawFields & LawRule
-export type LawData = Omit<LawFields, 'jurisdiction'> & LawRule & {
+export type LawData = Omit<LawFields, 'jurisdiction' | 'enactment'> & LawRule & {
+  enactment?: string | null
   jurisdiction: Omit<LawJurisdiction, 'from' | 'until'> & { from: CalendarPoint | null; until: CalendarPoint | null }
 }
 
@@ -84,7 +85,7 @@ function validate(value: unknown, calendarDates: boolean): string[] {
   if (!object(value, 'law')) return failures
   id(value.id, 'id')
   if (value.issuer !== null) string(value.issuer, 'issuer')
-  string(value.enactment, 'enactment')
+  if (value.enactment !== null && !(calendarDates && !('enactment' in value))) string(value.enactment, 'enactment')
   oneOf(value.modality, ['prohibit', 'require', 'permit', 'empower', 'establish'], 'modality')
   if (object(value.jurisdiction, 'jurisdiction')) {
     const j = value.jurisdiction

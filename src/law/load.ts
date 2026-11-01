@@ -46,7 +46,7 @@ export function loadLaws(root: string, toDay: ToDay): LoadedLaws {
         catch (error) { errors.push(`jurisdiction.${key}: toDay failed: ${error instanceof Error ? error.message : String(error)}`) }
       }
       if (!errors.length) {
-        law = { ...data, jurisdiction }
+        law = { ...data, enactment: data.enactment ?? null, jurisdiction }
         errors.push(...validateLaw(law))
       }
     }

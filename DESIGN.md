@@ -325,7 +325,7 @@ maternal; whole blood only (descended from both parents of the couple, as a whol
 estate that came down from a female ancestor has its purchaser on her side, and canon 5 already confines the search
 there. No one: `claimants: []` (escheat to the lord → `settlement.vacate`) when the search covered every descendant
 of the purchaser (the purchaser is the holder's parent or grandparent);
-`unresolved` when only half-blood kin remain (5075 says they yield to any whole-blood kinsman, not that they take
+`unresolved` when only half-blood kin remain (superseded by (5079) below: they are skipped; 5075 says they yield to any whole-blood kinsman, not that they take
 otherwise), when the purchaser sits above the grandparents (5075 names brothers, uncles and cousins and no order for
 remoter stocks), when the purchaser is the holder and no kin through the grandparents is found (same reason),
 and for coparceners in `resolveSuccession` (`'coparceners: joint holding of one office not
@@ -382,6 +382,28 @@ Build list for codex unit 5077:
 6. `designation`; tests: eligible designee → event; firstborn prince, non-prince, choice null and `[]` →
    unresolved; two designees → contested.
 7. `open-contest` and the existing primogeniture/appointment/election tests unchanged.
+
+**Amendment (5079): the half blood is excluded absolutely.** 5078 opened Blackstone canon 6 (SOURCES.md
+`english-collateral-heirs`): where there is "a much nearer kinsman of the half blood", "a distant kinsman of the
+whole blood shall be admitted, and the other entirely excluded", and with only half-blood kin "the estate shall
+rather escheat to the lord". This replaces (a)'s "`unresolved` when only half-blood kin remain" and build item 3's
+"only half-blood kin → unresolved". Half-blood kin are never claimants and never stop the search: a half-blooded
+person in a stock is skipped, with his issue, and the search goes on to the next whole-blood line and the next stock
+(grandparents' issue, paternal before maternal) as in (a). `kin.parents` is still read for every member of a stock,
+since whole versus half blood is decided from it; a `null` parent stays `unresolved('missing kin.parents: <id>')`.
+The other (a) endings stand unchanged: search covered every descendant of the purchaser (purchaser is the holder's
+parent or grandparent) and no whole-blood heir → `claimants: []` (escheat → `settlement.vacate`), whether or not
+half-blood kin survive; purchaser above the grandparents, or purchaser = holder with no whole-blood kin through the
+grandparents → `unresolved('collateral stocks beyond grandparents: succession not stated')`, because remoter stocks
+are still unsourced, not because of the half blood.
+Build list for codex unit 5080 (replaces the half-blood item of 5077's item 3; nothing else changes):
+1. `english-descent` collateral order (`src/succession/succession.ts`): drop the half-blood survival checks and the
+   `'only half-blood kin remain'` reason; after the parents' stock, purchaser among the parents → `[]`. Tests, each
+   citing 5078: purchaser = father, only a half-brother (same father) alive → `[]` and `settlement.vacate`; a living
+   half-brother is skipped and a whole-blood paternal uncle's son takes (purchaser = paternal grandfather); a
+   half-uncle skipped for a whole-blood uncle; purchaser = holder, only a half-brother, nobody through the
+   grandparents → unresolved naming collateral stocks beyond grandparents; the whole-brother-over-half-brother test
+   unchanged.
 
 ### 1.6 Competing jurisdiction (`government.jurisdiction.competing`, adopted)
 

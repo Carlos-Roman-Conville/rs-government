@@ -1,7 +1,7 @@
 import { backing, deJure, delegationChain } from '../authority/distribution.ts'
 import type { AuthoritySubject } from '../authority/distribution.ts'
 import type { BeliefReader, CapacityReader } from '../authority/readers.ts'
-import { applicableLaws, evaluateAct, inForceLaws, lawConditionsHold, lawInForce } from '../law/evaluate.ts'
+import { applicableLaws, evaluateAct, inForceLaws, lawConditionsHold } from '../law/evaluate.ts'
 import type { Act, ActFacts } from '../law/evaluate.ts'
 import type { Law, LawId } from '../law/schema.ts'
 import type { Breach } from '../law/violation.ts'
@@ -38,7 +38,7 @@ export function levyObligations(laws: readonly Law[], day: number, facts: LevyFa
       const act: Act = { actor: person.id, object: person.object, place: person.place,
         action, day, attempted: false, succeeded: false }
       return [...applicableLaws(laws, act, facts.actFacts).values()].flat()
-        .filter(law => lawInForce(law, day) && law.modality === 'require'
+        .filter(law => law.modality === 'require'
           && law.regulated.action === action && lawConditionsHold(law, act, facts.actFacts))
         .map(law => ({ law: law.id, person: person.id, day, act: { ...act } }))
     })).sort(ordered)

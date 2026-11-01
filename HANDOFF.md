@@ -2,7 +2,7 @@
 
 ## State
 
-- §1.1-§1.7: laws, authority, enactment, 9 procedures, succession, jurisdiction, suppression.
+- §1.1-§1.7: laws, authority, enactment, 9 procedures, succession, jurisdiction; suppression uses inForceLaws.
 - §1.8 legitimacy read shares authority aggregation; weighted/unweighted beliefs, missing subjects.
 - §1.9 tax assessments, collection commands; shortfalls use evaluateAct; shared
   lawInForce window; tax+spend rejected.

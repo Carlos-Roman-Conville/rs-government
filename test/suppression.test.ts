@@ -28,6 +28,14 @@ describe('communication suppression', () => {
     expect(commRestrictions([lawFixture()], 10, facts)).toEqual([])
   })
 
+  it('a superseded restriction emits only its later same-authority replacement', () => {
+    const earlier = communication('earlier'), later = communication('later')
+    later.jurisdiction.from = 10
+    later.supersedes = [earlier.id]
+    expect(commRestrictions([earlier, later], 9, facts).map(command => command.law)).toEqual([earlier.id])
+    expect(commRestrictions([earlier, later], 10, facts).map(command => command.law)).toEqual([later.id])
+  })
+
   it.each(['suspended', 'repealed'] as const)('a %s law yields no command', status => {
     expect(commRestrictions([{ ...communication(), status }], 10, facts)).toEqual([])
   })

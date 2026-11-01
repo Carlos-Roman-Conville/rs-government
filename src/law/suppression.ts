@@ -1,5 +1,5 @@
 import type { ActFacts } from './evaluate.ts'
-import { lawInForce } from './evaluate.ts'
+import { inForceLaws } from './evaluate.ts'
 import type { Law, LawId, LawJurisdiction } from './schema.ts'
 
 /** DESIGN §1.7 communication kinds; carry-message is the action spelling. */
@@ -18,15 +18,14 @@ export interface CommRestrictionCommand {
   until: number | null
 }
 
-/** Emit each temporally in-force communication prohibition/requirement as data.
+/** Emit each in-force, non-superseded communication prohibition/requirement as data.
  * There is no concrete sender/message here: object predicates remain unevaluated,
  * and the law reference retains persons, modality, conditions and exceptions.
  * facts is reserved for the confirmed Society contract; no actor is fabricated.
  * These commands do not decide compliance, detection or communication success.
  */
 export function commRestrictions(laws: readonly Law[], day: number, _facts: ActFacts): CommRestrictionCommand[] {
-  return laws.filter(law => lawInForce(law, day)
-    && (law.modality === 'prohibit' || law.modality === 'require')
+  return inForceLaws(laws, day).filter(law => (law.modality === 'prohibit' || law.modality === 'require')
     && (COMMUNICATION_KINDS as readonly string[]).includes(law.regulated.action))
     .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
     .map(law => ({ owner: 'society', type: 'comm_restriction', law: law.id,

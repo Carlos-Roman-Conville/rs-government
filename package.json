@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@rex/cognition": "git+file:///E:/backups/reality-sim/git/cognition.git#v0.1.0",
+    "@rex/economy": "git+file:///E:/backups/reality-sim/git/economy.git#v0.1.0",
     "@rex/settlement": "git+file:///E:/backups/reality-sim/git/settlement.git#v0.1.0",
     "@types/node": "^26.6.6",
     "typescript": "~6.0.2",

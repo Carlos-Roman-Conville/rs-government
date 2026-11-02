@@ -13,7 +13,7 @@
     "@rex/kernel": "git+file:///E:/backups/reality-sim/git/kernel.git#v0.1.0"
   },
   "devDependencies": {
-    "@rex/settlement": "file:../settlement",
+    "@rex/settlement": "git+file:///E:/backups/reality-sim/git/settlement.git#v0.1.0",
     "@types/node": "^26.6.6",
     "typescript": "~6.0.2",
     "vitest": "^5.0.5"

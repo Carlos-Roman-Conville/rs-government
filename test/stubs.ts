@@ -33,6 +33,9 @@ export interface SuccessionStubData {
   firstPurchasers?: Record<string, string | null>
   pastHolders?: Record<string, readonly string[] | null>
   officeHolders?: Record<string, string | null>
+  treatyHeirs?: Record<string, string | null>
+  contestVictors?: Record<string, string | null>
+  officeRegents?: Record<string, readonly string[] | null>
 }
 
 /** Society/Life provider stubs; absent data stays unknown, never an empty family. */
@@ -44,6 +47,9 @@ export function successionStubs(data: SuccessionStubData): ActFacts {
     if (name === 'estate.first-purchaser') return data.firstPurchasers?.[act.object] ?? null
     if (name === 'office.past-holders') return data.pastHolders?.[act.object] ?? null
     if (name === 'office.holder') return data.officeHolders?.[act.object] ?? null
+    if (name === 'treaty.recognised-heir') return data.treatyHeirs?.[act.object] ?? null
+    if (name === 'contest.victor') return data.contestVictors?.[act.object] ?? null
+    if (name === 'office.regent') return data.officeRegents?.[act.object] ?? null
     const person = data.persons[act.object]
     if (name === 'person.alive') return person?.alive ?? null
     if (name === 'person.born') return person?.born ?? null

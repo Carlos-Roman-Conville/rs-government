@@ -3,7 +3,7 @@
 ## State
 
 - §1.1-§1.7: laws, authority, enactment, procedures, succession, jurisdiction.
-- §1.5 (5077, 5080): half blood excluded; search goes to whole blood, then escheat.
+- §1.5: half blood excluded (5077, 5080); contested succession built (5360, 5403).
 - §1.8 legitimacy read shares authority aggregation; missing subjects.
 - §1.9 tax assessments/commands; tax+spend rejected.
 - §1.10 appropriations allocate treasury balances; pay commands, breaches.
@@ -20,7 +20,6 @@
 - Discretionary spending: Cognition supplies the empowered holder's choice.
 - Society keeper: confirm comm_restriction {law, action, object, places, from, until}.
 - Settlement must supply `law.empowered-actors` (READS.md, 2890).
-- Build unit 5331 (Codex): DESIGN §1.5 (5330) build list, contested succession via `settleContest`.
 - Registry keeper (out of scope here): `settlement.office` missing from kernel quantities.json;
   registry row `government.rule.creation_amendment` not marked built.
 - Hosts supply toDay in act-day epoch; update one-argument loader callers.

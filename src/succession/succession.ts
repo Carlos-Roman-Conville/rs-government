@@ -2,6 +2,8 @@ import { applicableLaws } from '../law/evaluate.ts'
 import type { Act, ActFacts } from '../law/evaluate.ts'
 import { evaluatePredicate } from '../law/predicate.ts'
 import type { Law, LawId, SuccessionRule } from '../law/schema.ts'
+import { settleContest } from './contested.ts'
+import type { ContestMode } from './schema.ts'
 
 /** A query snapshot supplied by Settlement's host; never retained or changed. */
 export interface SuccessionOffice { id: string; place: string }
@@ -16,8 +18,11 @@ export type SuccessionClaimants =
   | UnresolvedSuccession
 export type SuccessionResolution = UnresolvedSuccession
   | { kind: 'contested'; office: string; claimants: SuccessionClaimant[] }
-  | { type: 'government.succession_event'; office: string; successor: string; basis: SuccessionRule; law: LawId }
+  | { type: 'government.succession_event'; office: string; successor: string; basis: SuccessionRule; law: LawId; regent?: string }
   | { type: 'settlement.vacate'; office: string }
+  | { status: 'open'; office: string; claimants: SuccessionClaimant[]; mode: ContestMode }
+  | { status: 'settled'; type: 'settlement.appoint'; office: string; holder: string;
+      basis: SuccessionRule; law: LawId; via: ContestMode; regent?: string }
 export interface SuccessionHost {
   recognises: (law: Law) => boolean | null
   /** Recorded choices, by law: [] confirms none; null means unknown.
@@ -322,10 +327,9 @@ export function successionClaimants(laws: readonly Law[], office: SuccessionOffi
   return collect(successionLaws(laws, office, holder, day, facts), office, holder, day, facts)
 }
 
-/** Pure decision: the host maps succession_event to Settlement appoint and
- * settlement.vacate to vacate. No owner commands are executed here.
- * Unknown recognition blocks a decision; known rejection or distinct rival
- * persons produces a contest. Multiple bases for one person are not rivals;
+/** Pure decision: the host executes returned commands and maps succession_event
+ * to Settlement appoint. An open contest emits no command; nothing is written.
+ * Multiple bases for one person are not rivals;
  * the first law by ID supplies the event's basis when all laws are recognised.
  */
 export function resolveSuccession(laws: readonly Law[], office: SuccessionOffice, holder: string,
@@ -337,14 +341,51 @@ export function resolveSuccession(laws: readonly Law[], office: SuccessionOffice
     return unresolved('coparceners: joint holding of one office not stated')
   }
   const recognition = applicable.map(law => host.recognises(law))
-  if (recognition.some(value => value === null)) return unresolved('recognition not supplied')
-  if (recognition.some(value => typeof value !== 'boolean')) throw new Error('recognises: expected boolean or null')
+  if (recognition.some(value => value !== null && typeof value !== 'boolean')) throw new Error('recognises: expected boolean or null')
   const { claimants } = result
-  if (recognition.includes(false) || new Set(claimants.map(claimant => claimant.person)).size > 1) {
+  const read = (name: string, subject: string) => facts(name, { actor: holder, action: 'succeed',
+    object: subject, place: office.place, day, attempted: false, succeeded: false })
+  const regency = (claimant: SuccessionClaimant): { regent?: string } | UnresolvedSuccession => {
+    if (claimant.basis.regency !== true) return {}
+    const fullAge = read('person.full-age', claimant.person)
+    if (fullAge == null) return unresolved(`missing person.full-age: ${claimant.person}`)
+    if (typeof fullAge !== 'boolean') throw new Error('person.full-age: expected boolean or null')
+    if (fullAge) return {}
+    const regents = read('office.regent', office.id)
+    if (regents == null) return unresolved(`missing office.regent: ${office.id}`)
+    if (!Array.isArray(regents) || !regents.every(isId)) throw new Error('office.regent: expected person IDs or null')
+    const people = [...new Set<string>(regents)].sort()
+    if (!people.length) return unresolved(`no office.regent: ${office.id}`)
+    if (people.length > 1) return unresolved('regency dispute: succession not stated')
+    return { regent: people[0] }
+  }
+  if (new Set(claimants.map(claimant => claimant.person)).size > 1) {
+    // Omitted/null contest preserves the existing claimant set (keeper ruling, 5400).
+    if (applicable.some(law => law.succession?.contest == null)) {
+      return { kind: 'contested', office: office.id, claimants }
+    }
+    // The design gives no priority between competing laws' settlement procedures.
+    if (applicable.length !== 1) {
+      return unresolved('competing contest laws: settlement not stated')
+    }
+    const settled = settleContest(applicable[0], claimants, { choice: host.choice,
+      read: name => read(name, office.id) })
+    if (settled.status === 'unresolved') return unresolved(settled.reason)
+    if (settled.status === 'open') return { ...settled, office: office.id }
+    const regent = regency(settled.claimant)
+    if ('kind' in regent) return regent
+    return { status: 'settled', type: 'settlement.appoint', office: office.id,
+      holder: settled.claimant.person, basis: structuredClone(settled.claimant.basis),
+      law: settled.claimant.law, via: settled.via, ...regent }
+  }
+  if (recognition.some(value => value === null)) return unresolved('recognition not supplied')
+  if (recognition.includes(false)) {
     return { kind: 'contested', office: office.id, claimants }
   }
   if (!claimants.length) return { type: 'settlement.vacate', office: office.id }
   const claimant = [...claimants].sort((a, b) => compare(a.law, b.law))[0]
+  const regent = regency(claimant)
+  if ('kind' in regent) return regent
   return { type: 'government.succession_event', office: office.id, successor: claimant.person,
-    basis: structuredClone(claimant.basis), law: claimant.law }
+    basis: structuredClone(claimant.basis), law: claimant.law, ...regent }
 }

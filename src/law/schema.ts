@@ -2,6 +2,7 @@ import { validatePredicate } from './predicate.ts'
 import type { Predicate } from './predicate.ts'
 import { normalizeCalendarPoint } from './calendar.ts'
 import type { CalendarPoint } from './calendar.ts'
+import type { ContestRule } from '../succession/schema.ts'
 
 export type LawId = `government/law.${string}`
 export type LawModality = 'prohibit' | 'require' | 'permit' | 'empower' | 'establish'
@@ -28,6 +29,8 @@ export interface SuccessionRule {
   kin?: 'derbfine' | 'gelfhine' | null
   line?: 'male' | 'any' | null
   ladder?: string[] | null
+  contest?: ContestRule | null
+  regency?: boolean
 }
 export interface LawJurisdiction {
   authority: string | null
@@ -181,6 +184,13 @@ function validate(value: unknown, calendarDates: boolean): string[] {
     }
     if (object(value.succession, 'succession')) {
       const s = value.succession
+      if ('contest' in s && s.contest !== null && object(s.contest, 'succession.contest')) {
+        oneOf(s.contest.mode, ['arbitration', 'treaty', 'force'], 'succession.contest.mode')
+        for (const key of Object.keys(s.contest)) {
+          if (key !== 'mode') fail(`succession.contest.${key}`, 'unknown field')
+        }
+      }
+      if ('regency' in s && typeof s.regency !== 'boolean') fail('succession.regency', 'expected boolean')
       oneOf(s.rule, ['primogeniture', 'appointment', 'election', 'open-contest',
         'english-descent', 'tanistry', 'rotation', 'designation'], 'succession.rule')
       if ('prefer' in s) oneOf(s.prefer, ['male', 'none'], 'succession.prefer')
@@ -195,7 +205,7 @@ function validate(value: unknown, calendarDates: boolean): string[] {
         }
       }
       for (const key of Object.keys(s)) {
-        if (!['rule', 'prefer', 'superior', 'body', 'kin', 'line', 'ladder'].includes(key)) fail(`succession.${key}`, 'unknown field')
+        if (!['rule', 'prefer', 'superior', 'body', 'kin', 'line', 'ladder', 'contest', 'regency'].includes(key)) fail(`succession.${key}`, 'unknown field')
       }
     }
   }

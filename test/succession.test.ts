@@ -1,10 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Runner, defaultConfig, initialState, stubProviders } from '@rex/settlement'
-import { resolveSuccession, successionClaimants, validateLaw, validateLawData } from '../src/index.ts'
-import type { ActFacts, Law, SuccessionRule, SuccessionHost } from '../src/index.ts'
+import { resolveSuccession, successionClaimants, settleContest, recognition, validateLaw, validateLawData } from '../src/index.ts'
+import type { ActFacts, Law, SuccessionRule, SuccessionHost, ContestMode, SuccessionClaimant } from '../src/index.ts'
 import { lawFixture } from './law-fixture.ts'
-import { successionStubs } from './stubs.ts'
+import { successionStubs, authorityStubs } from './stubs.ts'
 import type { SuccessionStubData } from './stubs.ts'
+import * as contestModule from '../src/succession/contested.ts'
 
 const office = { id: 'office.crown', place: 'place.seat' }
 const holder = 'parent'
@@ -30,6 +31,316 @@ function family() {
 const query = (laws: Law[], facts = family().facts) => successionClaimants(laws, office, holder, day, facts)
 const resolve = (laws: Law[], host = { recognises }, facts = family().facts) =>
   resolveSuccession(laws, office, holder, day, facts, host)
+
+function contestedFamily(mode: ContestMode = 'force', regency?: boolean) {
+  const data: SuccessionStubData = structuredClone(family().data)
+  data.persons.son.born = data.persons.daughter.born
+  data.persons.daughter.fullAge = true
+  data.treatyHeirs = { [office.id]: 'daughter' }
+  data.contestVictors = { [office.id]: 'daughter' }
+  data.officeRegents = { [office.id]: ['marshal'] }
+  const read = successionStubs(data)
+  const facts = vi.fn<ActFacts>((name, act) => name === 'object.kind' ? act.object : read(name, act))
+  const value = law({ rule: 'primogeniture', prefer: 'none', contest: { mode },
+    ...(regency === undefined ? {} : { regency }) })
+  const claim = query([value], facts)
+  if (claim.kind !== 'claimants') throw new Error('expected contested fixture claimants')
+  const choice = vi.fn((): readonly string[] | null => ['daughter'])
+  const decide = (atDay = day) => resolveSuccession([value], office, holder, atDay, facts, { recognises, choice })
+  const settle = () => settleContest(value, claim.claimants, { choice, read: name => facts(name,
+    { actor: holder, action: 'succeed', object: office.id, place: office.place,
+      day, attempted: false, succeeded: false }) })
+  return { data, facts, value, claimants: claim.claimants, choice, decide, settle }
+}
+
+describe('contested succession (5330)', () => {
+  // (5330)
+  it.each(['arbitration', 'treaty', 'force'] as const)('validates %s with explicit regency in runtime and dated laws', mode => {
+    const value = law({ rule: 'primogeniture', prefer: 'none', contest: { mode }, regency: true })
+    expect(validateLaw(value)).toEqual([])
+    expect(validateLawData({ ...value, jurisdiction: { ...value.jurisdiction, from: null, until: null } })).toEqual([])
+  })
+  // (5330)
+  it.each([
+    [{ mode: 'duel' }, 'contest.mode'], [{}, 'contest.mode'],
+    [{ mode: 'force', timeout: 10 }, 'contest.timeout'], [[], 'contest'], ['force', 'contest'],
+  ])('rejects malformed or unknown contest data %j', (contest, path) => {
+    expect(validateLaw({ ...law(), succession: { rule: 'primogeniture', contest } }))
+      .toEqual(expect.arrayContaining([expect.stringContaining(`succession.${path}:`)]))
+  })
+  // (5330)
+  it.each([null, 'true', 1])('rejects nonboolean regency %j', regency => {
+    expect(validateLaw({ ...law(), succession: { rule: 'primogeniture', regency } }))
+      .toEqual(expect.arrayContaining([expect.stringContaining('succession.regency:')]))
+  })
+  // (5330)
+  it.each(['arbitration', 'treaty', 'force'] as const)('%s settles on a claimant and returns exactly one appoint carrying via', mode => {
+    const t = contestedFamily(mode)
+    expect(t.settle()).toEqual({ status: 'settled', claimant: t.claimants[0], via: mode })
+    expect(t.decide()).toEqual({ status: 'settled', type: 'settlement.appoint', office: office.id,
+      holder: 'daughter', law: t.value.id, basis: t.value.succession, via: mode })
+    if (mode === 'arbitration') expect(t.choice).toHaveBeenCalledWith(t.value)
+  })
+  // (5330)
+  it.each(['arbitration', 'treaty', 'force'] as const)('%s rejects a nonclaimant instead of creating a deferred heir', mode => {
+    const t = contestedFamily(mode)
+    t.choice.mockReturnValue(['outsider'])
+    t.data.treatyHeirs![office.id] = 'outsider'
+    t.data.contestVictors![office.id] = 'outsider'
+    expect(t.settle()).toEqual({ status: 'unresolved', reason: `${mode} choice is not a claimant: outsider` })
+    expect(t.decide()).toEqual({ kind: 'unresolved', reason: `${mode} choice is not a claimant: outsider` })
+  })
+  // (5330)
+  it('arbitration without a supplied judgment remains unresolved', () => {
+    const t = contestedFamily('arbitration')
+    t.choice.mockReturnValue(null)
+    expect(t.decide()).toEqual({ kind: 'unresolved', reason: `host arbitration choice not supplied: ${t.value.id}` })
+    expect(settleContest(t.value, t.claimants, { read: () => { throw new Error('unexpected read') } }))
+      .toEqual({ status: 'unresolved', reason: `host arbitration choice not supplied: ${t.value.id}` })
+  })
+  // (5330)
+  it.each([{ judgment: [] }, { judgment: ['son', 'daughter'] }])('arbitration without a sole judgment $judgment stays open', ({ judgment }) => {
+    const t = contestedFamily('arbitration')
+    t.choice.mockReturnValue(judgment)
+    expect(t.decide()).toEqual({ status: 'open', office: office.id, claimants: t.claimants, mode: 'arbitration' })
+  })
+  // (5330)
+  it.each([null, undefined])('treaty without evidence %j is unresolved naming its read', heir => {
+    const t = contestedFamily('treaty')
+    if (heir === undefined) delete t.data.treatyHeirs![office.id]
+    else t.data.treatyHeirs![office.id] = heir
+    expect(t.settle()).toEqual({ status: 'unresolved', reason: `missing treaty.recognised-heir: ${t.value.id}` })
+    expect(t.decide()).toMatchObject({ kind: 'unresolved', reason: expect.stringContaining('treaty.recognised-heir') })
+  })
+  // (5330)
+  it('a treaty with no heir yet stays open without a command', () => {
+    const t = contestedFamily('treaty')
+    t.data.treatyHeirs![office.id] = ''
+    expect(t.settle()).toEqual({ status: 'open', claimants: t.claimants, mode: 'treaty' })
+    expect(t.decide()).toEqual({ status: 'open', office: office.id, claimants: t.claimants, mode: 'treaty' })
+  })
+  // (5330)
+  it.each([null, undefined])('force without a victor %j stays open without a timeout', victor => {
+    const t = contestedFamily('force')
+    if (victor === undefined) delete t.data.contestVictors![office.id]
+    else t.data.contestVictors![office.id] = victor
+    const expected = { status: 'open', office: office.id, claimants: t.claimants, mode: 'force' }
+    expect(t.decide()).toEqual(expected)
+    expect(t.decide(day + 100_000)).toEqual(expected)
+  })
+  // (5330)
+  it.each([null, undefined])('several claimants without a contest rule %j stay contested and bypass settlement', contest => {
+    const t = contestedFamily()
+    if (contest === undefined) delete t.value.succession!.contest
+    else t.value.succession!.contest = contest
+    expect(validateLaw(t.value)).toEqual([])
+    const claimants = query([t.value], t.facts)
+    if (claimants.kind !== 'claimants') throw new Error('expected rival claimants')
+    const settle = vi.spyOn(contestModule, 'settleContest')
+    try {
+      t.facts.mockClear()
+      expect(t.decide()).toEqual({ kind: 'contested', office: office.id, claimants: claimants.claimants })
+      expect(settle).not.toHaveBeenCalled()
+      expect(t.choice).not.toHaveBeenCalled()
+      for (const name of ['treaty.recognised-heir', 'contest.victor', 'office.regent']) {
+        expect(t.facts).not.toHaveBeenCalledWith(name, expect.anything())
+      }
+    } finally {
+      settle.mockRestore()
+    }
+  })
+  // (5330)
+  it.each(['arbitration', 'treaty', 'force'] as const)('a sole claimant bypasses %s and all three new reads', mode => {
+    const t = contestedFamily(mode)
+    t.data.persons.son.born = 3
+    t.facts.mockClear()
+    expect(t.decide()).toEqual({ type: 'government.succession_event', office: office.id,
+      successor: 'daughter', basis: t.value.succession, law: t.value.id })
+    expect(t.choice).not.toHaveBeenCalled()
+    for (const name of ['treaty.recognised-heir', 'contest.victor', 'office.regent']) {
+      expect(t.facts).not.toHaveBeenCalledWith(name, expect.anything())
+    }
+  })
+  // (5330)
+  it.each(['treaty', 'force'] as const)('%s reads only its named outcome using the office query context', mode => {
+    const t = contestedFamily(mode)
+    t.facts.mockClear()
+    t.decide()
+    const name = mode === 'treaty' ? 'treaty.recognised-heir' : 'contest.victor'
+    expect(t.facts).toHaveBeenCalledWith(name, { actor: holder, action: 'succeed', object: office.id,
+      place: office.place, day, attempted: false, succeeded: false })
+    expect(t.facts).not.toHaveBeenCalledWith(mode === 'force' ? 'treaty.recognised-heir' : 'contest.victor', expect.anything())
+    expect(t.choice).not.toHaveBeenCalled()
+  })
+  // (5330)
+  it.each(['treaty', 'force'] as const)('%s rejects malformed owner data', mode => {
+    const t = contestedFamily(mode)
+    expect(() => settleContest(t.value, t.claimants, { read: () => 42 })).toThrow(
+      mode === 'treaty' ? 'treaty.recognised-heir' : 'contest.victor')
+  })
+  // (5330)
+  it('a split election keeps host claimants and does not invent an elector majority', () => {
+    const t = contestedFamily('force')
+    t.value.succession = { rule: 'election', body: 'body.electors', contest: { mode: 'force' } }
+    t.choice.mockReturnValue(['son', 'son', 'daughter', 'son'])
+    t.data.contestVictors![office.id] = null
+    expect(t.decide()).toEqual({ status: 'open', office: office.id, mode: 'force', claimants:
+      ['daughter', 'son'].map(person => ({ person, law: t.value.id, basis: t.value.succession })) })
+  })
+  // (5330)
+  it.each([false, null])('force does not require subsequent recognition=%s to acknowledge the supplied victor', recognised => {
+    const t = contestedFamily('force')
+    expect(resolveSuccession([t.value], office, holder, day, t.facts, { recognises: () => recognised }))
+      .toMatchObject({ status: 'settled', type: 'settlement.appoint', holder: 'daughter', via: 'force' })
+  })
+  // (5330)
+  it('competing settlement laws do not acquire an invented priority', () => {
+    const t = contestedFamily('force')
+    const rival = law({ rule: 'primogeniture', prefer: 'none', contest: { mode: 'treaty' } }, 'rival')
+    rival.jurisdiction.authority = 'authority.rival'
+    t.facts.mockClear()
+    expect(resolveSuccession([t.value, rival], office, holder, day, t.facts, { recognises }))
+      .toEqual({ kind: 'unresolved', reason: 'competing contest laws: settlement not stated' })
+    expect(t.facts).not.toHaveBeenCalledWith('contest.victor', expect.anything())
+    expect(t.facts).not.toHaveBeenCalledWith('treaty.recognised-heir', expect.anything())
+  })
+  // (5330)
+  it.each([null, undefined])('a rival law without contest=%j preserves every claim without choosing a procedure', contest => {
+    const t = contestedFamily('force')
+    const rival = law({ rule: 'primogeniture', prefer: 'male',
+      ...(contest === null ? { contest } : {}) }, 'rival')
+    rival.jurisdiction.authority = 'authority.rival'
+    const claimants = query([t.value, rival], t.facts)
+    if (claimants.kind !== 'claimants') throw new Error('expected rival claimants')
+    const settle = vi.spyOn(contestModule, 'settleContest')
+    try {
+      t.facts.mockClear()
+      expect(resolveSuccession([rival, t.value], office, holder, day, t.facts, { recognises }))
+        .toEqual({ kind: 'contested', office: office.id, claimants: claimants.claimants })
+      expect(settle).not.toHaveBeenCalled()
+      expect(t.facts).not.toHaveBeenCalledWith('contest.victor', expect.anything())
+    } finally {
+      settle.mockRestore()
+    }
+  })
+  // (5330)
+  it.each([true, false])('a minor has a regent with the heir unchanged (sole=%s)', sole => {
+    const t = contestedFamily('force', true)
+    if (sole) t.data.persons.son.born = 3
+    t.data.persons.daughter.fullAge = false
+    expect(t.decide()).toEqual(sole
+      ? { type: 'government.succession_event', office: office.id, successor: 'daughter',
+          basis: t.value.succession, law: t.value.id, regent: 'marshal' }
+      : { status: 'settled', type: 'settlement.appoint', office: office.id, holder: 'daughter',
+          basis: t.value.succession, law: t.value.id, via: 'force', regent: 'marshal' })
+    expect(t.facts).toHaveBeenCalledWith('office.regent', { actor: holder, action: 'succeed', object: office.id,
+      place: office.place, day, attempted: false, succeeded: false })
+    expect(t.facts).toHaveBeenCalledWith('person.full-age', { actor: holder, action: 'succeed', object: 'daughter',
+      place: office.place, day, attempted: false, succeeded: false })
+  })
+  // (5330)
+  it.each([undefined, false])('regency=%s does not read age or choose a regent', regency => {
+    const t = contestedFamily('force', regency)
+    t.data.persons.daughter.fullAge = false
+    expect(t.decide()).not.toHaveProperty('regent')
+    expect(t.facts).not.toHaveBeenCalledWith('office.regent', expect.anything())
+    expect(t.facts).not.toHaveBeenCalledWith('person.full-age', expect.anything())
+  })
+  // (5330)
+  it.each([null, []])('regency with no regent %j is unresolved without an appointment', regents => {
+    const t = contestedFamily('force', true)
+    t.data.persons.daughter.fullAge = false
+    t.data.officeRegents![office.id] = regents
+    expect(t.decide()).toEqual({ kind: 'unresolved', reason:
+      `${regents === null ? 'missing' : 'no'} office.regent: ${office.id}` })
+  })
+  // (5330)
+  it('regency with unknown age is unresolved and does not read a regent', () => {
+    const t = contestedFamily('force', true)
+    delete t.data.persons.daughter.fullAge
+    expect(t.decide()).toEqual({ kind: 'unresolved', reason: 'missing person.full-age: daughter' })
+    expect(t.facts).not.toHaveBeenCalledWith('office.regent', expect.anything())
+  })
+  // (5330)
+  it('an adult appointee needs no regent read even with regency enabled', () => {
+    const t = contestedFamily('force', true)
+    expect(t.decide()).not.toHaveProperty('regent')
+    expect(t.facts).not.toHaveBeenCalledWith('office.regent', expect.anything())
+  })
+  // (5330)
+  it('a disputed regency stays unresolved without inventing a dispute process', () => {
+    const t = contestedFamily('force', true)
+    t.data.persons.daughter.fullAge = false
+    t.data.officeRegents![office.id] = ['marshal', 'other']
+    expect(t.decide()).toEqual({ kind: 'unresolved', reason: 'regency dispute: succession not stated' })
+  })
+  // (5330)
+  it('an open contest does not seek a regent for an unsettled claimant', () => {
+    const t = contestedFamily('force', true)
+    t.data.contestVictors![office.id] = null
+    expect(t.decide()).toHaveProperty('status', 'open')
+    expect(t.facts).not.toHaveBeenCalledWith('office.regent', expect.anything())
+    expect(t.facts).not.toHaveBeenCalledWith('person.full-age', expect.anything())
+  })
+  // (5330)
+  it.each(['open', 'settled', 'unresolved'] as const)('%s leaves the holder and all Settlement state unchanged', status => {
+    const t = contestedFamily()
+    t.data.contestVictors![office.id] = status === 'open' ? null : status === 'settled' ? 'daughter' : 'outsider'
+    const runner = new Runner(initialState('stl.contested', 'test'), defaultConfig(), stubProviders())
+    const id = runner.run<string>({ type: 'createOffice', name: 'Crown', powers: [] })
+    runner.run({ type: 'appoint', office: id, holder })
+    t.value.regulated.object = true
+    t.data.contestVictors![id] = t.data.contestVictors![office.id]
+    const before = structuredClone({ state: runner.state, log: runner.log, events: runner.events, law: t.value, data: t.data })
+    const result = resolveSuccession([t.value], { id, place: office.place }, holder, day, t.facts, { recognises })
+    expect(result).toMatchObject(status === 'unresolved' ? { kind: status } : { status })
+    if (status !== 'settled') expect(result).not.toHaveProperty('type')
+    expect(runner.state.offices[id].holder).toBe(holder)
+    expect({ state: runner.state, log: runner.log, events: runner.events, law: t.value, data: t.data }).toEqual(before)
+  })
+  // (5330)
+  it('settlement copies every claimant basis and representation path without changing provider data', () => {
+    const t = contestedFamily()
+    const claimants: SuccessionClaimant[] = t.claimants.map(c => ({ ...c, through: ['dead'] }))
+    const before = structuredClone({ claimants, law: t.value, data: t.data })
+    const result = settleContest(t.value, claimants, { read: () => null })
+    expect(result.status).toBe('open')
+    if (result.status === 'open') {
+      result.claimants[0].basis.contest!.mode = 'treaty'
+      result.claimants[0].through!.push('changed')
+      expect(result.claimants[1].basis.contest!.mode).toBe('force')
+    }
+    const settled = settleContest(t.value, claimants, { read: () => 'daughter' })
+    if (settled.status === 'settled') settled.claimant.basis.contest!.mode = 'arbitration'
+    expect({ claimants, law: t.value, data: t.data }).toEqual(before)
+  })
+  // (5330)
+  it('rival claimant R(k,d) values are separate and the office read and stored fields stay unchanged', () => {
+    const t = contestedFamily()
+    const data = { beliefs: { observer: { daughter: { rule: 0.8 }, son: { rule: 0.2 }, [office.id]: { rule: 0.6 } } },
+      weights: { observer: 1 }, capacities: {}, agents: {}, populations: {} }
+    const readers = authorityStubs(data)
+    const R = (actor: string) => recognition(actor, 'rule', ['observer'], readers)
+    const before = structuredClone({ data, law: t.value, provider: t.data, claimants: t.claimants })
+    const officeRead = R(office.id)
+    t.data.contestVictors![office.id] = null
+    const open = t.decide()
+    expect([R('daughter').R, R('son').R]).toEqual([0.8, 0.2])
+    expect(R(office.id)).toEqual(officeRead)
+    t.data.contestVictors![office.id] = 'daughter'
+    const settled = t.decide()
+    expect(R(office.id)).toEqual(officeRead)
+    expect({ data, law: t.value, provider: t.data, claimants: t.claimants }).toEqual(before)
+    const noLegitimacy = (value: unknown): void => {
+      if (value === null || typeof value !== 'object') return
+      for (const [key, child] of Object.entries(value)) {
+        expect(key).not.toMatch(/legitimacy/i)
+        noLegitimacy(child)
+      }
+    }
+    noLegitimacy({ open, settled, ...before })
+  })
+})
 
 function tree() {
   const data: SuccessionStubData = { children: {}, persons: {}, parents: {},

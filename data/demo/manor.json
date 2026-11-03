@@ -837,7 +837,8 @@
           "schedule": {
             "kind": "proportional-with-remission",
             "rate": 0.1,
-            "remitBelow": 40
+            "remitBelow": 40,
+            "remitBoundary": "strictly-below"
           },
           "treasury": "inventory.lord-granary",
           "collector": "office.beadle"
@@ -916,6 +917,10 @@
     "/variants/B/0/tax/schedule/remitBelow": {
       "label": "modelling choice",
       "note": "Illustrative harvest threshold in bushels; the source does not supply a remission threshold."
+    },
+    "/variants/B/0/tax/schedule/remitBoundary": {
+      "label": "modelling choice",
+      "note": "Boundary of the illustrative remission (D-demo-1); unsourced. Strictly below reproduces the pre-5579 code."
     }
   }
 }

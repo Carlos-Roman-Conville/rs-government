@@ -6,6 +6,10 @@ export type { DemoVariant, DemoHousehold, DemoOffice, ManorFixture, LoadedManorF
 
 export { evaluatePredicate, predicateReads, validatePredicate } from './law/predicate.ts'
 export type { Predicate, PredicateFacts, PredicateOperator, PredicateScalar } from './law/predicate.ts'
+export { evaluatePredicateKleene, and3, or3, not3 } from './law/kleene.ts'
+export type { Kleene, Truth } from './law/kleene.ts'
+export { assessAct, assessByAuthority } from './law/applicability.ts'
+export type { ActAssessment, AssessmentOptions } from './law/applicability.ts'
 export { validateLaw, validateLawData } from './law/schema.ts'
 export type { CalendarPoint, ToDay } from './law/calendar.ts'
 export type { Law, LawData, LawId, LawModality, LawStatus, LawJurisdiction, LawException, Consequence, Sanction, SanctionKind, Citation } from './law/schema.ts'

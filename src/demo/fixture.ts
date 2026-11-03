@@ -31,10 +31,10 @@ export function validateManorFixture(value: unknown, sources: string, procedures
   const failures: string[] = []
   const slugs = new Set([...sources.matchAll(/^## ([a-z0-9-]+)\s*$/gm)].map(match => `data/demo/SOURCES.md#${match[1]}`))
   const provenance = object(value.provenance) ? value.provenance : {}
-  const numbers = new Set<string>()
+  const provenanceLeaves = new Set<string>()
   function visit(node: unknown, path: string): void {
+    if (typeof node === 'number' || typeof node === 'string') provenanceLeaves.add(path)
     if (typeof node === 'number') {
-      numbers.add(path)
       const evidence = provenance[path]
       if (!Number.isFinite(node)) failures.push(`${path}: expected finite number`)
       if (!object(evidence) || !(evidence.label === 'modelling choice'
@@ -47,7 +47,7 @@ export function validateManorFixture(value: unknown, sources: string, procedures
     }
   }
   visit(value, '')
-  for (const path of Object.keys(provenance)) if (!numbers.has(path)) failures.push(`${path}: provenance must point to a number`)
+  for (const path of Object.keys(provenance)) if (!provenanceLeaves.has(path)) failures.push(`${path}: provenance must point to a number or string`)
   for (const field of ['id', 'place']) if (typeof value[field] !== 'string' || !value[field]) failures.push(`${field}: expected identifier`)
   for (const field of ['households', 'offices'] as const) {
     const rows = value[field]

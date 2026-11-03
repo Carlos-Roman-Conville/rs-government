@@ -46,8 +46,7 @@ const nonnegative = (value: unknown): value is number =>
 const nonempty = (value: unknown): value is string => typeof value === 'string' && !!value.trim()
 
 /** Pure assessment phase. Base ports return {amount, unit}, null or undefined.
- * Fixed amounts still need a known base. Remission is strictly below remitBelow;
- * at the threshold the full base is taxed. No rounding or currency is invented.
+ * Fixed amounts still need a known base. No rounding or currency is invented.
  * Predicate failures retain the evaluator's fail-fast semantics.
  */
 export function assess(laws: readonly Law[], day: number, payers: readonly TaxPayer[], facts: ActFacts): TaxAssessment[] {
@@ -81,7 +80,9 @@ export function assess(laws: readonly Law[], day: number, payers: readonly TaxPa
           row.base = value.amount
           row.unit = schedule.kind === 'fixed' ? schedule.unit : value.unit
           const owed = schedule.kind === 'fixed' ? schedule.amount
-            : schedule.kind === 'proportional-with-remission' && value.amount < schedule.remitBelow
+            : schedule.kind === 'proportional-with-remission'
+              && (schedule.remitBoundary === 'strictly-below'
+                ? value.amount < schedule.remitBelow : value.amount <= schedule.remitBelow)
               ? 0 : value.amount * schedule.rate
           if (nonnegative(owed)) row.owed = owed
           else row.reason = `invalid assessment amount: ${baseRead}`

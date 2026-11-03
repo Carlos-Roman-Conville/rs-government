@@ -60,6 +60,9 @@ describe('DESIGN section 3 manor fixture', () => {
   it('rejects each number when its exact source or modelling label is removed', () => {
     for (const path of Object.keys(raw().provenance)) {
       const data = raw()
+      const leaf = path.slice(1).split('/').reduce<unknown>((node, key) =>
+        (node as Record<string, unknown>)[key.replace(/~1/g, '/').replace(/~0/g, '~')], data)
+      if (typeof leaf !== 'number') continue
       delete data.provenance[path]
       expect(validateManorFixture(data, sources)).toContain(`${path}: number needs a source slug or modelling choice label`)
     }
@@ -76,8 +79,27 @@ describe('DESIGN section 3 manor fixture', () => {
     data.variants.A[0].tax!.schedule = { kind: 'fixed', amount: -1, unit: 'bushel' }
     const failures = validateManorFixture(data, sources)
     expect(failures).toContain('/householdCount: number needs a source slug or modelling choice label')
-    expect(failures).toContain('/missing: provenance must point to a number')
+    expect(failures).toContain('/missing: provenance must point to a number or string')
     expect(failures).toContain('householdCount: must match households')
     expect(failures.some(f => f.includes('tax.schedule.amount'))).toBe(true)
+  })
+
+  it('(p1) accepts the declared string boundary provenance without requiring labels on strings', () => {
+    const data = raw()
+    const path = '/variants/B/0/tax/schedule/remitBoundary'
+    expect(data.provenance[path]).toEqual({ label: 'modelling choice',
+      note: 'Boundary of the illustrative remission (D-demo-1); unsourced. Strictly below reproduces the pre-5579 code.' })
+    expect(validateManorFixture(data, sources)).toEqual([])
+    delete data.provenance[path]
+    expect(validateManorFixture(data, sources)).toEqual([])
+  })
+
+  it('(p2) rejects provenance on objects, arrays, booleans, null and missing paths', () => {
+    const data = { ...raw(), booleanChoice: true }
+    for (const path of ['/parameters', '/households', '/booleanChoice', '/households/0/personality', '/missing']) {
+      data.provenance[path] = { label: 'modelling choice' }
+      expect(validateManorFixture(data, sources)).toContain(`${path}: provenance must point to a number or string`)
+      delete data.provenance[path]
+    }
   })
 })

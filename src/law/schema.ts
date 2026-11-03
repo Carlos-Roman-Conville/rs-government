@@ -14,7 +14,7 @@ export interface Citation { key: string; title: string; year: number | null; loc
 export interface LawException { condition: Predicate; reason: string }
 export type TaxSchedule = { kind: 'fixed'; amount: number; unit: string }
   | { kind: 'rate'; rate: number }
-  | { kind: 'proportional-with-remission'; rate: number; remitBelow: number }
+  | { kind: 'proportional-with-remission'; rate: number; remitBelow: number; remitBoundary: 'strictly-below' | 'at-or-below' }
 export interface TaxRule { base: string; schedule: TaxSchedule; treasury: string; collector?: string }
 export type TenderPurpose = 'tax' | 'debt'
 export interface TenderRule { assets: string[]; purposes: TenderPurpose[] }
@@ -228,7 +228,11 @@ function validate(value: unknown, calendarDates: boolean): string[] {
           if (!finite(schedule[field]) || schedule[field] < 0) fail(`tax.schedule.${field}`, 'expected finite non-negative number')
         }
         if (schedule.kind === 'fixed') string(schedule.unit, 'tax.schedule.unit')
-        const allowed = ['kind', ...fields, ...(schedule.kind === 'fixed' ? ['unit'] : [])]
+        if (schedule.kind === 'proportional-with-remission') {
+          oneOf(schedule.remitBoundary, ['strictly-below', 'at-or-below'], 'tax.schedule.remitBoundary')
+        }
+        const allowed = ['kind', ...fields, ...(schedule.kind === 'fixed' ? ['unit'] : []),
+          ...(schedule.kind === 'proportional-with-remission' ? ['remitBoundary'] : [])]
         for (const key of Object.keys(schedule)) {
           if (!allowed.includes(key)) fail(`tax.schedule.${key}`, 'unknown field')
         }

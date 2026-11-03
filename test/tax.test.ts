@@ -14,10 +14,35 @@ function payment(law: Law, amount: number): TaxPayment {
   return { law: law.id, payer: payer.id, day: 10, amount, unit: 'grain', owner: 'economy', from: 'inventory.tenant' }
 }
 
+describe('declared remission boundary', () => {
+  it('(r1) taxes the threshold only when remission is strictly below it', () => {
+    for (const remitBoundary of ['strictly-below', 'at-or-below'] as const) {
+      const law = tax({ kind: 'proportional-with-remission', rate: 0.1, remitBelow: 50, remitBoundary })
+      expect(validateLaw(law)).toEqual([])
+      expect(assess([law], 10, [payer], () => ({ amount: 50, unit: 'grain' }))[0].owed)
+        .toBe(remitBoundary === 'strictly-below' ? 5 : 0)
+    }
+  })
+  it('(r2) both boundaries remit below the threshold', () => {
+    for (const remitBoundary of ['strictly-below', 'at-or-below'] as const) {
+      const law = tax({ kind: 'proportional-with-remission', rate: 0.1, remitBelow: 50, remitBoundary })
+      expect(assess([law], 10, [payer], () => ({ amount: 49, unit: 'grain' }))[0].owed).toBe(0)
+    }
+  })
+  it('(r3) missing and invalid boundaries name tax.schedule.remitBoundary', () => {
+    const law = tax()
+    for (const boundary of [{}, { remitBoundary: 'above' }, { remitBoundary: null }]) {
+      const schedule = { kind: 'proportional-with-remission', rate: 0.1, remitBelow: 50, ...boundary }
+      expect(validateLaw({ ...law, tax: { ...law.tax, schedule } }))
+        .toEqual([expect.stringContaining('tax.schedule.remitBoundary')])
+    }
+  })
+})
+
 describe('tax schema and declared owner reads', () => {
   it.each<TaxSchedule>([
     { kind: 'fixed', amount: 2, unit: 'coin' }, { kind: 'rate', rate: 0.1 },
-    { kind: 'proportional-with-remission', rate: 0.1, remitBelow: 50 },
+    { kind: 'proportional-with-remission', remitBoundary: 'strictly-below', rate: 0.1, remitBelow: 50 },
   ])('accepts the $kind schedule in runtime and calendar law data', schedule => {
     const law = tax(schedule)
     expect(validateLaw(law)).toEqual([])
@@ -30,8 +55,8 @@ describe('tax schema and declared owner reads', () => {
     null, { kind: 'unknown' }, { kind: 'fixed', amount: -1, unit: 'coin' },
     { kind: 'fixed', amount: 1, unit: '' }, { kind: 'rate', rate: Infinity },
     { kind: 'rate', rate: -0.1 }, { kind: 'rate', rate: '0.1' },
-    { kind: 'proportional-with-remission', rate: 0.1 },
-    { kind: 'proportional-with-remission', rate: 0.1, remitBelow: -1 },
+    { kind: 'proportional-with-remission', remitBoundary: 'strictly-below', rate: 0.1 },
+    { kind: 'proportional-with-remission', remitBoundary: 'strictly-below', rate: 0.1, remitBelow: -1 },
     { kind: 'rate', rate: 0.1, amount: 2 },
   ])('rejects malformed schedule %j', schedule => {
     const law = tax()
@@ -56,20 +81,20 @@ describe('pure tax assessment', () => {
   it.each<[TaxSchedule, number, string]>([
     [{ kind: 'fixed', amount: 3, unit: 'coin' }, 3, 'coin'],
     [{ kind: 'rate', rate: 0.125 }, 12.5, 'grain'],
-    [{ kind: 'proportional-with-remission', rate: 0.1, remitBelow: 50 }, 10, 'grain'],
+    [{ kind: 'proportional-with-remission', remitBoundary: 'strictly-below', rate: 0.1, remitBelow: 50 }, 10, 'grain'],
   ])('computes %j without inventing rounding or a currency', (schedule, owed, unit) => {
     const [row] = assess([tax(schedule)], 10, [payer], facts)
     expect(row).toMatchObject({ type: 'government.tax_assessment', law: 'government/law.tax',
       payer: payer.id, base: 100, owed, unit, day: 10, reason: null, treasury: 'account.treasury', collector: 'office.reeve' })
   })
   it.each([[49, 0], [50, 5], [51, 5.1]])('remits strictly below the threshold: base %s owes %s', (amount, owed) => {
-    const law = tax({ kind: 'proportional-with-remission', rate: 0.1, remitBelow: 50 })
+    const law = tax({ kind: 'proportional-with-remission', remitBoundary: 'strictly-below', rate: 0.1, remitBelow: 50 })
     expect(assess([law], 10, [payer], () => ({ amount, unit: 'grain' }))[0].owed).toBeCloseTo(owed)
   })
   it.each([undefined, null, { amount: NaN, unit: 'grain' }, { amount: -1, unit: 'grain' }, { amount: 10 }])
     ('missing or invalid base %j stays null for every schedule', value => {
       for (const schedule of [{ kind: 'rate', rate: 0 }, { kind: 'fixed', amount: 3, unit: 'coin' },
-        { kind: 'proportional-with-remission', rate: 0.1, remitBelow: 50 }] as const) {
+        { kind: 'proportional-with-remission', remitBoundary: 'strictly-below', rate: 0.1, remitBelow: 50 }] as const) {
         const [row] = assess([tax(schedule)], 10, [payer], () => value)
         expect(row.owed).toBeNull()
         expect(row.reason).toContain('base read: economy.harvest')
@@ -156,7 +181,7 @@ describe('collection choices and confirmed non-payment', () => {
     expect(collectionCommands(rows, [payment(law, 0)])).toEqual([])
   })
   it('missing and remitted assessments cannot establish a shortfall', () => {
-    const law = tax({ kind: 'proportional-with-remission', rate: 0.1, remitBelow: 200 })
+    const law = tax({ kind: 'proportional-with-remission', remitBoundary: 'strictly-below', rate: 0.1, remitBelow: 200 })
     for (const read of [facts, () => null]) {
       expect(taxBreaches([law], assess([law], 10, [payer], read), [{ ...payment(law, 0), paid: 0 }], read)).toEqual([])
     }

@@ -72,8 +72,8 @@ describe('violation records', () => {
 
 describe('sanction command data', () => {
   it.each<[SanctionKind, string, string]>([
-    ['fine', 'settlement', 'pay'], ['seizure', 'settlement', 'transfer'], ['corporal', 'life', 'injury'],
-    ['detention', 'host', 'detention'], ['outlawry', 'host', 'outlawry'], ['exile', 'host', 'exile'],
+    ['fine', 'settlement', 'pay'], ['seizure', 'settlement', 'transfer'], ['corporal', 'world', 'enforcement-action'],
+    ['detention', 'world', 'enforcement-action'], ['outlawry', 'host', 'outlawry'], ['exile', 'host', 'exile'],
   ])('%s becomes an owner command without executing anything', (kind, owner, type) => {
     const law: Law = { ...lawFixture(), consequence: { kind: 'sanctions', sanctions: [{ kind, amount: 5, note: 'Fixture amount' }] } }
     const v = prosecute(detect(breach(law), 'office.reeve'))
@@ -81,7 +81,7 @@ describe('sanction command data', () => {
     const commands = sanctionCommands(v, law)
     expect(commands).toEqual([{ owner, type, violation: v.id, law: law.id,
       actor: act.actor, object: act.object, amount: 5, note: 'Fixture amount',
-      ...(kind === 'seizure' ? { kind: 'seizure' } : {}),
+      ...(['seizure', 'corporal', 'detention'].includes(kind) ? { kind } : {}),
     }])
     expect(JSON.parse(JSON.stringify(commands))).toEqual(commands)
     expect({ law, v }).toEqual(before)

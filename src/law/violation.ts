@@ -68,11 +68,13 @@ interface CommandDetails {
 export type SanctionCommand =
   | (CommandDetails & { owner: 'settlement'; type: 'pay' })
   | (CommandDetails & { owner: 'settlement'; type: 'transfer'; kind: 'seizure' })
-  | (CommandDetails & { owner: 'life'; type: 'injury' })
-  | (CommandDetails & { owner: 'host'; type: 'detention' | 'outlawry' | 'exile' })
+  | (CommandDetails & { owner: 'world'; type: 'enforcement-action'; kind: 'corporal' | 'detention' })
+  | (CommandDetails & { owner: 'host'; type: 'outlawry' | 'exile' })
   | { owner: 'host'; type: 'void-act' }
 
-/** Translate prescribed consequences only. Owners/host resolve execution details. */
+/** Translate prescriptions only. Corporal punishment and detention request a physical
+ * enforcement action, including restraint/resistance, for Reality/Life to resolve.
+ */
 export function sanctionCommands(v: Violation, law: Law): SanctionCommand[] {
   if (v.law !== law.id) throw new Error(`Violation ${v.id} does not refer to law ${law.id}`)
   if (law.consequence.kind === 'void') return [{ owner: 'host', type: 'void-act' }]
@@ -82,7 +84,8 @@ export function sanctionCommands(v: Violation, law: Law): SanctionCommand[] {
     switch (item.kind) {
       case 'fine': return { ...details, owner: 'settlement', type: 'pay' }
       case 'seizure': return { ...details, owner: 'settlement', type: 'transfer', kind: 'seizure' }
-      case 'corporal': return { ...details, owner: 'life', type: 'injury' }
+      case 'corporal': case 'detention':
+        return { ...details, owner: 'world', type: 'enforcement-action', kind: item.kind }
       default: return { ...details, owner: 'host', type: item.kind }
     }
   })
